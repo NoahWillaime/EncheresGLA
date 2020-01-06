@@ -10,8 +10,12 @@ import javax.enterprise.context.RequestScoped;
 import dto.Categorie;
 import dto.Article;
 import manager.ArticleManagerBeanLocal;
-import java.sql.Date;
+import java.util.Date;
 import java.util.ArrayList;
+import javax.validation.constraints.Future;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 
 /**
  *
@@ -27,10 +31,18 @@ public class DeposeArticle {
    /* @Inject 
     Greeting greet;*/
 
+    @NotEmpty
     private String nom;
+    
+    @NotEmpty
     private String description;
-    private String prix;
-    private String date;
+    
+    @NotNull
+    private Double prix;
+    
+    @Future
+    private Date date;
+    
      private String[] categorie = {"Jeux", "Sport", "Cuisine", "Mobilier"};
    
  
@@ -42,8 +54,8 @@ public class DeposeArticle {
     public DeposeArticle() {
         nom = "";
         description = "";
-        prix = "";
-        date = "";
+        prix = null;
+        date = null;
     }
     
    public String[] getCategorie(){
@@ -63,11 +75,11 @@ public class DeposeArticle {
         this.description = description;
     }
 
-    public void setPrix(String prix) {
+    public void setPrix(Double prix) {
         this.prix = prix;
     }
 
-    public void setDate(String date) {
+    public void setDate(Date date) {
         this.date = date;
     }
 
@@ -81,11 +93,11 @@ public class DeposeArticle {
         return description;
     }
 
-    public String getPrix() {
+    public Double getPrix() {
         return prix;
     }
 
-    public String getDate() {
+    public Date getDate() {
         return date;
     }
 

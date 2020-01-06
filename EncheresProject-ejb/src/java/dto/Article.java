@@ -6,7 +6,7 @@
 package dto;
 
 import java.io.Serializable;
-import java.sql.Date;
+import java.util.Date;
 import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.CascadeType;
@@ -39,11 +39,11 @@ public class Article implements Serializable {
     private String description;
     
     @Column (name ="ARTICLE_PRIX")
-    private String prix;
+    private Double prix;
     
     
     @Column (name="ARTICLE_DUREE")
-    private String date;
+    private Date date;
     
     @OneToMany (cascade = CascadeType.PERSIST, targetEntity = Categorie.class, mappedBy="Article")
     private List<Categorie> categorie;
@@ -51,7 +51,7 @@ public class Article implements Serializable {
     
     public Article(){}
     
-    public Article(String nom, String description, String prix, String date) {
+    public Article(String nom, String description, Double prix, Date date) {
         this.nom = nom;
         this.description = description;
         this.prix = prix;
@@ -75,11 +75,11 @@ public class Article implements Serializable {
         this.description = description;
     }
 
-    public void setPrix(String prix) {
+    public void setPrix(Double prix) {
         this.prix = prix;
     }
 
-    public void setDate(String date) {
+    public void setDate(Date date) {
         this.date = date;
     }
 
@@ -91,11 +91,11 @@ public class Article implements Serializable {
         return description;
     }
 
-    public String getPrix() {
+    public Double getPrix() {
         return prix;
     }
 
-    public String getDate() {
+    public Date getDate() {
         return date;
     }
 

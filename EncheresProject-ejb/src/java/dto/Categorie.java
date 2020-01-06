@@ -20,7 +20,7 @@ import javax.persistence.Table;
  * @author noahd
  */
 @Entity
-@Table(name = "CATEGORIE")
+@Table(name = "CTEGORIE")
 public class Categorie implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -28,7 +28,7 @@ public class Categorie implements Serializable {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    @Column(name = "CATEGORIE_NOM")
+    @Column(name = "CTEGORIE_NOM")
     private String nom;
     
     @ManyToOne (cascade = CascadeType.PERSIST)
