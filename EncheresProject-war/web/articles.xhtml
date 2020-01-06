@@ -1,0 +1,58 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:head>
+        <title>Registration page</title>
+    </h:head>
+    <h:body>
+
+        <h:form>
+
+            <fieldset>
+                <legend>Registration Form </legend>
+
+                Nom: 
+                <h:inputText value="#{deposeArticleBean.nom}"
+                             id="nomInput">
+                </h:inputText>
+                <br/>
+
+                Description: 
+                <h:inputText value="#{deposeArticleBean.description}"
+                             id="descriptionInput">
+                </h:inputText>
+                <br/>
+
+                Prix: 
+                <h:inputText value="#{deposeArticleBean.prix}"
+                             id="prixInput">
+                </h:inputText>
+                <br/>
+                
+
+                
+                Date:
+                <h:inputText id ="dateInput" value="#{deposeArticleBean.date}" />
+             
+                
+                Categorie:
+                <h:selectManyCheckbox value ="#{deposeArticleBean.categorie}">
+                    <f:selectItem itemValue = "Sport" itemLabel ="Sport" />
+                    <f:selectItem itemValue = "Jeux" itemLabel ="Jeux" />
+                    <f:selectItem itemValue = "Cuisine" itemLabel ="Cuisine" />
+                    <f:selectItem itemValue = "Mobilier" itemLabel ="Mobilier" />
+                    
+                </h:selectManyCheckbox>
+                               
+                <br/>
+                <h:commandButton value="Submit" 
+                                 action="#{deposeArticleBean.registerArticle()}"/>
+                <br/>                  
+            </fieldset>
+          
+        </h:form>
+    </h:body>
+</html>
+
