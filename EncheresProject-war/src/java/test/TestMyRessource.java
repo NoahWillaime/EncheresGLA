@@ -27,9 +27,9 @@ public class TestMyRessource {
     }
     
     public String addTests() {
-        testManager.addTest(new TestRessource("MySuperTest1"));
+        testManager.addTest(new TestRessource("Myst1"));
         testManager.addTest(new TestRessource("MySuperTest2"));
-        testManager.addTest(new TestRessource("MySuperTest3"));
+        testManager.addTest(new TestRessource("MySupst3"));
         testManager.addTest(new TestRessource("MySuperTest4"));
         testManager.addTest(new TestRessource("MySuperTest5"));
         return "listTests";
