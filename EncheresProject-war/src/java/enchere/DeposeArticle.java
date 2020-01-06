@@ -112,7 +112,7 @@ public class DeposeArticle {
     
     public String retirerArticle(Long id){
         articles.removeArticle(id);
-        return "listpersons";
+        return "listarticles";
     }
     
     public String registerArticle() {     
@@ -126,5 +126,12 @@ public class DeposeArticle {
         return "listarticles";
     }
     
+     public ArrayList<Article> allArticles(){
+        ArrayList<Article> result = new ArrayList<>();
+        for (Article a : articles.getAll()){
+            result.add(a);
+        }
+        return result;
+    }
 }
  

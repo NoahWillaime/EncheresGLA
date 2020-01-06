@@ -14,36 +14,22 @@
 
         <h:form>
             <h:dataTable var="row" 
-                         value="#{deposeArticleBean.allArticles()}"
+                         value="#{utilisateurBean.allUtilisateurs()}"
                          border="1" >
                 <h:column>
                     <f:facet name="header">Nom</f:facet>
                     #{row.nom}
                 </h:column>
                 <h:column>
-                    <f:facet name="header">Description</f:facet>
-                    #{row.description}
-                </h:column>
-                 <h:column>
-                    <f:facet name="header">Prix</f:facet>
-                    #{row.prix}
-                </h:column>
-                 <h:column>
-                    <f:facet name="header">Date</f:facet>
-                    #{row.date}
-                </h:column>
-                 <h:column>
-                    <f:facet name="header">Categories</f:facet>
-                    <ui:repeat value="#{row.categorie}" var="item">
-                        #{item.nom}
-                    </ui:repeat>
+                    <f:facet name="header">Prenom</f:facet>
+                    #{row.prenom}
                 </h:column>
                  
             </h:dataTable>
             <p/>
         </h:form>
         <div>
-            <h:button value="Add Article" outcome="#{deposeArticleBean.addArticle()}"/>
+            <h:button value="Register" outcome="#{utilisateurBean.addUtilisateur()}"/>
         </div>
     </h:body>
 </html>
