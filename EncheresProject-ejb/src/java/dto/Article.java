@@ -15,6 +15,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
@@ -46,9 +48,8 @@ public class Article implements Serializable {
     @Column (name="ARTICLE_DUREE")
     private Date date;
     
-    @ManyToMany (cascade = CascadeType.PERSIST, targetEntity = Categorie.class, mappedBy="Articles")
-    private List<Categorie> categorie;
-   
+    @ManyToMany
+    private List<Categorie> categories;
     
     public Article(){}
     
@@ -57,7 +58,7 @@ public class Article implements Serializable {
         this.description = description;
         this.prix = prix;
         this.date = date;
-        this.categorie = new ArrayList<Categorie>();
+        this.categories = new ArrayList<Categorie>();
     }
     
     public Long getId() {
@@ -101,13 +102,11 @@ public class Article implements Serializable {
     }
 
     public void addCategorie(Categorie categorie) {
-        this.categorie.add(categorie);
-    
-        categorie.addArticle(this);
+        this.categories.add(categorie);
     }
 
     public List<Categorie> getCategorie() {
-        return categorie;
+        return categories;
     }
     
     @Override
@@ -132,7 +131,11 @@ public class Article implements Serializable {
 
     @Override
     public String toString() {
-        return "persistence.Article[ id=" + id + " ]";
+        String val =  id + " : " + this.nom;
+        for (Categorie c : this.getCategorie())
+            val += " / " + c.getNom();
+        return val;
+        //return "persistence.Article[ id=" + id + " ]";
     }
     
 }

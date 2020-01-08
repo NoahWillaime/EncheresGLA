@@ -47,7 +47,7 @@ public class DeposeArticle {
     @Future
     private Date date;
     
-    private String[] categorie;
+    private long[] categorie;
    
     
     /**
@@ -64,11 +64,11 @@ public class DeposeArticle {
         return categories.getAll();
     }
     
-   public String[] getCategorie(){
+   public long[] getCategorie(){
       return categorie;
    }
    
-   public void setCategorie(String[] categorie){
+   public void setCategorie(long[] categorie){
        this.categorie = categorie;
    }
     
@@ -123,10 +123,13 @@ public class DeposeArticle {
     
     public String registerArticle() {     
         Article article = new Article(this.getNom(), this.getDescription(), this.getPrix(), this.getDate());
-        for (String s : categorie){
-            article.addCategorie(new Categorie(s));
-           
+        for (long l : categorie){
+            for (Categorie c : this.getCategorieObjectArray())
+                if (c.getId() == l) {
+                    article.addCategorie(c);
+                }
         }
+        System.out.println(article.toString());
         articles.addArticle(article);
         return "listarticles";
     }
