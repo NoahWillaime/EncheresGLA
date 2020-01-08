@@ -98,6 +98,8 @@ public class UtilisateurBean {
     public void setRib(String rib) {
         this.rib = rib;
     }
+    
+    
 
     
     public String getNom() {

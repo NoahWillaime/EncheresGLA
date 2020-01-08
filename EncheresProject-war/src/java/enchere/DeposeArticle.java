@@ -16,6 +16,7 @@ import javax.validation.constraints.Future;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
+import manager.CategorieManagerBeanLocal;
 
 /**
  *
@@ -27,6 +28,9 @@ import javax.validation.constraints.NotNull;
 public class DeposeArticle {
     @EJB(name="ArticleManagerBean")
     private ArticleManagerBeanLocal articles;    
+    
+    @EJB(name="CategorieManagerBean")
+    private CategorieManagerBeanLocal categories;    
     
    /* @Inject 
     Greeting greet;*/
@@ -43,10 +47,8 @@ public class DeposeArticle {
     @Future
     private Date date;
     
-     private String[] categorie = {"Jeux", "Sport", "Cuisine", "Mobilier"};
+    private String[] categorie;
    
- 
-        
     
     /**
      * Creates a new instance of Hello
@@ -56,6 +58,10 @@ public class DeposeArticle {
         description = "";
         prix = null;
         date = null;
+    }
+    
+     public Categorie[] getCategorieObjectArray(){
+        return categories.getAll();
     }
     
    public String[] getCategorie(){
@@ -118,7 +124,6 @@ public class DeposeArticle {
     public String registerArticle() {     
         Article article = new Article(this.getNom(), this.getDescription(), this.getPrix(), this.getDate());
         for (String s : categorie){
-            Categorie cat = new Categorie(s);
             article.addCategorie(new Categorie(s));
            
         }

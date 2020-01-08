@@ -6,12 +6,15 @@
 package dto;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
@@ -31,13 +34,14 @@ public class Categorie implements Serializable {
     @Column(name = "CTEGORIE_NOM")
     private String nom;
     
-    @ManyToOne (cascade = CascadeType.PERSIST)
-    private Article article;
+    @ManyToMany (cascade = CascadeType.PERSIST)
+    private List<Article> articles;
     
     public Categorie(){}
     
     public Categorie(String nom) {
         this.nom = nom;
+        this.articles = new ArrayList<Article>();
     }
     
     public Long getId() {
@@ -49,7 +53,7 @@ public class Categorie implements Serializable {
     }
 
     public void addArticle(Article article){
-        this.article = article;
+        this.articles.add(article);
     }
 
     public String getNom() {
