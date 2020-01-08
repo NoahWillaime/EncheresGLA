@@ -28,6 +28,6 @@
         </session-timeout>
     </session-config>
     <welcome-file-list>
-        <welcome-file>faces/utilisateurs.xhtml</welcome-file>
+        <welcome-file>faces/articles.xhtml</welcome-file>
     </welcome-file-list>
 </web-app>

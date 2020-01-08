@@ -15,6 +15,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
@@ -45,7 +46,7 @@ public class Article implements Serializable {
     @Column (name="ARTICLE_DUREE")
     private Date date;
     
-    @OneToMany (cascade = CascadeType.PERSIST, targetEntity = Categorie.class, mappedBy="Article")
+    @ManyToMany (cascade = CascadeType.PERSIST, targetEntity = Categorie.class, mappedBy="Articles")
     private List<Categorie> categorie;
    
     
@@ -101,6 +102,7 @@ public class Article implements Serializable {
 
     public void addCategorie(Categorie categorie) {
         this.categorie.add(categorie);
+    
         categorie.addArticle(this);
     }
 

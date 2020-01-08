@@ -44,12 +44,9 @@
                 <br/>
                 
                 Categorie:
-                <h:selectManyCheckbox value ="#{deposeArticleBean.categorie}">
-                    <f:selectItem itemValue = "Sport" itemLabel ="Sport" />
-                    <f:selectItem itemValue = "Jeux" itemLabel ="Jeux" />
-                    <f:selectItem itemValue = "Cuisine" itemLabel ="Cuisine" />
-                    <f:selectItem itemValue = "Mobilier" itemLabel ="Mobilier" />
-                    
+                <h:selectManyCheckbox value="#{deposeArticleBean.categorie}">
+                     <f:selectItems value="#{deposeArticleBean.categorieObjectArray}" var="cat"
+                           itemLabel="#{cat.nom}" itemValue="#{cat.nom}" />
                 </h:selectManyCheckbox>
                                
                 <br/>
