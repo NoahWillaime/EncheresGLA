@@ -163,7 +163,7 @@ public class UtilisateurBean {
             utilisateur.addCompteBancaire(new CompteBancaire(nom, rib));
         }
         utilisateurs.addUtilisateur(utilisateur);
-        return "listeutilisateurs";
+        return "login";
     }
     
      public ArrayList<Utilisateur> allUtilisateurs(){

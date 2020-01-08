@@ -1,0 +1,36 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : 8 janv. 2020, 09:09:28
+    Author     : noahd
+*/
+
+body {
+    margin: 0px;
+}
+
+.mainBar {
+    display: flex;
+    justify-content: space-between;
+    padding: 10px;
+    margin-bottom: 20px;
+    box-shadow: 0px 0px 10px 0px rgba(133,133,133,0.6);
+}
+
+.logButtons {
+    display: flex;
+    align-items: center;
+}
+
+.mainBar .mdc-button {
+    color: #1289A7;
+    font-weight: bold;
+}
+
+.mainBar .mdc-button--unelevated {
+    color: white;
+    background-color: #1289A7;
+}
