@@ -11,6 +11,8 @@ import javax.ejb.EJB;
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Named;
 import javax.validation.constraints.NotEmpty;
+import manager.LoginManagerBean;
+import manager.LoginManagerBean;
 import manager.LoginManagerBeanLocal;
 
 /**
@@ -20,8 +22,8 @@ import manager.LoginManagerBeanLocal;
 @Named(value = "loginBean")
 @RequestScoped
 public class LoginBean {
-    @EJB(name="LoginManagerBean")
-    private LoginManagerBeanLocal logManager;    
+     @EJB(name="LoginManagerBean")
+    private LoginManagerBeanLocal logManager;
     
     @NotEmpty
     private String pseudo;
@@ -62,7 +64,8 @@ public class LoginBean {
     }
     
     public String validateLogin() {
-        if (logManager.validateLogin(pseudo, motdepasse).size() != 1)
+        logManager.validateLogin(pseudo, motdepasse);
+        if (logManager.getUsers().size() != 1)
             this.errorMessage = "Identifiants incorrects";
         else
             return "articles";

@@ -5,9 +5,12 @@
  */
 package login;
 
+import dto.Utilisateur;
 import javax.ejb.EJB;
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Named;
+import manager.LoginManagerBean;
+import manager.LoginManagerBean;
 import manager.LoginManagerBeanLocal;
 
 /**
@@ -18,6 +21,7 @@ import manager.LoginManagerBeanLocal;
 @RequestScoped
 public class LogBean {
     
+    
     @EJB(name="LoginManagerBean")
     private LoginManagerBeanLocal logManager;
 
@@ -25,6 +29,7 @@ public class LogBean {
     }
     
     public boolean isLog() {
+        System.out.println(this.logManager.isLog());
         return this.logManager.isLog();
     }
     
@@ -34,6 +39,10 @@ public class LogBean {
     
     public String register() {
         return "utilisateurs";
+    }
+    
+    public Utilisateur getUser(){
+        return logManager.getCurrentUser();
     }
     
     public String logIn() {

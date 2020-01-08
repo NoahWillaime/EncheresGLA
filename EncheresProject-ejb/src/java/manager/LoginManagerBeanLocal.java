@@ -11,11 +11,12 @@ import javax.ejb.Local;
 
 /**
  *
- * @author noahd
+ * @author Julien
  */
 @Local
 public interface LoginManagerBeanLocal {
-    public List<Utilisateur> validateLogin(String pseudo, String mdp);
+    public void validateLogin(String pseudo, String mdp);
+    public List<Utilisateur> getUsers();
     public Utilisateur getCurrentUser();
     public String getCurrentUserPseudo();
     public void logOut();

@@ -43,10 +43,12 @@ public class Article implements Serializable {
     
     @Column (name ="ARTICLE_PRIX")
     private Double prix;
-    
-    
+ 
     @Column (name="ARTICLE_DUREE")
     private Date date;
+    
+    @ManyToOne (cascade = CascadeType.PERSIST)
+    private Utilisateur utilisateur;
     
     @ManyToMany
     private List<Categorie> categories;
@@ -71,6 +73,10 @@ public class Article implements Serializable {
 
     public void setNom(String nom) {
         this.nom = nom;
+    }
+    
+     public void addUtilisateur(Utilisateur utilisateur){
+        this.utilisateur = utilisateur;
     }
 
     public void setDescription(String description) {
