@@ -12,12 +12,13 @@ import dto.Article;
 import manager.ArticleManagerBeanLocal;
 import java.util.Date;
 import java.util.ArrayList;
+import java.util.Calendar;
 import javax.validation.constraints.Future;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import manager.CategorieManagerBeanLocal;
-import schedule.GeneratePromotionBeanLocal;
+import manager.LoginManagerBeanLocal;
 
 /**
  *
@@ -34,8 +35,8 @@ public class DeposeArticle {
     private CategorieManagerBeanLocal categories;    
     
     
-    @EJB(name="GeneratePromotionBean")
-    private GeneratePromotionBeanLocal promos;    
+    @EJB(name="LoginManagerBean")
+    private LoginManagerBeanLocal login;    
     
    /* @Inject 
     Greeting greet;*/
@@ -135,7 +136,9 @@ public class DeposeArticle {
                 }
         }
         System.out.println(article.toString());
+        login.getCurrentUser().addArticles(article);
         articles.addArticle(article);
+        System.out.println(login.getCurrentUserPseudo());
         return "listarticles";
     }
     
@@ -146,6 +149,16 @@ public class DeposeArticle {
      public ArrayList<Article> allArticles(){
         ArrayList<Article> result = new ArrayList<>();
         for (Article a : articles.getAll()){
+            result.add(a);
+        }
+        return result;
+    }
+     
+         
+     public ArrayList<Article> allVisibleArticles(){
+        ArrayList<Article> result = new ArrayList<>();
+        for (Article a : articles.getAll()){
+            if(a.getDate().after(new Date()))
             result.add(a);
         }
         return result;

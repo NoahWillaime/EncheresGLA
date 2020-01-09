@@ -51,6 +51,10 @@ public class Article implements Serializable {
     @ManyToMany
     private List<Categorie> categories;
     
+    
+    @ManyToOne
+    private Utilisateur utilisateur;
+    
     @ManyToMany (mappedBy="articles")
     private List<Promotion> promotions;
     
@@ -95,6 +99,16 @@ public class Article implements Serializable {
     public String getDescription() {
         return description;
     }
+
+    public Utilisateur getUtilisateur() {
+        return utilisateur;
+    }
+
+
+    public void addUtilisateur(Utilisateur utilisateur){
+        this.utilisateur = utilisateur;
+    }
+    
 
     public Double getPrix() {
         return prix;

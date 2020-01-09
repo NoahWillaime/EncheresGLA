@@ -49,6 +49,9 @@ public class Utilisateur implements Serializable {
    
     @OneToMany (cascade = CascadeType.PERSIST, targetEntity = CompteBancaire.class, mappedBy="Utilisateur")
     private List<CompteBancaire> compteBancaire;
+    
+    @OneToMany (cascade = CascadeType.PERSIST, targetEntity = Article.class, mappedBy="Utilisateur")
+    private List<Article> articles;
    
     
     public Utilisateur(){}
@@ -60,6 +63,7 @@ public class Utilisateur implements Serializable {
         this.mdp = mdp;
         this.compteBancaire = new ArrayList<CompteBancaire>();
         this.adresse = new ArrayList<Adresse>();
+        this.articles = new ArrayList<Article>();
     }
     
     public Long getId() {
@@ -103,7 +107,19 @@ public class Utilisateur implements Serializable {
         this.mdp = mdp;
     }
 
- 
+    public List<Article> getArticles() {
+        return articles;
+    }
+
+    public void setArticles(List<Article> articles) {
+        this.articles = articles;
+    }
+
+      public void addArticles(Article article) {
+        this.articles.add(article);
+        article.addUtilisateur(this);
+        System.out.println(this.getId());
+    }
     
    
      public void addAdresse(Adresse adresse) {
