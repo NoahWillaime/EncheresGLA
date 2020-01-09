@@ -1,0 +1,67 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+    <h:head>
+        <link href="https://unpkg.com/material-components-web@latest/dist/material-components-web.min.css" rel="stylesheet"/>
+        <script src="https://unpkg.com/material-components-web@latest/dist/material-components-web.min.js"></script>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons"/>
+        <link rel="stylesheet" type="text/css" href="css/style.css"></link>
+        <title>Registration page</title>
+        <title>Registration page</title>
+    </h:head>
+    <h:body>
+        <ui:include src="logHeader.xhtml"/>
+        <h:form>
+
+            <fieldset>
+                <legend>Registration Form </legend>
+
+                Nom: 
+                <h:inputText value="#{deposeArticleBean.nom}" requiredMessage="La saisie du nom est obligatoire !"
+                             id="nomInput">
+                </h:inputText>
+                <br/>
+
+                Description: 
+                <h:inputText value="#{deposeArticleBean.description}" requiredMessage="La saisie d'une description est obligatoire !"
+                             id="descriptionInput">
+                </h:inputText>
+                <br/>
+
+                Prix: 
+                <h:inputText value="#{deposeArticleBean.prix}" requiredMessage="La saisie du prix est obligatoire !" converterMessage="Le prix doit être une valeur entière"
+                             id="prixInput">
+                </h:inputText>
+                <br/>
+                
+               Date:
+                <h:inputText id="dateInput" value="#{deposeArticleBean.date}" requiredMessage="La saisie de la date est obligatoire !">
+                    <f:convertDateTime pattern="dd-mm-yyyy"/>  
+                </h:inputText>
+                <br/>
+                
+                Categorie:
+                <h:selectManyCheckbox value="#{deposeArticleBean.categorie}">
+                     <f:selectItems value="#{deposeArticleBean.categorieObjectArray}" var="cat"
+                                    itemLabel="#{cat.nom}" itemValue="#{cat.id}" />
+                </h:selectManyCheckbox>
+                               
+                <br/>
+                <h:commandButton value="Submit" 
+                                 action="#{deposeArticleBean.registerArticle()}"/>
+                <br/>                  
+            </fieldset>
+          
+        </h:form>
+        <strong>Required date format : dd-mm-yyyy
+            <br>Exemple :  <h:message for = "dateInput" style = "color:red" />
+         <h:outputText value = "12-01-2012" >
+            <f:convertDateTime pattern = "dd-mm-yyyy" />
+         </h:outputText>
+            </br></strong>
+    </h:body>
+</html>
+
