@@ -17,6 +17,7 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import manager.CategorieManagerBeanLocal;
+import manager.LoginManagerBeanLocal;
 
 /**
  *
@@ -31,6 +32,10 @@ public class DeposeArticle {
     
     @EJB(name="CategorieManagerBean")
     private CategorieManagerBeanLocal categories;    
+    
+    
+    @EJB(name="LoginManagerBean")
+    private LoginManagerBeanLocal login;    
     
    /* @Inject 
     Greeting greet;*/
@@ -130,7 +135,9 @@ public class DeposeArticle {
                 }
         }
         System.out.println(article.toString());
+        login.getCurrentUser().addArticles(article);
         articles.addArticle(article);
+        System.out.println(login.getCurrentUserPseudo());
         return "listarticles";
     }
     

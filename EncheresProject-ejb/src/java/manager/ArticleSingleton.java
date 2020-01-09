@@ -6,6 +6,7 @@
 package manager;
 
 import dto.Categorie;
+import dto.Utilisateur;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.ejb.Singleton;
@@ -21,9 +22,15 @@ public class ArticleSingleton implements ArticleSingletonLocal {
 
     @EJB
     private CategorieManagerBeanLocal categorieManagerBean;
+    
+    
+    @EJB
+    private UtilisateurManagerBeanLocal utilisateurManagerBean;
+    
     @PostConstruct
     public void init(){
         categorieManagerBean.addCategorie();
+        utilisateurManagerBean.addUtilisateur(new Utilisateur("Julien", "Micheletti", "julien", "mdp"));
     }
     
     private void loadArticle(){
