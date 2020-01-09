@@ -47,6 +47,18 @@ public class ArticleManagerBean implements ArticleManagerBeanLocal {
     }
     
     @Override
+    public List<Article> findByName(String name) {
+        System.out.println("Recherche article");
+        if(name != null) {
+            System.out.println("Nom: " + name);
+            return em.createQuery("SELECT a FROM Article a WHERE a.nom LIKE '%"+name+"%'")
+                    .getResultList();
+        }
+        Query query = em.createQuery("SELECT a FROM Article a");
+        return (List<Article>) query.getResultList();
+    }
+    
+    @Override
     public void removeArticle(Long id){
         Query query1 = em.createQuery("DELETE FROM Categorie where id = " +id);
         Query query = em.createQuery("DELETE FROM Article where id = "+id);

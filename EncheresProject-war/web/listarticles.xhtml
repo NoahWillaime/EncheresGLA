@@ -12,7 +12,8 @@
     <h:body>
 
         <h3>List of all articles </h3>
-
+        
+        
         <h:form>
             <h:dataTable var="row" 
                          value="#{deposeArticleBean.allArticles()}"
@@ -51,9 +52,27 @@
         
         <h3>List of all visible articles </h3>
 
+         <h:form >
+
+            <fieldset>
+                <legend>Search</legend>
+
+                Nom:    
+                <h:inputText value="#{rechercheArticleBean.nom}" requiredMessage="La saisie du nom est obligatoire !"
+                             id="nomInput">
+                </h:inputText>
+                <br/>   
+                <h:commandButton value="Submit" 
+                                 action="listarticles"
+                                 
+                                 />
+                <br/> 
+            </fieldset>
+          
+        </h:form>
         <h:form>
             <h:dataTable var="row" 
-                         value="#{deposeArticleBean.allVisibleArticles()}"
+                         value="#{rechercheArticleBean.getDataSearch()}"
                          border="1" 
                          class="avectri">
                 <h:column>

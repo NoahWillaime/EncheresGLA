@@ -49,6 +49,7 @@ public class ArticleSingleton implements ArticleSingletonLocal {
         em.persist(ab);
         em.persist(ac);
         em.persist(ad);
+        System.out.println("Ajout user");
         utilisateurManagerBean.addUtilisateur(new Utilisateur("Julien", "Micheletti", "julien", "mdp"));
 
     }
