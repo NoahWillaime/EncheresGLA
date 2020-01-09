@@ -6,6 +6,7 @@
 package manager;
 
 import dto.Article;
+import dto.Utilisateur;
 import gestionUser.LogSingleton;
 import java.sql.Connection;
 import java.sql.Date;
@@ -56,6 +57,13 @@ public class ArticleManagerBean implements ArticleManagerBeanLocal {
         }
         Query query = em.createQuery("SELECT a FROM Article a");
         return (List<Article>) query.getResultList();
+    }
+    
+    @Override
+    public List<Article> getArticlesByUsers(Long id){
+        //Query query = em.createQuery("SELECT a FROM Article a WHERE UTILISATEUR_ID = " + id);
+         List<Article> article = em.createQuery("SELECT a FROM Article a WHERE a.utilisateur.id = "+ id).getResultList();
+        return article;
     }
     
     @Override

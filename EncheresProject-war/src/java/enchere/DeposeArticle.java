@@ -122,6 +122,10 @@ public class DeposeArticle {
         return "articles";
     }
     
+    public String listArticles(){
+        return "listarticles";
+    }
+    
     public String retirerArticle(Long id){
         articles.removeArticle(id);
         return "listarticles";
@@ -150,7 +154,15 @@ public class DeposeArticle {
         return result;
     }
      
-         
+ 
+      public ArrayList<Article> getArticlesByUsers(){
+        ArrayList<Article> result = new ArrayList<>();
+        for (Article a : articles.getArticlesByUsers(login.getCurrentUser().getId())){
+            result.add(a);
+        }
+        return result;
+    }
+      
      public ArrayList<Article> allVisibleArticles(){
         ArrayList<Article> result = new ArrayList<>();
         for (Article a : articles.getAll()){

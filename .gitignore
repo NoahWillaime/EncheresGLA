@@ -1,5 +1,7 @@
 /EncheresProject-ejb/build/
-/EncheresProject-ejb/dist/
-/build/
-/EncheresProject-war/dist/
 /EncheresProject-war/build/
+/nbproject/private/
+/EncheresProject-ejb/nbproject/private/
+/build/
+/dist/
+/EncheresProject-war/nbproject/private/
