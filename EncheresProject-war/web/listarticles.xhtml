@@ -5,6 +5,7 @@
       xmlns:f="http://java.sun.com/jsf/core"
       xmlns:c="http://java.sun.com/jsp/jstl/core"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+    <link rel="stylesheet" type="text/css" href="css/style.css"></link>
     <h:head>
         <title>Persons</title>
     </h:head>
@@ -42,9 +43,54 @@
             </h:dataTable>
             <p/>
         </h:form>
+        
+        <h3>List of all visible articles </h3>
+
+        <h:form>
+            <h:dataTable var="row" 
+                         value="#{deposeArticleBean.allVisibleArticles()}"
+                         border="1" 
+                         class="avectri">
+                <h:column>
+                    <f:facet name="header">Nom</f:facet>
+                    #{row.nom}
+                </h:column>
+                <h:column>
+                    <f:facet name="header">Description</f:facet>
+                    #{row.description}
+                </h:column>
+                 <h:column>
+                    <f:passThroughAttribute name="data-type" value="num" />
+                    <f:facet name="header">Prix</f:facet>
+                    #{row.prix}
+                </h:column>
+                 <h:column>
+                    <f:facet name="header">Date</f:facet>
+                    #{row.date}
+                </h:column>
+                 <h:column>
+                    <f:facet name="header">Categories</f:facet>
+                    <ui:repeat value="#{row.categorie}" var="item">
+                        #{item.nom}
+                    </ui:repeat>
+                </h:column>
+                 
+            </h:dataTable>
+            <p/>
+                Filtrer par Categorie:
+             <h:selectManyCheckbox value="#{deposeArticleBean.categorie}">
+                  <f:selectItems class="filter"
+                      value="#{deposeArticleBean.categorieObjectArray}" var="cat"
+                                 itemLabel="#{cat.nom}" itemValue="#{cat.id}" />
+             </h:selectManyCheckbox>
+             
+        </h:form>
+
+        
+        <script type="text/javascript" src="js/sortedList.js" />
         <div>
             <h:button value="Add Article" outcome="#{deposeArticleBean.addArticle()}"/>
         </div>
     </h:body>
+    
 </html>
-

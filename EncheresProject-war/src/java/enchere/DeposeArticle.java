@@ -12,6 +12,7 @@ import dto.Article;
 import manager.ArticleManagerBeanLocal;
 import java.util.Date;
 import java.util.ArrayList;
+import java.util.Calendar;
 import javax.validation.constraints.Future;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotEmpty;
@@ -137,6 +138,16 @@ public class DeposeArticle {
      public ArrayList<Article> allArticles(){
         ArrayList<Article> result = new ArrayList<>();
         for (Article a : articles.getAll()){
+            result.add(a);
+        }
+        return result;
+    }
+     
+         
+     public ArrayList<Article> allVisibleArticles(){
+        ArrayList<Article> result = new ArrayList<>();
+        for (Article a : articles.getAll()){
+            if(a.getDate().after(new Date()))
             result.add(a);
         }
         return result;
