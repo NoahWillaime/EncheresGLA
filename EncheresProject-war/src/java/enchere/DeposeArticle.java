@@ -142,10 +142,6 @@ public class DeposeArticle {
         return "listarticles";
     }
     
-    public void calculPromos(){
-        this.promos.calculNewPromos();
-    }
-    
      public ArrayList<Article> allArticles(){
         ArrayList<Article> result = new ArrayList<>();
         for (Article a : articles.getAll()){
