@@ -19,4 +19,5 @@ public interface ArticleManagerBeanLocal {
    public Article addArticle(Article article);
     public List<Article> getAll();
     public void removeArticle(Long id);
+    public List<Article> getArticlesByUsers(Long id);
 }
