@@ -8,6 +8,7 @@ package manager;
 import dto.Article;
 import dto.Categorie;
 import java.util.Calendar;
+import dto.Utilisateur;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.ejb.Singleton;
@@ -27,6 +28,11 @@ public class ArticleSingleton implements ArticleSingletonLocal {
 
     @EJB
     private CategorieManagerBeanLocal categorieManagerBean;
+    
+    
+    @EJB
+    private UtilisateurManagerBeanLocal utilisateurManagerBean;
+    
     @PostConstruct
     public void init(){
         categorieManagerBean.addCategorie();
@@ -43,6 +49,8 @@ public class ArticleSingleton implements ArticleSingletonLocal {
         em.persist(ab);
         em.persist(ac);
         em.persist(ad);
+        utilisateurManagerBean.addUtilisateur(new Utilisateur("Julien", "Micheletti", "julien", "mdp"));
+
     }
     
     private void loadArticle(){

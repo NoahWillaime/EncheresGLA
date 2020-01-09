@@ -20,7 +20,6 @@ and open the template in the editor.
             <c:choose>
                 <c:when test="#{logBean.isLog()}">
                     <h:outputText value="Connecté en tant que #{logBean.userPseudo()}"/>
-                    <h:button class="mdc-button mdc-button--unelevated" value="Se déconnecter" outcome="#{logBean.logOut()}"/>
                 </c:when>
                 <c:otherwise>
                     <h:button class="mdc-button" value="S'inscrire" outcome="#{logBean.register()}"/>

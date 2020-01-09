@@ -39,6 +39,11 @@
                         #{item.nom}
                     </ui:repeat>
                 </h:column>
+                
+                  <h:column>
+                    <f:facet name="header">Déposé par</f:facet>
+                    #{row.utilisateur.pseudo}
+                </h:column>
                  
             </h:dataTable>
             <p/>
