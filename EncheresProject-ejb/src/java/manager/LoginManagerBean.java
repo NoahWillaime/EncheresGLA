@@ -6,6 +6,7 @@
 package manager;
 
 import dto.Utilisateur;
+import gestionUser.LogSingleton;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
@@ -21,14 +22,11 @@ public class LoginManagerBean implements LoginManagerBeanLocal {
     @PersistenceContext(unitName = "Encheres-PU")
     private EntityManager em;
     
-    private Utilisateur currentUser = null;
     
     @Override
     public List<Utilisateur> validateLogin(String pseudo, String mdp) {
         List<Utilisateur> users2 = em.createQuery("SELECT a FROM Utilisateur a")
             .getResultList();
-        System.out.println(users2.get(0).getPseudo()+ ": "+users2.get(0).getMdp());
-        System.out.println(pseudo+ ": "+mdp);        
         List<Utilisateur> users = em
             .createQuery("SELECT a FROM Utilisateur a WHERE a.pseudo = :userPseudo AND a.mdp = :userMdp")
             .setParameter("userPseudo", pseudo)
@@ -36,26 +34,26 @@ public class LoginManagerBean implements LoginManagerBeanLocal {
             .setMaxResults(1)
             .getResultList();
         if (users.size() == 1)
-            currentUser = users.get(0);
+             LogSingleton.getInstance().userLogin(users.get(0));
         return users;
     }
     
     public Utilisateur getCurrentUser() {
-        return this.currentUser;
+        return LogSingleton.getInstance().getCurrentUser();
     }
     
     public String getCurrentUserPseudo() {
         if (isLog()) {
-            return currentUser.getPseudo();
+            return getCurrentUser().getPseudo();
         }
         return "Not connected";
     }
     
     public void logOut() {
-        this.currentUser = null;
+        LogSingleton.getInstance().logOut();
     }
     
     public boolean isLog() {
-        return this.currentUser != null;
+        return LogSingleton.getInstance().isLog();
     }
 }

@@ -6,6 +6,7 @@
 package manager;
 
 import dto.Article;
+import gestionUser.LogSingleton;
 import java.sql.Connection;
 import java.sql.Date;
 import java.sql.PreparedStatement;
@@ -22,6 +23,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 import javax.sql.DataSource;
+import schedule.GeneratePromotionBean;
 
 /**
  *

@@ -51,6 +51,9 @@ public class Article implements Serializable {
     @ManyToMany
     private List<Categorie> categories;
     
+    @ManyToMany (mappedBy="articles")
+    private List<Promotion> promotions;
+    
     public Article(){}
     
     public Article(String nom, String description, Double prix, Date date) {
@@ -107,6 +110,14 @@ public class Article implements Serializable {
 
     public List<Categorie> getCategorie() {
         return categories;
+    }
+
+    public void addPromotions(Promotion promotion) {
+        this.promotions.add(promotion);
+    }
+    
+    public List<Promotion> getPromotions() {
+        return promotions;
     }
     
     @Override

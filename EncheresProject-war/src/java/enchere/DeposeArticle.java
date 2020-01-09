@@ -17,6 +17,7 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import manager.CategorieManagerBeanLocal;
+import schedule.GeneratePromotionBeanLocal;
 
 /**
  *
@@ -31,6 +32,10 @@ public class DeposeArticle {
     
     @EJB(name="CategorieManagerBean")
     private CategorieManagerBeanLocal categories;    
+    
+    
+    @EJB(name="GeneratePromotionBean")
+    private GeneratePromotionBeanLocal promos;    
     
    /* @Inject 
     Greeting greet;*/
@@ -132,6 +137,10 @@ public class DeposeArticle {
         System.out.println(article.toString());
         articles.addArticle(article);
         return "listarticles";
+    }
+    
+    public void calculPromos(){
+        this.promos.calculNewPromos();
     }
     
      public ArrayList<Article> allArticles(){
