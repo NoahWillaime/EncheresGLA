@@ -7,18 +7,12 @@
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
     <link rel="stylesheet" type="text/css" href="css/style.css"></link>
     <h:head>
-        <link href="https://unpkg.com/material-components-web@latest/dist/material-components-web.min.css" rel="stylesheet"/>
-        <script src="https://unpkg.com/material-components-web@latest/dist/material-components-web.min.js"></script>
-        <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons"/>
-        <link rel="stylesheet" type="text/css" href="css/style.css"></link>
-        <title>Registration page</title>
-        <title>Registration page</title>
+        <title>Persons</title>
     </h:head>
     <h:body>
-<ui:include src="logHeader.xhtml"/>
+
         <h3>List of all articles </h3>
-        
-        
+
         <h:form>
             <h:dataTable var="row" 
                          value="#{deposeArticleBean.allArticles()}"
@@ -57,27 +51,9 @@
         
         <h3>List of all visible articles </h3>
 
-         <h:form >
-
-            <fieldset>
-                <legend>Search</legend>
-
-                Nom:    
-                <h:inputText value="#{rechercheArticleBean.nom}" requiredMessage="La saisie du nom est obligatoire !"
-                             id="nomInput">
-                </h:inputText>
-                <br/>   
-                <h:commandButton value="Submit" 
-                                 action="listarticles"
-                                 
-                                 />
-                <br/> 
-            </fieldset>
-          
-        </h:form>
         <h:form>
             <h:dataTable var="row" 
-                         value="#{rechercheArticleBean.getDataSearch()}"
+                         value="#{deposeArticleBean.allVisibleArticles()}"
                          border="1" 
                          class="avectri">
                 <h:column>
@@ -94,8 +70,9 @@
                     #{row.prix}
                 </h:column>
                  <h:column>
-                    <f:facet name="header">Date</f:facet>
-                    #{row.date}
+                    <f:passThroughAttribute name="data-type" value="date" />
+                     <f:facet name="header"><f:passThroughAttribute name="sortable-date" value="#{row.sortableDate}" />Date</f:facet>
+                    #{row.cleanDate}
                 </h:column>
                  <h:column>
                     <f:facet name="header">Categories</f:facet>
@@ -103,9 +80,20 @@
                         #{item.nom}
                     </ui:repeat>
                 </h:column>
+                
+                  <h:column>
+                    <f:facet name="header">Déposé par</f:facet>
+                    #{row.utilisateur.pseudo}
+                </h:column>
                  
             </h:dataTable>
-           
+            <p/>
+                Filtrer par Categorie:
+             <h:selectManyCheckbox value="#{deposeArticleBean.categorie}">
+                  <f:selectItems class="filter"
+                      value="#{deposeArticleBean.categorieObjectArray}" var="cat"
+                                 itemLabel="#{cat.nom}" itemValue="#{cat.id}" />
+             </h:selectManyCheckbox>
              
         </h:form>
 

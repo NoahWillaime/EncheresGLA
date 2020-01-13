@@ -65,7 +65,14 @@ public class ArticleManagerBean implements ArticleManagerBeanLocal {
          List<Article> article = em.createQuery("SELECT a FROM Article a WHERE a.utilisateur.id = "+ id).getResultList();
         return article;
     }
-    
+    /*
+    @Override
+    public List<Article> getArticlesByCategorieID(Long id){
+        //Query query = em.createQuery("SELECT a FROM Article a WHERE UTILISATEUR_ID = " + id);
+         List<Article> article = em.createQuery("SELECT a FROM Article a WHERE a.id in (SELECT articles_id AS id FROM Article_Categorie b WHERE categories_id ="+id +" ) ").getResultList();
+        return article;
+    }
+    */
     @Override
     public void removeArticle(Long id){
         Query query1 = em.createQuery("DELETE FROM Categorie where id = " +id);

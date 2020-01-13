@@ -86,13 +86,7 @@
                 </h:column>
                  
             </h:dataTable>
-            <p/>
-                Filtrer par Categorie:
-             <h:selectManyCheckbox value="#{deposeArticleBean.categorie}">
-                  <f:selectItems class="filter"
-                      value="#{deposeArticleBean.categorieObjectArray}" var="cat"
-                                 itemLabel="#{cat.nom}" itemValue="#{cat.id}" />
-             </h:selectManyCheckbox>
+            
              
         </h:form>
 

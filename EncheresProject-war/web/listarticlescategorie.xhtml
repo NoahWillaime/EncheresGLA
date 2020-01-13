@@ -16,46 +16,9 @@
     </h:head>
     <h:body>
 <ui:include src="logHeader.xhtml"/>
-        <h3>List of all articles </h3>
         
         
-        <h:form>
-            <h:dataTable var="row" 
-                         value="#{deposeArticleBean.allArticles()}"
-                         border="1" >
-                <h:column>
-                    <f:facet name="header">Nom</f:facet>
-                    #{row.nom}
-                </h:column>
-                <h:column>
-                    <f:facet name="header">Description</f:facet>
-                    #{row.description}
-                </h:column>
-                 <h:column>
-                    <f:facet name="header">Prix</f:facet>
-                    #{row.prix}
-                </h:column>
-                 <h:column>
-                    <f:facet name="header">Date</f:facet>
-                    #{row.date}
-                </h:column>
-                 <h:column>
-                    <f:facet name="header">Categories</f:facet>
-                    <ui:repeat value="#{row.categorie}" var="item">
-                        #{item.nom}
-                    </ui:repeat>
-                </h:column>
-                
-                  <h:column>
-                    <f:facet name="header">Déposé par</f:facet>
-                    #{row.utilisateur.pseudo}
-                </h:column>
-                 
-            </h:dataTable>
-            <p/>
-        </h:form>
-        
-        <h3>List of all visible articles </h3>
+<h3>List of articles for the categorie #{rechercheArticleBean.getCategorieNameByID(param['categorie'])}</h3>
 
          <h:form >
 
@@ -77,7 +40,7 @@
         </h:form>
         <h:form>
             <h:dataTable var="row" 
-                         value="#{rechercheArticleBean.getDataSearch()}"
+                         value="#{rechercheArticleBean.getArticlesByCategorieID(param['categorie'])}"
                          border="1" 
                          class="avectri">
                 <h:column>

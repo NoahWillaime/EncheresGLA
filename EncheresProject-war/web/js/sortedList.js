@@ -70,13 +70,15 @@
       for(j = 0; j < oCel.length; j++){
         aColonne[i][j] = oCel[j].innerHTML;
       }
+      //aColonne[i][oCel.length] = oCel[j].g;
     }
 
     // Trier la matrice (array)
     // Récupère le numéro de la colonne
     var nIndex = this.getAttribute("data-pos");
     // Récupère le type de tri (numérique ou par défaut « local »)
-    var sFonctionTri = (this.getAttribute("data-type")=="num") ? "compareNombres" : "compareLocale";
+    //var sFonctionTri = (this.getAttribute("data-type")=="num") ? "compareNombres" : "compareLocale";
+    var sFonctionTri = (this.getAttribute("data-type")=="num") ? "compareNombres" : ((this.getAttribute("data-type")=="date") ? "compareDates" :"compareLocale");
     // Tri
     aColonne.sort(eval(sFonctionTri));
     // Tri numérique

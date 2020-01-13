@@ -21,4 +21,5 @@ public interface ArticleManagerBeanLocal {
     public void removeArticle(Long id);
     public List<Article> findByName(String name);
     public List<Article> getArticlesByUsers(Long id);
+    //public List<Article> getArticlesByCategorieID(Long id);
 }

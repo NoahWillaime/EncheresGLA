@@ -107,7 +107,39 @@ public class RechercheArticle {
         return result;
     }
      
-         
+   /*  public ArrayList<Article> getArticlesByCategorieID(long id){
+        ArrayList<Article> result = new ArrayList<>();
+        for (Article a : articles.getArticlesByCategorieID(id)){
+            result.add(a);
+        }
+        return result;
+    }    */     
+     public String getCategorieNameByID(long id){
+         for(Categorie c : categories.getAll()){
+                 if(c.getId()==id){
+                    return c.getNom();
+                }
+            }
+         return "";
+     }
+     
+     public ArrayList<Article> getArticlesByCategorieID(long id){
+        ArrayList<Article> result = new ArrayList<>();
+        /*for (Article a : articles.getArticlesByCategorieID(id)){
+            result.add(a);
+        }*/
+        
+        for (Article a : articles.getAll()){
+            for(Categorie c : a.getCategorie()){
+                 if(c.getId()==id){
+                    result.add(a);
+                    break;
+                }
+            }
+            
+        }
+        return result;
+    }       
      public ArrayList<Article> allVisibleArticles(Map param){
         ArrayList<Article> result = new ArrayList<>();
         for (Article a : articles.getAll()){

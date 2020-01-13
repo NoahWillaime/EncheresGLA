@@ -154,7 +154,13 @@ public class DeposeArticle {
         return result;
     }
      
- 
+   /*    public ArrayList<Article> getArticlesByCategorieID(long id){
+        ArrayList<Article> result = new ArrayList<>();
+        for (Article a : articles.getArticlesByUsers(login.getCurrentUser().getId())){
+            result.add(a);
+        }
+        return result;
+    }*/
       public ArrayList<Article> getArticlesByUsers(){
         ArrayList<Article> result = new ArrayList<>();
         for (Article a : articles.getArticlesByUsers(login.getCurrentUser().getId())){

@@ -6,6 +6,7 @@
 package dto;
 
 import java.io.Serializable;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.ArrayList;
 import java.util.List;
@@ -118,6 +119,17 @@ public class Article implements Serializable {
         return date;
     }
 
+    
+    
+    public String getCleanDate() {
+        return new SimpleDateFormat("dd-MM-yyyy HH:MM").format(date);
+    }
+    
+    public String getSortableDate() {
+        return new SimpleDateFormat("yyyy-MM-dd HH:MM").format(date);
+    }
+
+    
     public void addCategorie(Categorie categorie) {
         this.categories.add(categorie);
     }
