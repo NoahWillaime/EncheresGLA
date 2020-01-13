@@ -9,15 +9,19 @@ import javax.inject.Named;
 import javax.enterprise.context.RequestScoped;
 import dto.Categorie;
 import dto.Article;
+import dto.Enchere;
 import manager.ArticleManagerBeanLocal;
 import java.util.Date;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.List;
 import javax.validation.constraints.Future;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import manager.CategorieManagerBeanLocal;
+import manager.EnchereManagerBean;
+import manager.EnchereManagerBeanLocal;
 import manager.LoginManagerBeanLocal;
 
 /**
@@ -30,6 +34,9 @@ import manager.LoginManagerBeanLocal;
 public class DeposeArticle {
     @EJB(name="ArticleManagerBean")
     private ArticleManagerBeanLocal articles;    
+    
+    @EJB(name="EnchereManagerBean")
+    private EnchereManagerBeanLocal encheres;  
     
     @EJB(name="CategorieManagerBean")
     private CategorieManagerBeanLocal categories;    
@@ -69,6 +76,7 @@ public class DeposeArticle {
      public Categorie[] getCategorieObjectArray(){
         return categories.getAll();
     }
+     
     
    public long[] getCategorie(){
       return categorie;
@@ -132,7 +140,8 @@ public class DeposeArticle {
     }
     
     public String registerArticle() {     
-        Article article = new Article(this.getNom(), this.getDescription(), this.getPrix(), this.getDate());
+        Article article = new Article(this.getNom(), this.getDescription(), this.getPrix());
+        Enchere enchere = new Enchere(article,null,getPrix(),getDate());
         for (long l : categorie){
             for (Categorie c : this.getCategorieObjectArray())
                 if (c.getId() == l) {
@@ -140,34 +149,37 @@ public class DeposeArticle {
                 }
         }
         System.out.println(article.toString());
+        System.out.println(article);
         login.getCurrentUser().addArticles(article);
         articles.addArticle(article);
+        encheres.addEnchere(enchere);
         System.out.println(login.getCurrentUserPseudo());
         return "listarticles";
     }
     
-     public ArrayList<Article> allArticles(){
-        ArrayList<Article> result = new ArrayList<>();
-        for (Article a : articles.getAll()){
-            result.add(a);
-        }
-        return result;
+     public List<Enchere> allEnchere(){
+        return encheres.getAll();
     }
      
+     public String encherir(Enchere e) {
+         encheres.encherir(e,login.getCurrentUser());
+         return "listarticles";
+     }
+     
  
-      public ArrayList<Article> getArticlesByUsers(){
-        ArrayList<Article> result = new ArrayList<>();
-        for (Article a : articles.getArticlesByUsers(login.getCurrentUser().getId())){
-            result.add(a);
-        }
-        return result;
+      public List<Article> getArticlesByUsers(){
+        return articles.getArticlesByUsers(login.getCurrentUser().getId());
     }
       
-     public ArrayList<Article> allVisibleArticles(){
-        ArrayList<Article> result = new ArrayList<>();
-        for (Article a : articles.getAll()){
-            if(a.getDate().after(new Date()))
-            result.add(a);
+      public List<Enchere> getEncheresByUser() {
+          return encheres.getEncheresByUser(login.getCurrentUser());
+      }
+      
+     public List<Enchere> allVisibleArticles(){
+        ArrayList<Enchere> result = new ArrayList<>();
+        for (Enchere e : encheres.getAll()){
+            if(e.getDate().after(new Date()))
+            result.add(e);
         }
         return result;
     }

@@ -12,7 +12,6 @@
         <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons"/>
         <link rel="stylesheet" type="text/css" href="css/style.css"></link>
         <title>Registration page</title>
-        <title>Registration page</title>
     </h:head>
     <h:body>
 <ui:include src="logHeader.xhtml"/>
@@ -35,10 +34,6 @@
                     #{row.prix}
                 </h:column>
                  <h:column>
-                    <f:facet name="header">Date</f:facet>
-                    #{row.date}
-                </h:column>
-                 <h:column>
                     <f:facet name="header">Categories</f:facet>
                     <ui:repeat value="#{row.categorie}" var="item">
                         #{item.nom}
@@ -53,21 +48,20 @@
             </h:dataTable>
             <p/>
         </h:form>
-        
-        <h3>List of all visible articles </h3>
+        <h3>Mes enchères </h3>
 
         <h:form>
             <h:dataTable var="row" 
-                         value="#{deposeArticleBean.getArticlesByUsers()}"
+                         value="#{deposeArticleBean.getEncheresByUser()}"
                          border="1" 
                          class="avectri">
                 <h:column>
                     <f:facet name="header">Nom</f:facet>
-                    #{row.nom}
+                    #{row.article.nom}
                 </h:column>
                 <h:column>
                     <f:facet name="header">Description</f:facet>
-                    #{row.description}
+                    #{row.article.description}
                 </h:column>
                  <h:column>
                     <f:passThroughAttribute name="data-type" value="num" />
@@ -80,7 +74,7 @@
                 </h:column>
                  <h:column>
                     <f:facet name="header">Categories</f:facet>
-                    <ui:repeat value="#{row.categorie}" var="item">
+                    <ui:repeat value="#{row.article.categorie}" var="item">
                         #{item.nom}
                     </ui:repeat>
                 </h:column>
@@ -95,8 +89,6 @@
              </h:selectManyCheckbox>
              
         </h:form>
-
-        
         <script type="text/javascript" src="js/sortedList.js" />
         <div>
             <h:button value="Add Article" outcome="#{deposeArticleBean.addArticle()}"/>

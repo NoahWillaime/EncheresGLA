@@ -9,6 +9,7 @@ import javax.inject.Named;
 import javax.enterprise.context.RequestScoped;
 import dto.Categorie;
 import dto.Article;
+import dto.Enchere;
 import manager.ArticleManagerBeanLocal;
 import java.util.Date;
 import java.util.ArrayList;
@@ -22,6 +23,7 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import manager.CategorieManagerBeanLocal;
+import manager.EnchereManagerBeanLocal;
 import manager.LoginManagerBeanLocal;
 
 /**
@@ -36,7 +38,10 @@ public class RechercheArticle {
     private ArticleManagerBeanLocal articles;    
     
     @EJB(name="CategorieManagerBean")
-    private CategorieManagerBeanLocal categories;    
+    private CategorieManagerBeanLocal categories;
+
+    @EJB(name="EnchereManagerBean")
+    private EnchereManagerBeanLocal encheres;     
     
     
     @EJB(name="LoginManagerBean")
@@ -59,9 +64,9 @@ public class RechercheArticle {
         name = "";
     }
     
-    public List<Article> getDataSearch() {
+    public List<Enchere> getDataSearch() {
         System.out.println(name);
-        return articles.findByName(name);
+        return encheres.findByName(name);
     }
     
      public Categorie[] getCategorieObjectArray(){
@@ -108,13 +113,13 @@ public class RechercheArticle {
     }
      
          
-     public ArrayList<Article> allVisibleArticles(Map param){
+     /*public ArrayList<Article> allVisibleArticles(Map param){
         ArrayList<Article> result = new ArrayList<>();
         for (Article a : articles.getAll()){
             if(a.getDate().after(new Date()))
             result.add(a);
         }
         return result;
-    }
+    }*/
 }
  
