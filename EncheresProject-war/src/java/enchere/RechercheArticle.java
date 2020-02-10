@@ -65,8 +65,12 @@ public class RechercheArticle {
     }
     
     public List<Enchere> getDataSearch() {
-        System.out.println(name);
-        return encheres.findByName(name);
+        ArrayList<Enchere> result = new ArrayList<>();
+        for (Enchere e : encheres.findByName(name)){
+            if(e.getDate().after(new Date()))
+            result.add(e);
+        }
+        return result;
     }
     
      public Categorie[] getCategorieObjectArray(){
@@ -112,8 +116,40 @@ public class RechercheArticle {
         return result;
     }
      
-         
-     /*public ArrayList<Article> allVisibleArticles(Map param){
+   /*  public ArrayList<Article> getArticlesByCategorieID(long id){
+        ArrayList<Article> result = new ArrayList<>();
+        for (Article a : articles.getArticlesByCategorieID(id)){
+            result.add(a);
+        }
+        return result;
+    }    */     
+     public String getCategorieNameByID(long id){
+         for(Categorie c : categories.getAll()){
+                 if(c.getId()==id){
+                    return c.getNom();
+                }
+            }
+         return "";
+     }
+     
+     public ArrayList<Enchere> getEnchereByCategorieID(long id){
+        ArrayList<Enchere> result = new ArrayList<>();
+        /*for (Article a : articles.getArticlesByCategorieID(id)){
+            result.add(a);
+        }*/
+        
+        for (Enchere e : encheres.getAll()){
+            for(Categorie c : e.getArticle().getCategorie()){
+                 if(c.getId()==id){
+                    result.add(e);
+                    break;
+                }
+            }
+            
+        }
+        return result;
+    }       
+    /* public ArrayList<Article> allVisibleArticles(Map param){
         ArrayList<Article> result = new ArrayList<>();
         for (Article a : articles.getAll()){
             if(a.getDate().after(new Date()))

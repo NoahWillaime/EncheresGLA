@@ -7,7 +7,6 @@ package manager;
 
 import dto.Enchere;
 import dto.Utilisateur;
-import java.util.ArrayList;
 import java.util.List;
 import javax.ejb.Local;
 
@@ -21,5 +20,5 @@ public interface EnchereManagerBeanLocal {
     public List<Enchere> findByName(String name);
     public List<Enchere> getEncheresByUser(Utilisateur user);
     public Enchere addEnchere(Enchere e);
-    public void encherir(Enchere e, Utilisateur u);
+    public void encherir(Enchere e, Utilisateur u, Double enchere);
 }

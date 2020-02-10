@@ -10,11 +10,21 @@ import javax.enterprise.context.RequestScoped;
 import dto.Categorie;
 import dto.Article;
 import dto.Enchere;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import manager.ArticleManagerBeanLocal;
 import java.util.Date;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.HashMap;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.faces.application.FacesMessage;
+import javax.faces.component.UIComponent;
+import javax.faces.context.ExternalContext;
+import javax.faces.context.FacesContext;
+import javax.faces.validator.ValidatorException;
 import javax.validation.constraints.Future;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotEmpty;
@@ -57,10 +67,11 @@ public class DeposeArticle {
     @NotNull
     private Double prix;
     
-    @Future
     private Date date;
     
     private long[] categorie;
+    
+    private String valEnchere;
    
     
     /**
@@ -71,6 +82,7 @@ public class DeposeArticle {
         description = "";
         prix = null;
         date = null;
+        //valEnchere = new HashMap<Long, Integer>();
     }
     
      public Categorie[] getCategorieObjectArray(){
@@ -100,7 +112,7 @@ public class DeposeArticle {
     }
 
     public void setDate(Date date) {
-        this.date = date;
+      this.date = date;
     }
 
   
@@ -141,6 +153,7 @@ public class DeposeArticle {
     
     public String registerArticle() {     
         Article article = new Article(this.getNom(), this.getDescription(), this.getPrix());
+        article.addUtilisateur(login.getCurrentUser());
         Enchere enchere = new Enchere(article,null,getPrix(),getDate());
         for (long l : categorie){
             for (Categorie c : this.getCategorieObjectArray())
@@ -148,12 +161,8 @@ public class DeposeArticle {
                     article.addCategorie(c);
                 }
         }
-        System.out.println(article.toString());
-        System.out.println(article);
-        login.getCurrentUser().addArticles(article);
         articles.addArticle(article);
         encheres.addEnchere(enchere);
-        System.out.println(login.getCurrentUserPseudo());
         return "listarticles";
     }
     
@@ -161,9 +170,10 @@ public class DeposeArticle {
         return encheres.getAll();
     }
      
-     public String encherir(Enchere e) {
-         encheres.encherir(e,login.getCurrentUser());
-         return "listarticles";
+     public String encherir(Enchere e, String enchere,String path) {
+        Double prixEnchere = Double.parseDouble(enchere);
+         encheres.encherir(e,login.getCurrentUser(),prixEnchere);
+         return path;
      }
      
  
@@ -183,5 +193,44 @@ public class DeposeArticle {
         }
         return result;
     }
+     
+     public String getValEnchere() {
+         return valEnchere;
+     }
+     
+     public void setValEnchere(String val) {
+         valEnchere = val;
+     }
+     
+     public void validateEnchere(FacesContext context, 
+			         UIComponent component, 
+			Object value) throws ValidatorException {
+         String val = String.valueOf(value);
+         String user = (String) component.getAttributes().get("user");
+         Enchere e = (Enchere) component.getAttributes().get("enchere");           
+         try {
+             Double v = Double.parseDouble(val);
+             if(e.getArticle().getUtilisateur() != null && user == e.getArticle().getUtilisateur().getPseudo())
+                 throw new ValidatorException(new FacesMessage("Vous êtes le vendeur"));
+             System.out.println("Teste = ");
+             if(e.getLastAcheteur() != null && user == e.getLastAcheteur().getPseudo())
+                 throw new ValidatorException(new FacesMessage("Vous êtes le dernier acheteur"));
+         } catch (NumberFormatException err) {
+             throw new ValidatorException(new FacesMessage("Entrer une valeur numérique!"));
+         }
+         
+     }
+     
+     public void validateFuture(FacesContext context, 
+			         UIComponent component, 
+			Object value) throws ValidatorException {
+            System.out.println("ici");
+            Date date = (Date)value;
+            System.out.println(date);
+            if(date.getTime() <= new Date().getTime())
+                throw new ValidatorException(new FacesMessage("La date doit être dans le future!"));
+               
+     }
+    
 }
  

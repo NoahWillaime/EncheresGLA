@@ -6,13 +6,16 @@
 package dto;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import java.util.Objects;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
@@ -33,8 +36,11 @@ public class Enchere implements Serializable {
     @OneToOne
     private Article article;
        
+    @ManyToMany
+    private ArrayList<Utilisateur> acheteurs;
+    
     @ManyToOne
-    private Utilisateur acheteur;
+    private Utilisateur lastAcheteur;
        
     @Column(name = "ENCHERE_PRIX")
     private Double prix;
@@ -47,11 +53,22 @@ public class Enchere implements Serializable {
 
     public Enchere(Article article, Utilisateur acheteur, Double prix, Date date) {
         this.article = article;
-        this.acheteur = acheteur;
+        this.acheteurs = new ArrayList();
         this.prix = prix;
         this.date = date;
     }
 
+    public Utilisateur getLastAcheteur() {
+        return lastAcheteur;
+    }
+
+    public void setLastAcheteur(Utilisateur lastAcheteur) {
+        this.lastAcheteur = lastAcheteur;
+    }
+
+    
+    
+    
     public Long getId() {
         return id;
     }
@@ -68,12 +85,14 @@ public class Enchere implements Serializable {
         this.article = article;
     }
 
-    public Utilisateur getAcheteur() {
-        return acheteur;
+    public ArrayList<Utilisateur> getAcheteurs() {
+        return acheteurs;
     }
 
-    public void setAcheteur(Utilisateur acheteur) {
-        this.acheteur = acheteur;
+    public void addAcheteur(Utilisateur acheteur) {
+        if(!acheteurs.contains(acheteur))
+            this.acheteurs.add(acheteur);
+        lastAcheteur = acheteur;
     }
 
     public Double getPrix() {
@@ -107,9 +126,6 @@ public class Enchere implements Serializable {
         if (!Objects.equals(this.article, other.article)) {
             return false;
         }
-        if (!Objects.equals(this.acheteur, other.acheteur)) {
-            return false;
-        }
         if (!Objects.equals(this.prix, other.prix)) {
             return false;
         }
@@ -121,13 +137,6 @@ public class Enchere implements Serializable {
 
     @Override
     public String toString() {
-        return "Enchere{" + "id=" + id + ", article=" + article + ", acheteur=" + acheteur + ", prix=" + prix + ", date=" + date + '}';
-    }
-    
-    
-
-    
-       
-       
-       
+        return "Enchere{" + "id=" + id + ", article=" + article + ", prix=" + prix + ", date=" + date + '}';
+    }    
 }

@@ -85,4 +85,6 @@ public class CompteBancaire implements Serializable {
         return "persistence.Address[ id=" + id + " ]";
     }
     
+    
+    
 }

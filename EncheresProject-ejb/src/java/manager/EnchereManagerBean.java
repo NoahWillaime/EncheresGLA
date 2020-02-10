@@ -32,13 +32,11 @@ public class EnchereManagerBean implements EnchereManagerBeanLocal {
     public List<Enchere> getAll() {
         Query query = em.createQuery("SELECT e FROM Enchere e");
         return (List<Enchere>) query.getResultList();
-    }
+    }   
 
     @Override
     public List<Enchere> findByName(String name) {
-        System.out.println("Recherche article");
         if(name != null) {
-            System.out.println("Nom: " + name);
             return em.createQuery("SELECT e FROM Enchere e,Article a Where e.article.id = a.id AND a.nom LIKE '%"+name+"%'")
                     .getResultList();
         }
@@ -47,8 +45,10 @@ public class EnchereManagerBean implements EnchereManagerBeanLocal {
 
     @Override
     public List<Enchere> getEncheresByUser(Utilisateur user) {
-        System.out.println("ici");
-        return em.createQuery("SELECT e FROM Enchere e WHERE e.article.utilisateur.id = " + user.getId()+" OR e.acheteur.id = " + user.getId()).getResultList();
+        ArrayList<Enchere> result = new ArrayList<>();
+        result.addAll(em.createQuery("SELECT e FROM Enchere e  WHERE e.article.utilisateur.id = " + user.getId()).getResultList());
+        result.addAll(em.createQuery("SELECT e FROM Enchere e JOIN e.acheteurs a WHERE a.id = " + user.getId()).getResultList());
+        return result;
     }
     
     @Override
@@ -58,9 +58,11 @@ public class EnchereManagerBean implements EnchereManagerBeanLocal {
     }
 
     @Override
-    public void encherir(Enchere e, Utilisateur u) {
+    public void encherir(Enchere e, Utilisateur u, Double enchere) {
         Enchere en = (Enchere) em.find(Enchere.class, e.getId());
-        en.setAcheteur(u);
+        en.setPrix(en.getPrix()+enchere);
+        System.out.println(en.getPrix());
+        en.addAcheteur(u);
     }
        
     

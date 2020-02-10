@@ -15,6 +15,7 @@
     </h:head>
     <h:body>
 <ui:include src="logHeader.xhtml"/>
+<c:set var="enchere" value="" scope="request"/>
         <h3>Ma liste d'articles </h3>
 
         <h:form>
@@ -50,7 +51,6 @@
         </h:form>
         <h3>Mes enchères </h3>
 
-        <h:form>
             <h:dataTable var="row" 
                          value="#{deposeArticleBean.getEncheresByUser()}"
                          border="1" 
@@ -78,17 +78,31 @@
                         #{item.nom}
                     </ui:repeat>
                 </h:column>
+                <h:column>
+                    <f:facet name="header">Déposé par</f:facet>
+                    #{row.article.utilisateur.pseudo}
+                </h:column>
+              <h:column>
+                    <f:facet name="header">Dernier acheteur</f:facet>
+                    #{row.lastAcheteur.pseudo}
+                </h:column>
+                  <h:column>
+                    <f:facet name="header">Enchérir</f:facet>
+                    <h:form >
+                        <h:inputText id="test" value="#{enchere}"  validator="#{deposeArticleBean.validateEnchere}" required="true" requiredMessage="Ne doit pas être vide">
+                            <f:attribute name="user" value="${logBean.userPseudo()}"/>
+                            <f:attribute name="enchere" value="#{row}"/>
+                    </h:inputText>
+                    <h:commandButton value="Enchérir" action='#{deposeArticleBean.encherir(row, enchere,"listarticlesuser")}'/>
+                    <h:message for="test" style="color:red"></h:message>
+                    </h:form>
+                    
+
+                </h:column>
                  
             </h:dataTable>
-            <p/>
-                Filtrer par Categorie:
-             <h:selectManyCheckbox value="#{deposeArticleBean.categorie}">
-                  <f:selectItems class="filter"
-                      value="#{deposeArticleBean.categorieObjectArray}" var="cat"
-                                 itemLabel="#{cat.nom}" itemValue="#{cat.id}" />
-             </h:selectManyCheckbox>
+            
              
-        </h:form>
         <script type="text/javascript" src="js/sortedList.js" />
         <div>
             <h:button value="Add Article" outcome="#{deposeArticleBean.addArticle()}"/>

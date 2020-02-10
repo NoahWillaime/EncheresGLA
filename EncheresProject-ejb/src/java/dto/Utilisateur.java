@@ -9,12 +9,14 @@ import java.io.Serializable;
 import java.sql.Date;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
@@ -52,6 +54,9 @@ public class Utilisateur implements Serializable {
     
     @OneToMany (cascade = CascadeType.PERSIST, targetEntity = Article.class, mappedBy="Utilisateur")
     private List<Article> articles;
+    
+    @ManyToMany (mappedBy="acheteurs")
+    private List<Enchere> encheres;
    
     
     public Utilisateur(){}
@@ -146,6 +151,26 @@ public class Utilisateur implements Serializable {
         hash += (id != null ? id.hashCode() : 0);
         return hash;
     }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final Utilisateur other = (Utilisateur) obj;
+        if (!Objects.equals(this.id, other.id)) {
+            return false;
+        }
+        return true;
+    }
+    
+    
 
  
 

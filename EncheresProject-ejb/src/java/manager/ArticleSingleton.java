@@ -54,7 +54,7 @@ public class ArticleSingleton implements ArticleSingletonLocal {
         Utilisateur user = new Utilisateur("Julien", "Micheletti", "julien", "mdp");
         Utilisateur user2 = new Utilisateur("Guillaume", "Micheletti", "gg", "mdp");
         aa.addUtilisateur(user);
-        eb.setAcheteur(user);
+        eb.addAcheteur(user);
         em.persist(aa);
         em.persist(ab);
         em.persist(ac);

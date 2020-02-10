@@ -38,8 +38,8 @@
                 <br/>
                 
                Date:
-                <h:inputText id="dateInput" value="#{deposeArticleBean.date}" requiredMessage="La saisie de la date est obligatoire !">
-                    <f:convertDateTime pattern="dd-mm-yyyy"/>  
+               <h:inputText id="dateInput" value="#{deposeArticleBean.date}" required="true" validator="#{deposeArticleBean.validateFuture}" requiredMessage="La saisie de la date est obligatoire !">
+                    <f:convertDateTime pattern="dd-MM-yyyy"/>  
                 </h:inputText>
                 <br/>
                 
@@ -57,8 +57,8 @@
           
         </h:form>
         <strong>Required date format : dd-mm-yyyy
-            <br>Exemple :  <h:message for = "dateInput" style = "color:red" />
-         <h:outputText value = "12-01-2012" >
+            <br>Exemple :  <h:message for = "dateInput" style = "color:blue" />
+         <h:outputText value = "12-01-2080" >
             <f:convertDateTime pattern = "dd-mm-yyyy" />
          </h:outputText>
             </br></strong>
