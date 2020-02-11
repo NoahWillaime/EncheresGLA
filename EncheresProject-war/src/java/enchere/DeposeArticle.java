@@ -185,6 +185,11 @@ public class DeposeArticle {
           return encheres.getEncheresByUser(login.getCurrentUser());
       }
       
+      
+      public List<Article> getArticlesGagnesByUser() {
+          return articles.findByWinner(login.getCurrentUser());
+      }
+      
      public List<Enchere> allVisibleArticles(){
         ArrayList<Enchere> result = new ArrayList<>();
         for (Enchere e : encheres.getAll()){

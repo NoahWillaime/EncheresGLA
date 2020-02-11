@@ -101,7 +101,59 @@
                 </h:column>
                  
             </h:dataTable>
-            
+         
+        <h3>Mes articles gagnés</h3>
+
+            <h:dataTable var="row" 
+                         value="#{deposeArticleBean.getArticlesGagnesByUser()}"
+                         border="1" 
+                         class="avectri">
+                <h:column>
+                    <f:facet name="header">Nom</f:facet>
+                    #{row.article.nom}
+                </h:column>
+                <h:column>
+                    <f:facet name="header">Description</f:facet>
+                    #{row.article.description}
+                </h:column>
+                 <h:column>
+                    <f:passThroughAttribute name="data-type" value="num" />
+                    <f:facet name="header">Prix</f:facet>
+                    #{row.prix}
+                </h:column>
+                 <h:column>
+                    <f:facet name="header">Date</f:facet>
+                    #{row.date}
+                </h:column>
+                 <h:column>
+                    <f:facet name="header">Categories</f:facet>
+                    <ui:repeat value="#{row.article.categorie}" var="item">
+                        #{item.nom}
+                    </ui:repeat>
+                </h:column>
+                <h:column>
+                    <f:facet name="header">Déposé par</f:facet>
+                    #{row.article.utilisateur.pseudo}
+                </h:column>
+              <h:column>
+                    <f:facet name="header">Dernier acheteur</f:facet>
+                    #{row.lastAcheteur.pseudo}
+                </h:column>
+                  <h:column>
+                    <f:facet name="header">Enchérir</f:facet>
+                    <h:form >
+                        <h:inputText id="test" value="#{enchere}"  validator="#{deposeArticleBean.validateEnchere}" required="true" requiredMessage="Ne doit pas être vide">
+                            <f:attribute name="user" value="${logBean.userPseudo()}"/>
+                            <f:attribute name="enchere" value="#{row}"/>
+                    </h:inputText>
+                    <h:commandButton value="Enchérir" action='#{deposeArticleBean.encherir(row, enchere,"listarticlesuser")}'/>
+                    <h:message for="test" style="color:red"></h:message>
+                    </h:form>
+                    
+
+                </h:column>
+                 
+            </h:dataTable>
              
         <script type="text/javascript" src="js/sortedList.js" />
         <div>

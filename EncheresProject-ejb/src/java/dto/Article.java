@@ -52,6 +52,10 @@ public class Article implements Serializable {
     @ManyToOne
     private Utilisateur utilisateur;
     
+    
+    @ManyToOne
+    private Utilisateur gagnant;
+    
     @ManyToMany (mappedBy="articles")
     private List<Promotion> promotions;
     
@@ -100,7 +104,14 @@ public class Article implements Serializable {
     public void addUtilisateur(Utilisateur utilisateur){
         this.utilisateur = utilisateur;
     }
-    
+    public Utilisateur getGagnant() {
+        return gagnant;
+    }
+
+
+    public void setGagnant(Utilisateur gagnant){
+        this.gagnant = gagnant;
+    }   
 
     public Double getPrix() {
         return prix;

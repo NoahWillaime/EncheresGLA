@@ -58,6 +58,17 @@ public class ArticleManagerBean implements ArticleManagerBeanLocal {
     }
     
     @Override
+    public List<Article> findByWinner(Utilisateur gagnant) {
+        if(gagnant != null) {
+            return em.createQuery("SELECT a FROM Article a WHERE a.gagnant.id = " + gagnant.getId())
+                    .getResultList();
+        }
+        // LISTE VIDE
+        Query query = em.createQuery("SELECT a FROM Article a WHERE 0=1");
+        return (List<Article>) query.getResultList();
+    }
+    
+    @Override
     public List<Article> getArticlesByUsers(Long id){
         //Query query = em.createQuery("SELECT a FROM Article a WHERE UTILISATEUR_ID = " + id);
          List<Article> article = em.createQuery("SELECT a FROM Article a WHERE a.utilisateur.id = "+ id).getResultList();
