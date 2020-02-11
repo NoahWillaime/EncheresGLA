@@ -47,7 +47,13 @@ public class Enchere implements Serializable {
        
     @Column (name="ARTICLE_DUREE")
     private Date date;
+    
+    @Column (name="ENCHERE_FIN")
+    private boolean fin;
 
+    @ManyToMany (mappedBy="encheres")
+    private List<Promotion> promotions;
+    
     public Enchere() {
     }
 
@@ -56,18 +62,32 @@ public class Enchere implements Serializable {
         this.acheteurs = new ArrayList();
         this.prix = prix;
         this.date = date;
+        fin = false;
     }
 
     public Utilisateur getLastAcheteur() {
         return lastAcheteur;
     }
+    
+    public void setFin(boolean fin){
+        this.fin = fin;
+    }
 
+    public boolean getFin(){
+        return fin;
+    }
+    
     public void setLastAcheteur(Utilisateur lastAcheteur) {
         this.lastAcheteur = lastAcheteur;
     }
 
-    
-    
+    public List<Promotion> getPromotions() {
+        return promotions;
+    }
+
+    public void addPromotions(Promotion p) {
+        this.promotions.add(p);
+    }
     
     public Long getId() {
         return id;

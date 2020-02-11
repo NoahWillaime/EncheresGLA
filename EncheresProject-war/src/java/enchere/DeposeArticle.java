@@ -155,6 +155,8 @@ public class DeposeArticle {
         Article article = new Article(this.getNom(), this.getDescription(), this.getPrix());
         article.addUtilisateur(login.getCurrentUser());
         Enchere enchere = new Enchere(article,null,getPrix(),getDate());
+        Date date = new Date();
+        System.out.println("date : " + date );
         for (long l : categorie){
             for (Categorie c : this.getCategorieObjectArray())
                 if (c.getId() == l) {

@@ -124,14 +124,6 @@ public class Article implements Serializable {
     public List<Categorie> getCategorie() {
         return categories;
     }
-
-    public void addPromotions(Promotion promotion) {
-        this.promotions.add(promotion);
-    }
-    
-    public List<Promotion> getPromotions() {
-        return promotions;
-    }
     
     @Override
     public int hashCode() {
