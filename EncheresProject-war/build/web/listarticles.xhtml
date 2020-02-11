@@ -45,7 +45,12 @@
                         #{item.nom}
                     </ui:repeat>
                 </h:column>
-                
+                <h:column>
+                    <f:facet name="header">Promotions</f:facet>
+                    <ui:repeat value="#{row.promotions}" var="promos">
+                        #{promos.toString()}
+                    </ui:repeat>
+                </h:column>
                   <h:column>
                     <f:facet name="header">Déposé par</f:facet>
                     #{row.article.utilisateur.pseudo}
