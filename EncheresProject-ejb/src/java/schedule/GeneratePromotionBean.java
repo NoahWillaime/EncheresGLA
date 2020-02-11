@@ -6,13 +6,14 @@
 package schedule;
 
 import dto.Article;
+import dto.Enchere;
 import dto.Promotion;
 import java.util.Random;
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
 import javax.ejb.LocalBean;
 import javax.ejb.Schedule;
-import manager.ArticleManagerBeanLocal;
+import manager.EnchereManagerBeanLocal;
 import manager.PromotionManagerBeanLocal;
 
 /**
@@ -21,8 +22,8 @@ import manager.PromotionManagerBeanLocal;
  */
 @Stateless
 public class GeneratePromotionBean implements GeneratePromotionBeanLocal{
-    @EJB(name="ArticleManagerBean")
-    private ArticleManagerBeanLocal articleManagerBean;    
+    @EJB(name="EnchereManagerBean")
+    private EnchereManagerBeanLocal enchereManagerBean;
     
     @EJB(name="PromotionManagerBean")
     private PromotionManagerBeanLocal promotions; 
@@ -39,26 +40,26 @@ public class GeneratePromotionBean implements GeneratePromotionBeanLocal{
         return (float)(Math.round(generateNb * 10) / 10.0);
     }
     
-    public Promotion createPromo(boolean transport, Article a) {
+    public Promotion createPromo(boolean transport, Enchere e) {
         Promotion p;
         if (transport)
             p = new Promotion("Frais de transport", 0, 1);
         else
             p = new Promotion("Bon d'achat", 1, generateReduc());
-        p.addArticles(a);
+        p.addEnchere(e);
         return promotions.addPromotion(p);
     }
     
-    @Schedule(second="0", minute="0", hour="0",
+    @Schedule(second="0", minute="0", hour="15",
     dayOfMonth="*", month="*", year="*")
     public void calculNewPromos() {
         promotions.deleteAll();
-        for (Article a : articleManagerBean.getAll()) {
+        for (Enchere e : enchereManagerBean.getAll()) {
             if (isPromo(0.6f)) { //40% de chance
                 if (isPromo(0.3f)) { // 70% de chance
-                    a.addPromotions(createPromo(true, a));
+                    e.addPromotions(createPromo(true, e));
                 } else {
-                    a.addPromotions(createPromo(false, a));
+                    e.addPromotions(createPromo(false, e));
                 }
             }
         }
