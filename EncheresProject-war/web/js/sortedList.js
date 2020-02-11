@@ -68,7 +68,13 @@
       oCel = oLigne[i].cells;
       aColonne[i] = new Array();
       for(j = 0; j < oCel.length; j++){
-        aColonne[i][j] = oCel[j].innerHTML;
+          //console.log(oCel[j].getAttribute("sortable-date"));
+          if(oCel[j].getAttribute("sortable-date")!== null){
+              aColonne[i][j] = oCel[j].getAttribute("sortable-date");
+          }else{
+              aColonne[i][j] = oCel[j].innerHTML;
+          }
+        //aColonne[i][j] = oCel[j].innerHTML;
       }
       //aColonne[i][oCel.length] = oCel[j].g;
     }
