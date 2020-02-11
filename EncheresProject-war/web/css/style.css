@@ -12,6 +12,14 @@ body {
     margin: 0px;
 }
 
+.red {
+    color: red;
+}
+
+table, td, th {
+border: 1px black solid;
+} 
+
 .mainBar {
     display: flex;
     justify-content: space-between;

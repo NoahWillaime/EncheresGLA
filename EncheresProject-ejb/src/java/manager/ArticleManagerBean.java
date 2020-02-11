@@ -49,9 +49,7 @@ public class ArticleManagerBean implements ArticleManagerBeanLocal {
     
     @Override
     public List<Article> findByName(String name) {
-        System.out.println("Recherche article");
         if(name != null) {
-            System.out.println("Nom: " + name);
             return em.createQuery("SELECT a FROM Article a WHERE a.nom LIKE '%"+name+"%'")
                     .getResultList();
         }
@@ -63,6 +61,7 @@ public class ArticleManagerBean implements ArticleManagerBeanLocal {
     public List<Article> getArticlesByUsers(Long id){
         //Query query = em.createQuery("SELECT a FROM Article a WHERE UTILISATEUR_ID = " + id);
          List<Article> article = em.createQuery("SELECT a FROM Article a WHERE a.utilisateur.id = "+ id).getResultList();
+         System.out.println("taille articles: "+article.size());
         return article;
     }
     /*

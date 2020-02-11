@@ -6,6 +6,7 @@
 package manager;
 
 import dto.Article;
+import dto.Enchere;
 import dto.Categorie;
 import java.util.Calendar;
 import dto.Utilisateur;
@@ -38,19 +39,33 @@ public class ArticleSingleton implements ArticleSingletonLocal {
         categorieManagerBean.addCategorie();
         Calendar c = Calendar.getInstance();
         c.set(2100, 1, 1);
-        Article aa = new Article("stylo", "tr0bi1", 2.0, c.getTime());
-        c.set(2104, 5, 5);
-        Article ab = new Article("gamer grill bath water", "potable btw", 999.0, c.getTime());
+        Article aa = new Article("stylo", "tr0bi1", 2.0);
+        Enchere ea = new Enchere(aa,null,25.01,c.getTime());
+        c.set(2050,3,1);
+        Article ab = new Article("gamer grill bath water", "potable btw", 999.0);
+        Enchere eb = new Enchere(ab,null,2.01,c.getTime());
         c.set(2050, 4, 2);
-        Article ac = new Article("pizza", "a manger sans trop trainer", 15.0, c.getTime());
+        Article ac = new Article("pizza", "a manger sans trop trainer", 15.0);
+        Enchere ec = new Enchere(ac,null,42.01,c.getTime()); 
         c.set(1995, 4, 2);
-        Article ad = new Article("UN VIEUX", "je suis vieux", 15.0, c.getTime());
+        Article ad = new Article("UN VIEUX", "je suis vieux", 15.0);
+        Enchere ed = new Enchere(ad,null,58.01,c.getTime());
+
+        Utilisateur user = new Utilisateur("Julien", "Micheletti", "julien", "mdp");
+        Utilisateur user2 = new Utilisateur("Guillaume", "Micheletti", "gg", "mdp");
+        aa.addUtilisateur(user);
+        eb.addAcheteur(user);
         em.persist(aa);
         em.persist(ab);
         em.persist(ac);
         em.persist(ad);
+        em.persist(ea);
+        em.persist(eb);
+        em.persist(ec);
+        em.persist(ed);
         System.out.println("Ajout user");
-        utilisateurManagerBean.addUtilisateur(new Utilisateur("Julien", "Micheletti", "julien", "mdp"));
+        utilisateurManagerBean.addUtilisateur(user);
+        utilisateurManagerBean.addUtilisateur(user2);
 
     }
     

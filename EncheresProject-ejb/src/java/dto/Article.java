@@ -45,10 +45,6 @@ public class Article implements Serializable {
     @Column (name ="ARTICLE_PRIX")
     private Double prix;
     
-    
-    @Column (name="ARTICLE_DUREE")
-    private Date date;
-    
     @ManyToMany
     private List<Categorie> categories;
     
@@ -61,11 +57,10 @@ public class Article implements Serializable {
     
     public Article(){}
     
-    public Article(String nom, String description, Double prix, Date date) {
+    public Article(String nom, String description, Double prix) {
         this.nom = nom;
         this.description = description;
         this.prix = prix;
-        this.date = date;
         this.categories = new ArrayList<Categorie>();
     }
     
@@ -87,10 +82,6 @@ public class Article implements Serializable {
 
     public void setPrix(Double prix) {
         this.prix = prix;
-    }
-
-    public void setDate(Date date) {
-        this.date = date;
     }
 
     public String getNom() {
@@ -115,21 +106,6 @@ public class Article implements Serializable {
         return prix;
     }
 
-    public Date getDate() {
-        return date;
-    }
-
-    
-    
-    public String getCleanDate() {
-        return new SimpleDateFormat("dd-MM-yyyy HH:MM").format(date);
-    }
-    
-    public String getSortableDate() {
-        return new SimpleDateFormat("yyyy-MM-dd HH:MM").format(date);
-    }
-
-    
     public void addCategorie(Categorie categorie) {
         this.categories.add(categorie);
     }

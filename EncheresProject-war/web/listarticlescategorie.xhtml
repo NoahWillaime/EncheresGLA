@@ -40,21 +40,21 @@
         </h:form>
         <h:form>
             <h:dataTable var="row" 
-                         value="#{rechercheArticleBean.getArticlesByCategorieID(param['categorie'])}"
+                         value="#{rechercheArticleBean.getEnchereByCategorieID(param['categorie'])}"
                          border="1" 
                          class="avectri">
                 <h:column>
                     <f:facet name="header">Nom</f:facet>
-                    #{row.nom}
+                    #{row.article.nom}
                 </h:column>
                 <h:column>
                     <f:facet name="header">Description</f:facet>
-                    #{row.description}
+                    #{row.article.description}
                 </h:column>
                  <h:column>
                     <f:passThroughAttribute name="data-type" value="num" />
                     <f:facet name="header">Prix</f:facet>
-                    #{row.prix}
+                    #{row.article.prix}
                 </h:column>
                  <h:column>
                     <f:facet name="header">Date</f:facet>

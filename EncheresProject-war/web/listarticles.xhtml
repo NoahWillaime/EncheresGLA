@@ -12,28 +12,28 @@
         <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons"/>
         <link rel="stylesheet" type="text/css" href="css/style.css"></link>
         <title>Registration page</title>
-        <title>Registration page</title>
     </h:head>
     <h:body>
 <ui:include src="logHeader.xhtml"/>
-        <h3>List of all articles </h3>
+<c:set var="enchere" value="" scope="request"/>
+<h3>List of all articles </h3>
         
         
-        <h:form>
+
             <h:dataTable var="row" 
-                         value="#{deposeArticleBean.allArticles()}"
-                         border="1" >
-                <h:column>
+                         value="#{deposeArticleBean.allEnchere()}"
+                         >
+                <h:column >
                     <f:facet name="header">Nom</f:facet>
-                    #{row.nom}
+                    #{row.article.nom}
                 </h:column>
                 <h:column>
                     <f:facet name="header">Description</f:facet>
-                    #{row.description}
+                    #{row.article.description}
                 </h:column>
                  <h:column>
                     <f:facet name="header">Prix</f:facet>
-                    #{row.prix}
+                    #{row.article.prix}
                 </h:column>
                  <h:column>
                     <f:facet name="header">Date</f:facet>
@@ -41,19 +41,23 @@
                 </h:column>
                  <h:column>
                     <f:facet name="header">Categories</f:facet>
-                    <ui:repeat value="#{row.categorie}" var="item">
+                    <ui:repeat value="#{row.article.categorie}" var="item">
                         #{item.nom}
                     </ui:repeat>
                 </h:column>
                 
                   <h:column>
                     <f:facet name="header">Déposé par</f:facet>
-                    #{row.utilisateur.pseudo}
+                    #{row.article.utilisateur.pseudo}
+                </h:column>
+                
+                  <h:column>
+                    <f:facet name="header">Dernier acheteur</f:facet>
+                    #{row.lastAcheteur.pseudo}
                 </h:column>
                  
             </h:dataTable>
             <p/>
-        </h:form>
         
         <h3>List of all visible articles </h3>
 
@@ -75,18 +79,18 @@
             </fieldset>
           
         </h:form>
-        <h:form>
+        
             <h:dataTable var="row" 
                          value="#{rechercheArticleBean.getDataSearch()}"
                          border="1" 
                          class="avectri">
                 <h:column>
                     <f:facet name="header">Nom</f:facet>
-                    #{row.nom}
+                    #{row.article.nom}
                 </h:column>
                 <h:column>
                     <f:facet name="header">Description</f:facet>
-                    #{row.description}
+                    #{row.article.description}
                 </h:column>
                  <h:column>
                     <f:passThroughAttribute name="data-type" value="num" />
@@ -99,15 +103,33 @@
                 </h:column>
                  <h:column>
                     <f:facet name="header">Categories</f:facet>
-                    <ui:repeat value="#{row.categorie}" var="item">
+                    <ui:repeat value="#{row.article.categorie}" var="item">
                         #{item.nom}
                     </ui:repeat>
                 </h:column>
+                <h:column>
+                    <f:facet name="header">Déposé par</f:facet>
+                    #{row.article.utilisateur.pseudo}
+                </h:column>
+                <c:if test="${logBean.isLog()}">
+                  <h:column>
+                    <f:facet name="header">Enchérir</f:facet>
+                    <h:form >
+                        <h:inputText id="test" value="#{enchere}"  validator="#{deposeArticleBean.validateEnchere}" required="true" requiredMessage="Ne doit pas être vide">
+                            <f:attribute name="user" value="${logBean.userPseudo()}"/>
+                            <f:attribute name="enchere" value="#{row}"/>
+                    </h:inputText>
+                    <h:commandButton value="Enchérir" action='#{deposeArticleBean.encherir(row, enchere,"listarticles")}'/>
+                    <h:message for="test" style="color:red"></h:message>
+                    </h:form>
+                    
+
+                </h:column>
+                    </c:if>
                  
             </h:dataTable>
            
              
-        </h:form>
 
         
         <script type="text/javascript" src="js/sortedList.js" />
