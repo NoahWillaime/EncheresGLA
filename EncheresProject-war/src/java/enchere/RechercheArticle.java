@@ -67,8 +67,8 @@ public class RechercheArticle {
     public List<Enchere> getDataSearch() {
         ArrayList<Enchere> result = new ArrayList<>();
         for (Enchere e : encheres.findByName(name)){
-            if(e.getDate().after(new Date()))
-            result.add(e);
+            if(e.getFin() == false)
+                result.add(e);
         }
         return result;
     }

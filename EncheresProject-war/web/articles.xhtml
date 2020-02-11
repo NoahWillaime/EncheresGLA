@@ -19,6 +19,7 @@
             <fieldset>
                 <legend>Registration Form </legend>
 
+                
                 Nom: 
                 <h:inputText value="#{deposeArticleBean.nom}" requiredMessage="La saisie du nom est obligatoire !"
                              id="nomInput">
@@ -39,7 +40,7 @@
                 
                Date:
                <h:inputText id="dateInput" value="#{deposeArticleBean.date}" required="true" validator="#{deposeArticleBean.validateFuture}" requiredMessage="La saisie de la date est obligatoire !">
-                    <f:convertDateTime pattern="dd-MM-yyyy"/>  
+                    <f:convertDateTime pattern="dd-MM-yyyy-HH-mm"/>  
                 </h:inputText>
                 <br/>
                 
