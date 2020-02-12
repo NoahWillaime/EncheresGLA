@@ -93,6 +93,8 @@ public class Utilisateur implements Serializable {
         return nom;
     }
 
+    
+    
     public int getNbAnnul() {
         return nbAnnul;
     }

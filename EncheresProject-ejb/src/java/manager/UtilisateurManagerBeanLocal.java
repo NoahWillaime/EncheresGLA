@@ -19,4 +19,5 @@ public interface UtilisateurManagerBeanLocal {
     public Utilisateur addUtilisateur(Utilisateur utilisateur);
      
     public List<Utilisateur> getAll();
+    public Utilisateur getUtilisateur(Long id);
 }

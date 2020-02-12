@@ -5,6 +5,7 @@
  */
 package manager;
 
+import dto.Adresse;
 import dto.Article;
 import dto.Enchere;
 import dto.Categorie;
@@ -53,11 +54,14 @@ public class ArticleSingleton implements ArticleSingletonLocal {
 
         Utilisateur user = new Utilisateur("Julien", "Micheletti", "julien", "mdp");
         Utilisateur user2 = new Utilisateur("Guillaume", "Micheletti", "gg", "mdp");
+        Adresse adresse = new Adresse("rue", "390", "mexy");
+        user2.addAdresse(adresse);
         aa.addUtilisateur(user);
         ab.addUtilisateur(user2);
         ac.addUtilisateur(user2);
         ad.addUtilisateur(user);
         eb.addAcheteur(user,10.0);
+        aa.setGagnant(user2);
         em.persist(aa);
         em.persist(ab);
         em.persist(ac);

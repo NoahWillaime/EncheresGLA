@@ -45,4 +45,10 @@ public class UtilisateurManagerBean implements UtilisateurManagerBeanLocal {
         return (List<Utilisateur>) query.getResultList();
     }
     
+    @Override
+    public Utilisateur getUtilisateur(Long id){
+        Utilisateur user = (Utilisateur)em.createQuery("SELECT a FROM Utilisateur a WHERE a.id = " + id).getResultList().get(0);
+        return user;
+    }
+    
 }

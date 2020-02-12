@@ -19,6 +19,7 @@ import javax.validation.constraints.Future;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
+import manager.LoginManagerBeanLocal;
 import manager.UtilisateurManagerBeanLocal;
 
 /**
@@ -31,6 +32,9 @@ import manager.UtilisateurManagerBeanLocal;
 public class UtilisateurBean {
     @EJB(name="UtilisateurManagerBean")
     private UtilisateurManagerBeanLocal utilisateurs;    
+    
+    @EJB(name="LoginManagerBean")
+    private LoginManagerBeanLocal login;
     
    /* @Inject 
     Greeting greet;*/
@@ -98,8 +102,6 @@ public class UtilisateurBean {
     public void setRib(String rib) {
         this.rib = rib;
     }
-    
-    
 
     
     public String getNom() {

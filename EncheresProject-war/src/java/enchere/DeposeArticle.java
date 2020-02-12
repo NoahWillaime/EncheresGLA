@@ -197,6 +197,10 @@ public class DeposeArticle {
           return encheres.findByWinner(login.getCurrentUser());
       }
       
+      public String validerPanier(){
+          return "validerpanier";
+      }
+      
      public List<Enchere> allVisibleArticles(){
         ArrayList<Enchere> result = new ArrayList<>();
         for (Enchere e : encheres.getAll()){
@@ -236,9 +240,9 @@ public class DeposeArticle {
      public void validateFuture(FacesContext context, 
 			         UIComponent component, 
 			Object value) throws ValidatorException {
-            System.out.println("ici");
+           
             Date date = (Date)value;
-            System.out.println(date);
+            
             if(date.getTime() <= new Date().getTime())
                 throw new ValidatorException(new FacesMessage("La date doit être dans le future!"));
                

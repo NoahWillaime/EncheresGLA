@@ -86,6 +86,11 @@
                 </h:column>
                  
             </h:dataTable>
+        
+         <script type="text/javascript" src="js/sortedList.js" />
+        <div>
+            <h:button value="Add Article" outcome="#{deposeArticleBean.addArticle()}"/>
+        </div>
                  
            <h3>Mes articles gagnés</h3>
 
@@ -159,11 +164,11 @@
               
             </h:dataTable>
              
-         
-        <script type="text/javascript" src="js/sortedList.js" />
+           <script type="text/javascript" src="js/sortedList.js" />
         <div>
-            <h:button value="Add Article" outcome="#{deposeArticleBean.addArticle()}"/>
+            <h:button value="Confirmer le panier" outcome="#{deposeArticleBean.validerPanier()}"/>
         </div>
+       
     </h:body>
     
 </html>
