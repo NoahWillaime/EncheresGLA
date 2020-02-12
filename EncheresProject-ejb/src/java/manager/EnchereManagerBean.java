@@ -64,13 +64,30 @@ public class EnchereManagerBean implements EnchereManagerBeanLocal {
         timerService.createTimer(e.getDate(), e.getId());
         return e;
     }
+    
+    @Override
+    public List<Enchere> findByWinner(Utilisateur gagnant) {
+        if(gagnant != null) {
+            return em.createQuery("SELECT e FROM Enchere e WHERE e.article.gagnant.id = " + gagnant.getId())
+                    .getResultList();
+     
+        }
+        // LISTE VIDE
+        Query query = em.createQuery("SELECT a FROM Article a WHERE 0=1");
+        return (List<Enchere>) query.getResultList();
+    }
 
     @Timeout
     public void endEcnhere(Timer timer){
        System.out.println("FIN DU TIMER" + timer.getInfo());
-       List<Enchere> enchere = em.createQuery("SELECT e FROM Enchere e WHERE e.id = " + timer.getInfo()).getResultList();
-       enchere.get(0).setFin(true);
-       em.persist(enchere.get(0));
+       Enchere enchere = (Enchere)em.createQuery("SELECT e FROM Enchere e WHERE e.id = " + timer.getInfo()).getResultList().get(0);
+       Article article = enchere.getArticle();
+       System.out.println(article.getNom());
+       Utilisateur gagnant = enchere.getLastAcheteur();
+       enchere.setFin(true);
+       article.setGagnant(gagnant);
+       em.persist(enchere);
+       em.persist(article);
     }
     
     

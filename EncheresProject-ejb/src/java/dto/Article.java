@@ -56,9 +56,6 @@ public class Article implements Serializable {
     @ManyToOne
     private Utilisateur gagnant;
     
-    @ManyToMany (mappedBy="articles")
-    private List<Promotion> promotions;
-    
     public Article(){}
     
     public Article(String nom, String description, Double prix) {

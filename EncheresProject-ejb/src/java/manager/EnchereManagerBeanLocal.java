@@ -5,6 +5,7 @@
  */
 package manager;
 
+import dto.Article;
 import dto.Enchere;
 import dto.Utilisateur;
 import java.util.List;
@@ -21,4 +22,5 @@ public interface EnchereManagerBeanLocal {
     public List<Enchere> getEncheresByUser(Utilisateur user);
     public Enchere addEnchere(Enchere e);
     public void encherir(Enchere e, Utilisateur u, Double enchere);
+     public List<Enchere> findByWinner(Utilisateur gagnant);
 }

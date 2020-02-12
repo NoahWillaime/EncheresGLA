@@ -86,19 +86,7 @@
                     <f:facet name="header">Dernier acheteur</f:facet>
                     #{row.lastAcheteur.pseudo}
                 </h:column>
-                  <h:column>
-                    <f:facet name="header">Enchérir</f:facet>
-                    <h:form >
-                        <h:inputText id="test" value="#{enchere}"  validator="#{deposeArticleBean.validateEnchere}" required="true" requiredMessage="Ne doit pas être vide">
-                            <f:attribute name="user" value="${logBean.userPseudo()}"/>
-                            <f:attribute name="enchere" value="#{row}"/>
-                    </h:inputText>
-                    <h:commandButton value="Enchérir" action='#{deposeArticleBean.encherir(row, enchere,"listarticlesuser")}'/>
-                    <h:message for="test" style="color:red"></h:message>
-                    </h:form>
-                    
-
-                </h:column>
+             
                  
             </h:dataTable>
          
@@ -122,10 +110,6 @@
                     #{row.prix}
                 </h:column>
                  <h:column>
-                    <f:facet name="header">Date</f:facet>
-                    #{row.date}
-                </h:column>
-                 <h:column>
                     <f:facet name="header">Categories</f:facet>
                     <ui:repeat value="#{row.article.categorie}" var="item">
                         #{item.nom}
@@ -135,24 +119,7 @@
                     <f:facet name="header">Déposé par</f:facet>
                     #{row.article.utilisateur.pseudo}
                 </h:column>
-              <h:column>
-                    <f:facet name="header">Dernier acheteur</f:facet>
-                    #{row.lastAcheteur.pseudo}
-                </h:column>
-                  <h:column>
-                    <f:facet name="header">Enchérir</f:facet>
-                    <h:form >
-                        <h:inputText id="test" value="#{enchere}"  validator="#{deposeArticleBean.validateEnchere}" required="true" requiredMessage="Ne doit pas être vide">
-                            <f:attribute name="user" value="${logBean.userPseudo()}"/>
-                            <f:attribute name="enchere" value="#{row}"/>
-                    </h:inputText>
-                    <h:commandButton value="Enchérir" action='#{deposeArticleBean.encherir(row, enchere,"listarticlesuser")}'/>
-                    <h:message for="test" style="color:red"></h:message>
-                    </h:form>
-                    
-
-                </h:column>
-                 
+           
             </h:dataTable>
              
         <script type="text/javascript" src="js/sortedList.js" />

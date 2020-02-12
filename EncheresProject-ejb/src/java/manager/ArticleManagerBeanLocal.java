@@ -21,7 +21,7 @@ public interface ArticleManagerBeanLocal {
     public List<Article> getAll();
     public void removeArticle(Long id);
     public List<Article> findByName(String name);
-    public List<Article> findByWinner(Utilisateur gagnant);
+   
     public List<Article> getArticlesByUsers(Long id);
     //public List<Article> getArticlesByCategorieID(Long id);
 }

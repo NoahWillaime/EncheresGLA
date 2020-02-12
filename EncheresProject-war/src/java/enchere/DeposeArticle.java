@@ -188,8 +188,8 @@ public class DeposeArticle {
       }
       
       
-      public List<Article> getArticlesGagnesByUser() {
-          return articles.findByWinner(login.getCurrentUser());
+      public List<Enchere> getArticlesGagnesByUser() {
+          return encheres.findByWinner(login.getCurrentUser());
       }
       
      public List<Enchere> allVisibleArticles(){
