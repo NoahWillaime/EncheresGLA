@@ -10,7 +10,6 @@ import javax.enterprise.context.RequestScoped;
 import dto.Categorie;
 import dto.Article;
 import dto.Enchere;
-import gestionMsgs.Facturation;
 import gestionMsgs.GestionFacturationBeanLocal;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -268,14 +267,8 @@ public class DeposeArticle {
              panier.add(e.getArticle());
          Facturation facture = new Facturation(login.getCurrentUser(), panier, getPrixPanier());
          Livraison livraison = new Livraison(login.getCurrentUser(), panier);
+         this.gestionFacturation.sendOrder(new Facturation());
          return "validationCommande";
-     }
-    
-     
-     public void testPanier() {
-         for (Enchere e : this.getEncheresPanier()) {
-             this.gestionFacturation.sendOrder(new Facturation(e.lastEnchere().getAcheteur().getId(), e.getArticle().getId(), e.lastEnchere().getAcheteur().getPseudo(), e.getArticle().getNom(), e.lastEnchere().getPrix()));
-         }
      }
 }
  

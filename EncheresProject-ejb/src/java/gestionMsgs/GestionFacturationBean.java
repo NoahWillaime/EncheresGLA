@@ -7,11 +7,11 @@ package gestionMsgs;
 
 import javax.annotation.Resource;
 import javax.ejb.Stateless;
-import javax.ejb.LocalBean;
 import javax.inject.Inject;
 import javax.jms.ConnectionFactory;
 import javax.jms.Destination;
 import javax.jms.JMSContext;
+import jms.Facturation;
 
 /**
  *
@@ -19,16 +19,15 @@ import javax.jms.JMSContext;
  */
 @Stateless
 public class GestionFacturationBean implements GestionFacturationBeanLocal{    
-    @Resource(lookup = "java:comp/DefaultJMSConnectionFactory")
-    private static ConnectionFactory connectionFactory;
+    @Inject
+    JMSContext context;
     
     @Resource(lookup = "jms/FacturationQueue")
     Destination facturationQueue;
     
     @Override
     public void sendOrder(Facturation facturation) {
-        JMSContext context = connectionFactory.createContext();
-        context.createProducer().send(facturationQueue, facturation);
+        context.createProducer().send(facturationQueue, "mon message");
     }
 
 }

@@ -7,16 +7,19 @@ package jms;
 
 import dto.Article;
 import dto.Utilisateur;
+import java.io.Serializable;
 import java.util.List;
 
 /**
  *
  * @author Guillaume Saunier
  */
-public class Facturation {
+public class Facturation implements Serializable{
     private Utilisateur acheteur;
     private List<Article> panier;
     private double prix;
+    
+    public Facturation(){}
     
     public Facturation(Utilisateur acheteur, List<Article> panier, double prix) {
         this.acheteur = acheteur;

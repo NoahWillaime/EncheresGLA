@@ -6,6 +6,7 @@
 package gestionMsgs;
 
 import javax.ejb.Local;
+import jms.Facturation;
 
 /**
  *
