@@ -10,6 +10,8 @@ import javax.enterprise.context.RequestScoped;
 import dto.Categorie;
 import dto.Article;
 import dto.Enchere;
+import gestionMsgs.Facturation;
+import gestionMsgs.GestionFacturationBeanLocal;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import manager.ArticleManagerBeanLocal;
@@ -54,6 +56,9 @@ public class DeposeArticle {
     
     @EJB(name="LoginManagerBean")
     private LoginManagerBeanLocal login;    
+    
+    @EJB(name="GestionFacturationBean")
+    private GestionFacturationBeanLocal gestionFacturation;
     
    /* @Inject 
     Greeting greet;*/
@@ -205,7 +210,6 @@ public class DeposeArticle {
         }
         return result;
     }
-    
   
      public void ajouterPanier(Enchere enchere) {
        //  System.out.println(enchere.getId());
@@ -243,6 +247,11 @@ public class DeposeArticle {
                 throw new ValidatorException(new FacesMessage("La date doit être dans le future!"));
                
      }
-    
+     
+     public void testPanier() {
+         for (Enchere e : this.getEncheresPanier()) {
+             this.gestionFacturation.sendOrder(new Facturation(e.lastEnchere().getAcheteur().getId(), e.getArticle().getId(), e.lastEnchere().getAcheteur().getPseudo(), e.getArticle().getNom(), e.lastEnchere().getPrix()));
+         }
+     }
 }
  
