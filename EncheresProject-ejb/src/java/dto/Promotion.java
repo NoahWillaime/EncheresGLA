@@ -8,6 +8,7 @@ package dto;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -38,7 +39,7 @@ public class Promotion implements Serializable {
     private float reduction_bon;
 
     @ManyToMany
-    private List<Article> articles;
+    private List<Enchere> encheres;
 
     public Promotion() {
     }
@@ -47,7 +48,7 @@ public class Promotion implements Serializable {
         this.nom = nom;
         this.reduction_transport = reduction_transport;
         this.reduction_bon = reduction_bon;
-        this.articles = new ArrayList<Article>();
+        this.encheres = new ArrayList<Enchere>();
     }
 
     public Long getId() {
@@ -82,17 +83,22 @@ public class Promotion implements Serializable {
         this.reduction_bon = reduction_bon;
     }
 
-    public void addArticles(Article a) {
-        this.articles.add(a);
+    public void addEnchere(Enchere e) {
+        this.encheres.add(e);
     }
-    
-    public List<Article> getArticles() {
-        return articles;
+
+    public List<Enchere> getEncheres() {
+        return encheres;
     }
     
     @Override
     public String toString() {
-        return super.toString(); //To change body of generated methods, choose Tools | Templates.
+        StringBuilder sb = new StringBuilder();
+        sb.append(nom);
+        sb.append("(");
+        sb.append(this.reduction_bon * 100);
+        sb.append(" %)");
+        return sb.toString(); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override

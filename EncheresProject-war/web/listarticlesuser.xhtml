@@ -76,10 +76,11 @@
                 </h:column>
                 </c:if>
                 <h:column>
+                    
                     <f:facet name="header">Actions</f:facet>
-                    <h:form rendered="${logBean.userPseudo() != row.article.utilisateur.pseudo and logBean.userPseudo() == row.lastEnchere().acheteur.pseudo}">
-                        <h:commandButton value="Annuler" action='#{deposeArticleBean.annuleEnchere(row)}'/>
-                        <h:commandButton value="Retirer" action="#{deposeArticleBean.retirerEnchere(row.id)}" rendered="#{logBean.userPseudo() == row.article.utilisateur}"/>
+                    <h:form>
+                        <h:commandButton value="Annuler" action='#{deposeArticleBean.annuleEnchere(row)}' rendered="${logBean.userPseudo() != row.article.utilisateur.pseudo and logBean.userPseudo() == row.lastEnchere().acheteur.pseudo}"/>
+                        <h:commandButton value="Retirer" action="#{deposeArticleBean.retirerEnchere(row.id)}" rendered="#{logBean.userPseudo() == row.article.utilisateur.pseudo}"/>
                     </h:form>
                 </h:column>
                  
