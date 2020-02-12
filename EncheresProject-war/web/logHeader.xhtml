@@ -20,7 +20,9 @@
                 <c:choose>
                     <c:when test="#{logBean.isLog()}">
                         <h:outputText value="Connecté en tant que #{logBean.userPseudo()}"/>
-                        <h:button class="mdc-button" value="Se déconnecter" outcome="#{logBean.logOut()}"/>
+                        <h:form>
+                            <h:commandButton class="mdc-button" value="Se déconnecter" action="#{logBean.logOut()}"></h:commandButton>
+                        </h:form>
                         <h:button class="mdc-button mdc-button--unelevated" value="Mes articles" outcome="listarticlesuser"/>
                     </c:when>
                     <c:otherwise>
