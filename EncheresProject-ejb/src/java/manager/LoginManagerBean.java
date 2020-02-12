@@ -39,7 +39,8 @@ public class LoginManagerBean implements LoginManagerBeanLocal {
     }
     
     public Utilisateur getCurrentUser() {
-        return LogSingleton.getInstance().getCurrentUser();
+        Utilisateur u = em.find(Utilisateur.class,LogSingleton.getInstance().getCurrentUser().getId());
+        return u ;
     }
     
     public String getCurrentUserPseudo() {

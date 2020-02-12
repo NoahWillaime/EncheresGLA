@@ -8,16 +8,20 @@ package dto;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Objects;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EntityManager;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
-import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
+import javax.persistence.PersistenceContext;
 import javax.persistence.Table;
 
 /**
@@ -36,12 +40,13 @@ public class Enchere implements Serializable {
     @OneToOne
     private Article article;
        
-    @ManyToMany
-    private ArrayList<Utilisateur> acheteurs;
-    
-    @ManyToOne
-    private Utilisateur lastAcheteur;
-       
+    @OneToMany(
+        mappedBy = "enchere",
+        cascade = CascadeType.ALL,
+        orphanRemoval = true
+    )
+    private List<EnchereAcheteur> acheteurs = new ArrayList<>();
+     
     @Column(name = "ENCHERE_PRIX")
     private Double prix;
        
@@ -51,15 +56,17 @@ public class Enchere implements Serializable {
     @Column (name="ENCHERE_FIN")
     private boolean fin;
 
-    @ManyToMany (mappedBy="encheres")
+    @ManyToMany(cascade = {
+        CascadeType.PERSIST,
+        CascadeType.MERGE
+    })
     private List<Promotion> promotions;
     
     public Enchere() {
     }
 
-    public Enchere(Article article, Utilisateur acheteur, Double prix, Date date) {
+    public Enchere(Article article, Double prix, Date date) {
         this.article = article;
-        this.acheteurs = new ArrayList();
         this.prix = prix;
         this.date = date;
         fin = false;
@@ -104,15 +111,37 @@ public class Enchere implements Serializable {
     public void setArticle(Article article) {
         this.article = article;
     }
-
-    public ArrayList<Utilisateur> getAcheteurs() {
-        return acheteurs;
+    
+    public void addAcheteur(Utilisateur acheteur, Double prix) {
+        EnchereAcheteur enchereAcheteur = new EnchereAcheteur(this, acheteur,prix);
+        acheteurs.add(enchereAcheteur);
+        acheteur.getEncheres().add(enchereAcheteur);
     }
+ 
+    public void removeAcheteur(Utilisateur acheteur) {
+        System.out.println(acheteurs.size());
+        for (Iterator<EnchereAcheteur> iterator = acheteurs.iterator();
+             iterator.hasNext(); ) {
+            EnchereAcheteur enchereAcheteur = iterator.next();
+ 
+            if (enchereAcheteur.getEnchere().equals(this) &&
+                    enchereAcheteur.getAcheteur().equals(acheteur)) {
+                iterator.remove();
+                enchereAcheteur.getAcheteur().getEncheres().remove(enchereAcheteur);
+                acheteurs.remove(enchereAcheteur);
+            }
+        }
+                System.out.println(acheteurs.size());
 
-    public void addAcheteur(Utilisateur acheteur) {
-        if(!acheteurs.contains(acheteur))
-            this.acheteurs.add(acheteur);
-        lastAcheteur = acheteur;
+    }
+    
+    public EnchereAcheteur lastEnchere() {
+        EnchereAcheteur result = new EnchereAcheteur(this, article.getUtilisateur(), prix);
+        for(EnchereAcheteur ea : acheteurs) {
+            if(prix < ea.getPrix())
+                result = ea;
+        }
+        return result;
     }
 
     public Double getPrix() {
@@ -130,29 +159,21 @@ public class Enchere implements Serializable {
     public void setDate(Date date) {
         this.date = date;
     }
-
+    
     @Override
-    public boolean equals(Object obj) {
-        if (this == obj) {
-            return true;
-        }
-        if (obj == null) {
+    public boolean equals(Object o) {
+        if (this == o) return true;
+ 
+        if (o == null || getClass() != o.getClass())
             return false;
-        }
-        if (getClass() != obj.getClass()) {
-            return false;
-        }
-        final Enchere other = (Enchere) obj;
-        if (!Objects.equals(this.article, other.article)) {
-            return false;
-        }
-        if (!Objects.equals(this.prix, other.prix)) {
-            return false;
-        }
-        if (!Objects.equals(this.date, other.date)) {
-            return false;
-        }
-        return true;
+ 
+        Enchere post = (Enchere) o;
+        return Objects.equals(id, post.id);
+    }
+ 
+    @Override
+    public int hashCode() {
+        return Objects.hash(id);
     }
 
     @Override

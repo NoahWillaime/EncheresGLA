@@ -17,6 +17,9 @@
 <ui:include src="logHeader.xhtml"/>
 <c:set var="enchere" value="" scope="request"/>
 <h3>List of all articles </h3>
+<c:if test="#{logBean.isLog() and logBean.currentUser.nbAnnul >= 3}">
+            <h4 style="color: red;">Vous avez annulé 3 enchères vous ne pouvez plus en liciter de nouvelles</h4>
+        </c:if>
         
         
 
@@ -33,7 +36,7 @@
                 </h:column>
                  <h:column>
                     <f:facet name="header">Prix</f:facet>
-                    #{row.article.prix}
+                    #{row.prix}
                 </h:column>
                  <h:column>
                     <f:facet name="header">Date</f:facet>
@@ -58,7 +61,7 @@
                 
                   <h:column>
                     <f:facet name="header">Dernier acheteur</f:facet>
-                    #{row.lastAcheteur.pseudo}
+                    #{row.lastEnchere().acheteur.pseudo}
                 </h:column>
                  
             </h:dataTable>
@@ -102,6 +105,11 @@
                     <f:facet name="header">Prix</f:facet>
                     #{row.prix}
                 </h:column>
+                <h:column>
+                    <f:passThroughAttribute name="data-type" value="num" />
+                    <f:facet name="header">Enchère actuelle</f:facet>
+                    #{row.lastEnchere().prix}
+                </h:column>
                  <h:column>
                     <f:facet name="header">Date</f:facet>
                     #{row.date}
@@ -116,10 +124,14 @@
                     <f:facet name="header">Déposé par</f:facet>
                     #{row.article.utilisateur.pseudo}
                 </h:column>
-                <c:if test="${logBean.isLog()}">
+                <h:column>
+                    <f:facet name="header">Dernier acheteur</f:facet>
+                    #{row.lastEnchere().acheteur.pseudo}
+                </h:column>
+                <c:if test="${logBean.isLog() and logBean.currentUser.nbAnnul lt 3}">
                   <h:column>
                     <f:facet name="header">Enchérir</f:facet>
-                    <h:form >
+                    <h:form rendered="${logBean.userPseudo() != row.article.utilisateur.pseudo}">
                         <h:inputText id="test" value="#{enchere}"  validator="#{deposeArticleBean.validateEnchere}" required="true" requiredMessage="Ne doit pas être vide">
                             <f:attribute name="user" value="${logBean.userPseudo()}"/>
                             <f:attribute name="enchere" value="#{row}"/>
@@ -127,10 +139,8 @@
                     <h:commandButton value="Enchérir" action='#{deposeArticleBean.encherir(row, enchere,"listarticles")}'/>
                     <h:message for="test" style="color:red"></h:message>
                     </h:form>
-                    
-
                 </h:column>
-                    </c:if>
+                 </c:if>
                  
             </h:dataTable>
            
