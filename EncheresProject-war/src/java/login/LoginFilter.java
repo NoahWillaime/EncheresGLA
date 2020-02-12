@@ -22,7 +22,7 @@ import manager.LoginManagerBeanLocal;
  *
  * @author noahd
  */
-@WebFilter("/faces/*.xhtml")
+@WebFilter("/*")
 public class LoginFilter implements Filter{
     @EJB(name="LoginManagerBean")
     private LoginManagerBeanLocal logManager;
@@ -39,7 +39,7 @@ public class LoginFilter implements Filter{
         String splitUrl[] = request.getRequestURI().split("/");
         String myPage = splitUrl[splitUrl.length-1];
         //Not login or register && not 
-        if (!(myPage.equals("login.xhtml") || myPage.equals("utilisateurs.xhtml")) && !logManager.isLog()) {
+        if (!(myPage.equals("login.xhtml") || myPage.equals("utilisateurs.xhtml")) && !myPage.endsWith("css") && !logManager.isLog()) {
             response.sendRedirect(request.getContextPath() + "/faces/login.xhtml");
         } else {
             chain.doFilter(req, res);
