@@ -7,36 +7,74 @@
     <h:head>
         <link href="https://unpkg.com/material-components-web@latest/dist/material-components-web.min.css" rel="stylesheet"/>
         <script src="https://unpkg.com/material-components-web@latest/dist/material-components-web.min.js"></script>
+        <!-- Compiled and minified CSS -->
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css"/>
+
+        <!-- Compiled and minified JavaScript -->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
         <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons"/>
         <link rel="stylesheet" type="text/css" href="css/style.css"></link>
         <title>Registration page</title>
     </h:head>
-    <h:body>
-        <ui:include src="logHeader.xhtml"/>
-        <h:form>
-            <fieldset>
-                <legend>Login</legend>
-                                
-                Pseudonyme: 
-                <h:inputText value="#{loginBean.pseudo}" requiredMessage="La saisie du pseudo est obligatoire !"
-                             id="pseudoInput">
-                </h:inputText>
-                <h:message for="pseudoInput"/>
-                <br/>
+    <h:body class="login" style="overflow: hidden">
+        <div class="row">
+        <div class="col s6" style="background-color: #2196f3; height: 1000px; overflow: hidden"></div>
+        <div class="col s6"></div>
+        </div>
+        <div class="centerFix">
+            <div class="col s10 offset-s1">
+              <div class="card white">
+                <div class="card-content" style="padding: 0; margin: 0;">
+                    <div class="row" style="padding: 0; margin: 0;" >
+                        <div class="col s6 valign-wrapper" style="height: 500px;" >
+                            <div class="col s10 offset-s1">
+                            <h:form>
+                               
+                                <h4 class="center-align blue-text">On vous connait?</h4>
+                                    <div class="input-field col s8 offset-s2">
+                                        <h:inputText value="#{loginBean.pseudo}" class="blue-text" requiredMessage="La saisie du pseudo est obligatoire !"
+                                                 id="pseudoInput">
+                                        </h:inputText>
+                                        <label for="first_name">Pseudo</label>
+                                        <h:message style="color: red" for="pseudoInput"/>
+                                    </div>
+                                    <div class="input-field col s8 offset-s2">
+                                        <h:inputSecret value="#{loginBean.motdepasse}" class="blue-text" requiredMessage="La saisie du mot de passe est obligatoire !"
+                                                 id="mdpInput">
+                                        </h:inputSecret>
+                                        <label for="first_name">Mot de passe</label>
+                                        <h:message style="color: red" for="mdpInput"/>
+                                    </div>
+                                   
+                                    
+                                    
+                                <div class="col s12 center-align">
+                                    <h:outputText value="#{loginBean.onLoad()}"/>
+                                    <h:commandButton class="btn blue" value="Connexion" 
+                                                     action="#{loginBean.validateLogin()}"/>
+                                                    
+                                </div>
 
-                Mot de passe: 
-                <h:inputSecret value="#{loginBean.motdepasse}" requiredMessage="La saisie du mot de passe est obligatoire !"
-                             id="mdpInput">
-                </h:inputSecret>
-                <h:message for="mdpInput"/>
-                <br/>
-                <h:outputText value="#{loginBean.onLoad()}"/>
-                <h:commandButton value="Submit" 
-                                 action="#{loginBean.validateLogin()}"/>
-                <br/>                  
-            </fieldset>
-          
-        </h:form>
+                            </h:form>
+                            </div>
+                        </div>
+                        <div class="col s6 blue valign-wrapper" style="height: 500px">
+                            <div class="col s10 offset-s1">
+                                <h4 class="center-align white-text">Rejoins-nous!</h4>
+                                <div class="col s12 center-align">
+                                    <h:form>
+                                    <h:commandButton class="btn white blue-text" value="Inscription" 
+                                                     action="#{logBean.register()}"/>
+                                    </h:form>         
+                                </div>
+                            </div>
+                            
+                        </div>
+                    </div>                  
+                </div>
+              </div>
+            </div>
+        </div>   
     </h:body>
 </html>
 

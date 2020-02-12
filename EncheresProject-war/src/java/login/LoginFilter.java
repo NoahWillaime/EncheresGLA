@@ -40,7 +40,7 @@ public class LoginFilter implements Filter{
         String myPage = splitUrl[splitUrl.length-1];
         //Not login or register && not 
         if (!(myPage.equals("login.xhtml") || myPage.equals("utilisateurs.xhtml")) && !myPage.endsWith("css") && !logManager.isLog()) {
-            response.sendRedirect(request.getContextPath() + "/faces/login.xhtml");
+            response.sendRedirect(request.getContextPath() + "/Login");
         } else {
             chain.doFilter(req, res);
         }

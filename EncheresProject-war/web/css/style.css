@@ -16,9 +16,6 @@ body {
     color: red;
 }
 
-table, td, th {
-border: 1px black solid;
-} 
 
 .mainBar {
     display: flex;
@@ -52,6 +49,21 @@ border: 1px black solid;
   border-right: 5px solid transparent;
   border-bottom: 5px solid black;
 }
+
+.centerFix{
+        width: 1000px;
+	height: 500px;
+	
+	position: absolute;
+	top:0;
+	bottom: 0;
+	left: 0;
+	right: 0;
+  	
+	margin: auto;
+    }
+
+    
 .flecheAsc {
   width: 0; 
   height: 0;

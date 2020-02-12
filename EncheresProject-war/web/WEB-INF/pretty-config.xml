@@ -18,5 +18,10 @@
         <pattern value="/ListArticles" />
         <view-id value="/faces/listarticles.xhtml" />
     </url-mapping>
+    
+    <url-mapping id="login">
+        <pattern value="/Login" />
+        <view-id value="/faces/login.xhtml" />
+    </url-mapping>
 
 </pretty-config>
