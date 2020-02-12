@@ -5,6 +5,7 @@
  */
 package manager;
 
+import dto.Article;
 import dto.Enchere;
 import dto.Utilisateur;
 import java.util.ArrayList;
@@ -83,7 +84,7 @@ public class EnchereManagerBean implements EnchereManagerBeanLocal {
        Enchere enchere = (Enchere)em.createQuery("SELECT e FROM Enchere e WHERE e.id = " + timer.getInfo()).getResultList().get(0);
        Article article = enchere.getArticle();
        System.out.println(article.getNom());
-       Utilisateur gagnant = enchere.getLastAcheteur();
+       Utilisateur gagnant = enchere.lastEnchere().getAcheteur();
        enchere.setFin(true);
        article.setStatus("finie");
        article.setGagnant(gagnant);

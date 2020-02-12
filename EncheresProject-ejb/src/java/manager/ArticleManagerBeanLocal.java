@@ -6,6 +6,7 @@
 package manager;
 
 import dto.Article;
+import dto.Enchere;
 import dto.Utilisateur;
 import java.util.ArrayList;
 import java.util.List;
@@ -22,7 +23,7 @@ public interface ArticleManagerBeanLocal {
     public void removeArticle(Long id);
     public List<Article> findByName(String name);
     public void setPanier(Long idArticle, boolean panier);
-    public List<Article> getArticlesFromPanier(Long userId);
+    public List<Enchere> getArticlesFromPanier(Long userId);
     public List<Article> getArticlesByUsers(Long id);
     //public List<Article> getArticlesByCategorieID(Long id);
 }

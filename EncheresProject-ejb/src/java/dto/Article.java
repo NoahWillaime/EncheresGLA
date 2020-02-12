@@ -129,10 +129,6 @@ public class Article implements Serializable {
         this.gagnant = gagnant;
     }   
 
-    public Double getPrix() {
-        return prix;
-    }
-
     public void addCategorie(Categorie categorie) {
         this.categories.add(categorie);
     }

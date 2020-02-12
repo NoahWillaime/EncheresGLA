@@ -6,6 +6,7 @@
 package manager;
 
 import dto.Article;
+import dto.Enchere;
 import dto.Utilisateur;
 import gestionUser.LogSingleton;
 import java.sql.Connection;
@@ -72,9 +73,9 @@ public class ArticleManagerBean implements ArticleManagerBeanLocal {
     }
     
     @Override
-    public List<Article> getArticlesFromPanier(Long userId){
-        List<Article> articles = em.createQuery("SELECT a FROM Article a WHERE a.gagnant.id = " + userId + " AND a.panier = true").getResultList();
-        return articles;
+    public List<Enchere> getArticlesFromPanier(Long userId){
+        List<Enchere> encheres = em.createQuery("SELECT e FROM Enchere e WHERE e.article.gagnant.id = " + userId + " AND e.article.panier = true").getResultList();
+        return encheres;
     }
    
     @Override

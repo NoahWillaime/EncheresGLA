@@ -15,6 +15,7 @@
 <ui:include src="logHeader.xhtml"/>
 <c:set var="enchere" value="" scope="request"/>
        
+            
         <h3>Mes enchères </h3>
         <c:if test="#{logBean.currentUser.nbAnnul >= 3}">
             <h4 style="color: red;">Vous avez annulé 3 enchères vous ne pouvez plus en liciter de nouvelles</h4>
@@ -61,10 +62,7 @@
                     #{row.lastEnchere().acheteur.pseudo}
                 </h:column>
                 <c:if test="${logBean.currentUser.nbAnnul lt 3}">
-                <c:if test="${logBean.currentUser.nbAnnul lt 3}">
                   <h:column>
-                    <h:message for="test" style="color:red"></h:message>
-                    
                     <f:facet name="header">Enchérir</f:facet>
                     <h:form rendered="${logBean.userPseudo() != row.article.utilisateur.pseudo and logBean.currentUser.nbAnnul >= 3}">
                         <h:inputText id="test" value="#{enchere}"  validator="#{deposeArticleBean.validateEnchere}" required="true" requiredMessage="Ne doit pas être vide">
@@ -74,15 +72,22 @@
                     <h:commandButton value="Enchérir" action='#{deposeArticleBean.encherir(row, enchere,"listarticles")}'/>
                     <h:message for="test" style="color:red"></h:message>
                     </h:form>
+                    
+
                 </h:column>
-                   </c:if>
-            </h:dataTable>
-             
-        
+                </c:if>
+                <h:column>
+                    
+                    <f:facet name="header">Actions</f:facet>
+                    <h:form>
+                        <h:commandButton value="Annuler" action='#{deposeArticleBean.annuleEnchere(row)}' rendered="${logBean.userPseudo() != row.article.utilisateur.pseudo and logBean.userPseudo() == row.lastEnchere().acheteur.pseudo}"/>
+                        <h:commandButton value="Retirer" action="#{deposeArticleBean.retirerEnchere(row.id)}" rendered="#{logBean.userPseudo() == row.article.utilisateur.pseudo}"/>
+                    </h:form>
+                </h:column>
                  
             </h:dataTable>
-         
-        <h3>Mes articles gagnés</h3>
+                 
+           <h3>Mes articles gagnés</h3>
 
             <h:dataTable var="row" 
                          value="#{deposeArticleBean.getArticlesGagnesByUser()}"
@@ -99,7 +104,7 @@
                  <h:column>
                     <f:passThroughAttribute name="data-type" value="num" />
                     <f:facet name="header">Prix</f:facet>
-                    #{row.prix}
+                    #{row.lastEnchere().prix}
                 </h:column>
                  <h:column>
                     <f:facet name="header">Categories</f:facet>
@@ -112,27 +117,46 @@
                     #{row.article.utilisateur.pseudo}
                 </h:column>
                    <c:if test="${logBean.isLog()}">
-                       
+                  <h:column>
+                    <f:facet name="header">Ajouter à mon panier</f:facet>
+                    <h:form >
+                      <h:commandButton value="Ajouter" action='#{deposeArticleBean.ajouterPanier(row)}'/>
+                    </h:form>
+                </h:column>
+                   </c:if>
+            </h:dataTable>
+             
+        
          <h3>Mon panier</h3>
 
             <h:dataTable var="row" 
-                         value="#{deposeArticleBean.getArticlesPanier()}"
+                         value="#{deposeArticleBean.getEncheresPanier()}"
                          border="1" 
                          class="avectri">
                 <h:column>
                     <f:facet name="header">Nom</f:facet>
-                    #{row.nom}
+                    #{row.article.nom}
                 </h:column>
-                </c:if>
                 <h:column>
-                    
-                    <f:facet name="header">Actions</f:facet>
-                    <h:form>
-                        <h:commandButton value="Annuler" action='#{deposeArticleBean.annuleEnchere(row)}' rendered="${logBean.userPseudo() != row.article.utilisateur.pseudo and logBean.userPseudo() == row.lastEnchere().acheteur.pseudo}"/>
-                        <h:commandButton value="Retirer" action="#{deposeArticleBean.retirerEnchere(row.id)}" rendered="#{logBean.userPseudo() == row.article.utilisateur.pseudo}"/>
-                    </h:form>
+                    <f:facet name="header">Description</f:facet>
+                    #{row.article.description}
                 </h:column>
-                 
+                 <h:column>
+                    <f:passThroughAttribute name="data-type" value="num" />
+                    <f:facet name="header">Prix</f:facet>
+                    #{row.lastEnchere().prix}
+                </h:column>
+                 <h:column>
+                    <f:facet name="header">Categories</f:facet>
+                    <ui:repeat value="#{row.article.categorie}" var="item">
+                        #{item.nom}
+                    </ui:repeat>
+                </h:column>
+                <h:column>
+                    <f:facet name="header">Déposé par</f:facet>
+                    #{row.article.utilisateur.pseudo}
+                </h:column>
+              
             </h:dataTable>
              
          

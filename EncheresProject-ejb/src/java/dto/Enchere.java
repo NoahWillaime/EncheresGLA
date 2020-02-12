@@ -72,9 +72,7 @@ public class Enchere implements Serializable {
         fin = false;
     }
 
-    public Utilisateur getLastAcheteur() {
-        return lastAcheteur;
-    }
+   
     
     public void setFin(boolean fin){
         this.fin = fin;
@@ -84,9 +82,7 @@ public class Enchere implements Serializable {
         return fin;
     }
     
-    public void setLastAcheteur(Utilisateur lastAcheteur) {
-        this.lastAcheteur = lastAcheteur;
-    }
+    
 
     public List<Promotion> getPromotions() {
         return promotions;

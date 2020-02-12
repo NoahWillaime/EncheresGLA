@@ -206,14 +206,12 @@ public class DeposeArticle {
         return result;
     }
     
-     public void validateEnchere(FacesContext context, 
-			         UIComponent component, 
-			Object value) throws ValidatorException {
+  
      public void ajouterPanier(Enchere enchere) {
        //  System.out.println(enchere.getId());
          articles.setPanier(enchere.getArticle().getId(), true);
      }
-     public List<Article> getArticlesPanier(){
+     public List<Enchere> getEncheresPanier(){
         return articles.getArticlesFromPanier(login.getCurrentUser().getId());
      }
      public void validateEnchere(FacesContext context, UIComponent component, Object value) throws ValidatorException {
