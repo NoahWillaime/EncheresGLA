@@ -31,6 +31,8 @@ import javax.validation.constraints.Future;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
+import jms.Facturation;
+import jms.Livraison;
 import manager.CategorieManagerBeanLocal;
 import manager.EnchereManagerBean;
 import manager.EnchereManagerBeanLocal;
@@ -202,6 +204,10 @@ public class DeposeArticle {
           return encheres.findByWinner(login.getCurrentUser());
       }
       
+      public String validerPanier(){
+          return "validerpanier";
+      }
+      
      public List<Enchere> allVisibleArticles(){
         ArrayList<Enchere> result = new ArrayList<>();
         for (Enchere e : encheres.getAll()){
@@ -240,13 +246,31 @@ public class DeposeArticle {
      public void validateFuture(FacesContext context, 
 			         UIComponent component, 
 			Object value) throws ValidatorException {
-            System.out.println("ici");
+           
             Date date = (Date)value;
-            System.out.println(date);
+            
             if(date.getTime() <= new Date().getTime())
                 throw new ValidatorException(new FacesMessage("La date doit être dans le future!"));
                
      }
+     
+     public double getPrixPanier() {
+         double prix = 0;
+         for(Enchere e : articles.getArticlesFromPanier(login.getCurrentUser().getId())) {
+             prix += e.getPrixFinal();
+         }
+         return prix;
+     }
+     
+     public String commander() {
+         ArrayList<Article> panier = new ArrayList<>();
+         for(Enchere e : getEncheresPanier())
+             panier.add(e.getArticle());
+         Facturation facture = new Facturation(login.getCurrentUser(), panier, getPrixPanier());
+         Livraison livraison = new Livraison(login.getCurrentUser(), panier);
+         return "validationCommande";
+     }
+    
      
      public void testPanier() {
          for (Enchere e : this.getEncheresPanier()) {

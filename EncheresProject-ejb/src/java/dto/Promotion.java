@@ -33,10 +33,10 @@ public class Promotion implements Serializable {
     private String nom;
     
     @Column(name = "PROMOTION_TRANSPORT")
-    private float reduction_transport;
+    private double reduction_transport;
     
     @Column(name = "PROMOTION_BON")
-    private float reduction_bon;
+    private double reduction_bon;
 
     @ManyToMany
     private List<Enchere> encheres;
@@ -44,7 +44,7 @@ public class Promotion implements Serializable {
     public Promotion() {
     }
 
-    public Promotion(String nom, float reduction_transport, float reduction_bon) {
+    public Promotion(String nom, double reduction_transport, double reduction_bon) {
         this.nom = nom;
         this.reduction_transport = reduction_transport;
         this.reduction_bon = reduction_bon;
@@ -67,19 +67,19 @@ public class Promotion implements Serializable {
         this.nom = nom;
     }
 
-    public float getReduction_transport() {
+    public double getReduction_transport() {
         return reduction_transport;
     }
 
-    public void setReduction_transport(float reduction_transport) {
+    public void setReduction_transport(double reduction_transport) {
         this.reduction_transport = reduction_transport;
     }
 
-    public float getReduction_bon() {
+    public double getReduction_bon() {
         return reduction_bon;
     }
 
-    public void setReduction_bon(float reduction_bon) {
+    public void setReduction_bon(double reduction_bon) {
         this.reduction_bon = reduction_bon;
     }
 

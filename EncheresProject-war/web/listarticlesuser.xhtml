@@ -81,11 +81,16 @@
                     <f:facet name="header">Actions</f:facet>
                     <h:form>
                         <h:commandButton value="Annuler" action='#{deposeArticleBean.annuleEnchere(row)}' rendered="${logBean.userPseudo() != row.article.utilisateur.pseudo and logBean.userPseudo() == row.lastEnchere().acheteur.pseudo}"/>
-                        <h:commandButton value="Retirer" action="#{deposeArticleBean.retirerEnchere(row.id)}" rendered="#{logBean.userPseudo() == row.article.utilisateur.pseudo}"/>
+                        <h:commandButton value="Retirer" action="#{deposeArticleBean.retirerEnchere(row.id)}" rendered="#{logBean.userPseudo() == row.article.utilisateur.pseudo and row.article.gagnant == null}"/>
                     </h:form>
                 </h:column>
                  
             </h:dataTable>
+        
+         <script type="text/javascript" src="js/sortedList.js" />
+        <div>
+            <h:button value="Add Article" outcome="#{deposeArticleBean.addArticle()}"/>
+        </div>
                  
            <h3>Mes articles gagnés</h3>
 
@@ -116,14 +121,12 @@
                     <f:facet name="header">Déposé par</f:facet>
                     #{row.article.utilisateur.pseudo}
                 </h:column>
-                   <c:if test="${logBean.isLog()}">
                   <h:column>
                     <f:facet name="header">Ajouter à mon panier</f:facet>
                     <h:form >
                       <h:commandButton value="Ajouter" action='#{deposeArticleBean.ajouterPanier(row)}'/>
                     </h:form>
                 </h:column>
-                   </c:if>
             </h:dataTable>
              
         
@@ -159,11 +162,11 @@
                 <h:button value="Send panier" outcome="#{deposeArticleBean.testPanier()}"
             </h:dataTable>
              
-         
-        <script type="text/javascript" src="js/sortedList.js" />
+           <script type="text/javascript" src="js/sortedList.js" />
         <div>
-            <h:button value="Add Article" outcome="#{deposeArticleBean.addArticle()}"/>
+            <h:button value="Confirmer le panier" outcome="#{deposeArticleBean.validerPanier()}"/>
         </div>
+       
     </h:body>
     
 </html>
