@@ -5,7 +5,6 @@
  */
 package manager;
 
-import dto.Article;
 import dto.Enchere;
 import dto.Utilisateur;
 import java.util.ArrayList;
@@ -47,7 +46,8 @@ public class EnchereManagerBean implements EnchereManagerBeanLocal {
     public List<Enchere> getEncheresByUser(Utilisateur user) {
         ArrayList<Enchere> result = new ArrayList<>();
         result.addAll(em.createQuery("SELECT e FROM Enchere e  WHERE e.article.utilisateur.id = " + user.getId()).getResultList());
-        result.addAll(em.createQuery("SELECT e FROM Enchere e JOIN e.acheteurs a WHERE a.id = " + user.getId()).getResultList());
+        result.addAll(em.createQuery("SELECT e FROM Enchere e JOIN e.acheteurs a WHERE a.acheteur.id = " + user.getId()).getResultList());
+        System.out.println("Resulte: " + result.size());
         return result;
     }
     
@@ -60,10 +60,26 @@ public class EnchereManagerBean implements EnchereManagerBeanLocal {
     @Override
     public void encherir(Enchere e, Utilisateur u, Double enchere) {
         Enchere en = (Enchere) em.find(Enchere.class, e.getId());
-        en.setPrix(en.getPrix()+enchere);
-        System.out.println(en.getPrix());
-        en.addAcheteur(u);
+        en.addAcheteur(u,enchere);
     }
-       
+    
+    public void retirerEnchere(Long id) {
+        Enchere en = (Enchere) em.find(Enchere.class, id);
+        em.remove(en);
+    }
+    
+    @Override
+    public void annuleEnchere(long user, long enchere) {
+        Utilisateur u = (Utilisateur) em.find(Utilisateur.class, user);
+        u.addAnnul();
+        if(u.getNbAnnul() >= 3){
+            for(Enchere e : (List<Enchere>) em.createQuery("SELECT e FROM Enchere e JOIN e.acheteurs a WHERE a.acheteur.id = " + user).getResultList()) {
+                e.removeAcheteur(u);
+            }
+        } else {
+            Enchere en = (Enchere) em.find(Enchere.class, enchere);
+            en.removeAcheteur(u);
+        }
+    }
     
 }

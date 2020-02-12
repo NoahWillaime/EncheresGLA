@@ -42,9 +42,6 @@ public class Article implements Serializable {
     @Column(name = "ARTICLE_DESCRIPTION")
     private String description;
     
-    @Column (name ="ARTICLE_PRIX")
-    private Double prix;
-    
     @ManyToMany
     private List<Categorie> categories;
     
@@ -57,10 +54,9 @@ public class Article implements Serializable {
     
     public Article(){}
     
-    public Article(String nom, String description, Double prix) {
+    public Article(String nom, String description) {
         this.nom = nom;
         this.description = description;
-        this.prix = prix;
         this.categories = new ArrayList<Categorie>();
     }
     
@@ -80,10 +76,6 @@ public class Article implements Serializable {
         this.description = description;
     }
 
-    public void setPrix(Double prix) {
-        this.prix = prix;
-    }
-
     public String getNom() {
         return nom;
     }
@@ -101,11 +93,6 @@ public class Article implements Serializable {
         this.utilisateur = utilisateur;
     }
     
-
-    public Double getPrix() {
-        return prix;
-    }
-
     public void addCategorie(Categorie categorie) {
         this.categories.add(categorie);
     }

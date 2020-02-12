@@ -21,4 +21,6 @@ public interface EnchereManagerBeanLocal {
     public List<Enchere> getEncheresByUser(Utilisateur user);
     public Enchere addEnchere(Enchere e);
     public void encherir(Enchere e, Utilisateur u, Double enchere);
+    public void annuleEnchere(long currentUser, long enchere);
+    public void retirerEnchere(Long id);
 }

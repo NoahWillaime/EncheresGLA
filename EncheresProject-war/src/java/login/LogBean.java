@@ -8,6 +8,7 @@ package login;
 import javax.ejb.EJB;
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Named;
+import dto.Utilisateur;
 import manager.LoginManagerBeanLocal;
 
 /**
@@ -30,6 +31,11 @@ public class LogBean {
     
     public String userPseudo() {
         return this.logManager.getCurrentUserPseudo();
+    }
+    
+    public Utilisateur getCurrentUser() {
+        System.out.println("nbAnnul: " + logManager.getCurrentUser().getNbAnnul());
+        return logManager.getCurrentUser();
     }
     
     public String register() {

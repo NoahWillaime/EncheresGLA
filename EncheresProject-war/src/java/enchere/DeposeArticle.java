@@ -69,10 +69,7 @@ public class DeposeArticle {
     
     private Date date;
     
-    private long[] categorie;
-    
-    private String valEnchere;
-   
+    private long[] categorie;   
     
     /**
      * Creates a new instance of Hello
@@ -151,10 +148,15 @@ public class DeposeArticle {
         return "listarticles";
     }
     
+    public String retirerEnchere(Long id) {
+        encheres.retirerEnchere(id);
+        return "listarticlesuser";
+    }
+    
     public String registerArticle() {     
-        Article article = new Article(this.getNom(), this.getDescription(), this.getPrix());
+        Article article = new Article(this.getNom(), this.getDescription());
         article.addUtilisateur(login.getCurrentUser());
-        Enchere enchere = new Enchere(article,null,getPrix(),getDate());
+        Enchere enchere = new Enchere(article,getPrix(),getDate());
         for (long l : categorie){
             for (Categorie c : this.getCategorieObjectArray())
                 if (c.getId() == l) {
@@ -176,6 +178,11 @@ public class DeposeArticle {
          return path;
      }
      
+     public String annuleEnchere(Enchere e){
+         encheres.annuleEnchere(login.getCurrentUser().getId(),e.getId());
+         return "listarticlesuser";
+     }
+     
  
       public List<Article> getArticlesByUsers(){
         return articles.getArticlesByUsers(login.getCurrentUser().getId());
@@ -193,15 +200,7 @@ public class DeposeArticle {
         }
         return result;
     }
-     
-     public String getValEnchere() {
-         return valEnchere;
-     }
-     
-     public void setValEnchere(String val) {
-         valEnchere = val;
-     }
-     
+    
      public void validateEnchere(FacesContext context, 
 			         UIComponent component, 
 			Object value) throws ValidatorException {
@@ -210,10 +209,12 @@ public class DeposeArticle {
          Enchere e = (Enchere) component.getAttributes().get("enchere");           
          try {
              Double v = Double.parseDouble(val);
+             if(e.lastEnchere().getPrix() >= v)
+                 throw new ValidatorException(new FacesMessage("Enchère trop faible"));
              if(e.getArticle().getUtilisateur() != null && user == e.getArticle().getUtilisateur().getPseudo())
                  throw new ValidatorException(new FacesMessage("Vous êtes le vendeur"));
              System.out.println("Teste = ");
-             if(e.getLastAcheteur() != null && user == e.getLastAcheteur().getPseudo())
+             if(e.lastEnchere().getAcheteur() != null && user == e.lastEnchere().getAcheteur().getPseudo())
                  throw new ValidatorException(new FacesMessage("Vous êtes le dernier acheteur"));
          } catch (NumberFormatException err) {
              throw new ValidatorException(new FacesMessage("Entrer une valeur numérique!"));

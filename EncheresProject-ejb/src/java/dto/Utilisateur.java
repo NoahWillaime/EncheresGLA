@@ -53,11 +53,17 @@ public class Utilisateur implements Serializable {
     private List<CompteBancaire> compteBancaire;
     
     @OneToMany (cascade = CascadeType.PERSIST, targetEntity = Article.class, mappedBy="Utilisateur")
-    private List<Article> articles;
+    private List<Article> articles;   
     
-    @ManyToMany (mappedBy="acheteurs")
-    private List<Enchere> encheres;
-   
+    @OneToMany(
+        mappedBy = "acheteur",
+        cascade = CascadeType.ALL,
+        orphanRemoval = true
+    )
+    private List<EnchereAcheteur> encheres = new ArrayList<>();
+    
+    @Column (name="UTILISATEUR_ANNULATION")
+    private int nbAnnul = 0;
     
     public Utilisateur(){}
     
@@ -70,6 +76,14 @@ public class Utilisateur implements Serializable {
         this.adresse = new ArrayList<Adresse>();
         this.articles = new ArrayList<Article>();
     }
+
+    public List<EnchereAcheteur> getEncheres() {
+        return encheres;
+    }
+
+    public void setEncheres(List<EnchereAcheteur> encheres) {
+        this.encheres = encheres;
+    }
     
     public Long getId() {
         return id;
@@ -77,6 +91,18 @@ public class Utilisateur implements Serializable {
 
     public String getNom() {
         return nom;
+    }
+
+    public int getNbAnnul() {
+        return nbAnnul;
+    }
+
+    public void setNbAnnul(int nbAnnul) {
+        this.nbAnnul = nbAnnul;
+    }
+    
+    public void addAnnul() {
+        this.nbAnnul++;
     }
 
     public String getPrenom() {
@@ -145,29 +171,17 @@ public class Utilisateur implements Serializable {
         return compteBancaire;
     }
     
-    @Override
+    @Override   
     public int hashCode() {
-        int hash = 0;
-        hash += (id != null ? id.hashCode() : 0);
-        return hash;
+        return Objects.hash(id);
     }
 
     @Override
-    public boolean equals(Object obj) {
-        if (this == obj) {
-            return true;
-        }
-        if (obj == null) {
-            return false;
-        }
-        if (getClass() != obj.getClass()) {
-            return false;
-        }
-        final Utilisateur other = (Utilisateur) obj;
-        if (!Objects.equals(this.id, other.id)) {
-            return false;
-        }
-        return true;
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Utilisateur tag = (Utilisateur) o;
+        return Objects.equals(id, tag.id);
     }
     
     
