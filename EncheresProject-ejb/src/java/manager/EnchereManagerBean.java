@@ -53,8 +53,8 @@ public class EnchereManagerBean implements EnchereManagerBeanLocal {
     @Override
     public List<Enchere> getEncheresByUser(Utilisateur user) {
         ArrayList<Enchere> result = new ArrayList<>();
-        result.addAll(em.createQuery("SELECT e FROM Enchere e  WHERE e.article.utilisateur.id = " + user.getId()).getResultList());
-        result.addAll(em.createQuery("SELECT e FROM Enchere e JOIN e.acheteurs a WHERE a.id = " + user.getId()).getResultList());
+        result.addAll(em.createQuery("SELECT e FROM Enchere e WHERE e.article.utilisateur.id = " + user.getId()).getResultList());
+        result.addAll(em.createQuery("SELECT e FROM Enchere e JOIN e.acheteurs a WHERE a.id = " + user.getId() + " AND e.article.status not LIKE '%finie%'").getResultList());
         return result;
     }
     
@@ -68,7 +68,7 @@ public class EnchereManagerBean implements EnchereManagerBeanLocal {
     @Override
     public List<Enchere> findByWinner(Utilisateur gagnant) {
         if(gagnant != null) {
-            return em.createQuery("SELECT e FROM Enchere e WHERE e.article.gagnant.id = " + gagnant.getId())
+            return em.createQuery("SELECT e FROM Enchere e WHERE e.article.gagnant.id = " + gagnant.getId() + " AND e.article.panier = false")
                     .getResultList();
      
         }
@@ -85,6 +85,7 @@ public class EnchereManagerBean implements EnchereManagerBeanLocal {
        System.out.println(article.getNom());
        Utilisateur gagnant = enchere.getLastAcheteur();
        enchere.setFin(true);
+       article.setStatus("finie");
        article.setGagnant(gagnant);
        em.persist(enchere);
        em.persist(article);

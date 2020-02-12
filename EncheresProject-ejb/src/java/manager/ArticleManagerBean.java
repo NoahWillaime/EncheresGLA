@@ -63,6 +63,19 @@ public class ArticleManagerBean implements ArticleManagerBeanLocal {
          List<Article> article = em.createQuery("SELECT a FROM Article a WHERE a.utilisateur.id = "+ id).getResultList();
         return article;
     }
+    
+    @Override
+    public void setPanier(Long idArticle, boolean panier){
+        Article article = (Article)em.createQuery("SELECT a FROM Article a WHERE a.id = " + idArticle).getResultList().get(0);
+        
+        article.setPanier(panier);
+    }
+    
+    @Override
+    public List<Article> getArticlesFromPanier(Long userId){
+        List<Article> articles = em.createQuery("SELECT a FROM Article a WHERE a.gagnant.id = " + userId + " AND a.panier = true").getResultList();
+        return articles;
+    }
    
     @Override
     public void removeArticle(Long id){

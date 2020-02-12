@@ -195,7 +195,7 @@ public class DeposeArticle {
      public List<Enchere> allVisibleArticles(){
         ArrayList<Enchere> result = new ArrayList<>();
         for (Enchere e : encheres.getAll()){
-            if(e.getDate().after(new Date()))
+            if(!e.getFin())
             result.add(e);
         }
         return result;
@@ -209,9 +209,16 @@ public class DeposeArticle {
          valEnchere = val;
      }
      
-     public void validateEnchere(FacesContext context, 
-			         UIComponent component, 
-			Object value) throws ValidatorException {
+     public void ajouterPanier(Enchere enchere) {
+       //  System.out.println(enchere.getId());
+         articles.setPanier(enchere.getArticle().getId(), true);
+     }
+     
+     public List<Article> getArticlesPanier(){
+        return articles.getArticlesFromPanier(login.getCurrentUser().getId());
+     }
+     
+     public void validateEnchere(FacesContext context, UIComponent component, Object value) throws ValidatorException {
          String val = String.valueOf(value);
          String user = (String) component.getAttributes().get("user");
          Enchere e = (Enchere) component.getAttributes().get("enchere");           

@@ -49,9 +49,14 @@ public class Article implements Serializable {
     private List<Categorie> categories;
     
     
+    @Column(name = "ARTICLE_PANIER")
+    private boolean panier;
+    
     @ManyToOne
     private Utilisateur utilisateur;
     
+    @Column (name = "ARTICLE_STATUS")
+    private String status;
     
     @ManyToOne
     private Utilisateur gagnant;
@@ -63,7 +68,29 @@ public class Article implements Serializable {
         this.description = description;
         this.prix = prix;
         this.categories = new ArrayList<Categorie>();
+        this.panier = false;
+        this.status = "vente";
     }
+
+    public boolean isPanier() {
+        return panier;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
+    
+    
+
+    public void setPanier(boolean panier) {
+        this.panier = panier;
+    }
+   
+    
     
     public Long getId() {
         return id;

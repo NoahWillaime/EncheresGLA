@@ -40,6 +40,8 @@ public class ArticleSingleton implements ArticleSingletonLocal {
         Calendar c = Calendar.getInstance();
         c.set(2100, 1, 1);
         Article aa = new Article("stylo", "tr0bi1", 2.0);
+        
+       
         Enchere ea = new Enchere(aa,null,25.01,c.getTime());
         c.set(2050,3,1);
         Article ab = new Article("gamer grill bath water", "potable btw", 999.0);
@@ -53,8 +55,10 @@ public class ArticleSingleton implements ArticleSingletonLocal {
 
         Utilisateur user = new Utilisateur("Julien", "Micheletti", "julien", "mdp");
         Utilisateur user2 = new Utilisateur("Guillaume", "Micheletti", "gg", "mdp");
-        aa.addUtilisateur(user);
+        aa.addUtilisateur(user2);
         eb.addAcheteur(user);
+        
+        aa.setGagnant(user);
         em.persist(aa);
         em.persist(ab);
         em.persist(ac);
