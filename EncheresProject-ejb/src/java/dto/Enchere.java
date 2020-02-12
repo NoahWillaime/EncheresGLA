@@ -60,7 +60,7 @@ public class Enchere implements Serializable {
         CascadeType.PERSIST,
         CascadeType.MERGE
     })
-    private List<Promotion> promotions;
+    private List<Promotion> promotions = new ArrayList<>();
     
     public Enchere() {
     }
@@ -175,5 +175,17 @@ public class Enchere implements Serializable {
     @Override
     public String toString() {
         return "Enchere{" + "id=" + id + ", article=" + article + ", prix=" + prix + ", date=" + date + '}';
-    }    
+    }   
+    
+    public boolean hasPromo() {
+        if(promotions.size() > 0)
+            return true;
+        return false;
+    }
+    
+    public double getPrixFinal() {
+        if(hasPromo())
+            return lastEnchere().getPrix() * promotions.get(0).getReduction_bon()+ 10 * promotions.get(0).getReduction_transport();
+        return lastEnchere().getPrix();
+    }
 }

@@ -29,6 +29,8 @@ import javax.validation.constraints.Future;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
+import jms.Facturation;
+import jms.Livraison;
 import manager.CategorieManagerBeanLocal;
 import manager.EnchereManagerBean;
 import manager.EnchereManagerBeanLocal;
@@ -246,6 +248,23 @@ public class DeposeArticle {
             if(date.getTime() <= new Date().getTime())
                 throw new ValidatorException(new FacesMessage("La date doit être dans le future!"));
                
+     }
+     
+     public double getPrixPanier() {
+         double prix = 0;
+         for(Enchere e : articles.getArticlesFromPanier(login.getCurrentUser().getId())) {
+             prix += e.getPrixFinal();
+         }
+         return prix;
+     }
+     
+     public String commander() {
+         ArrayList<Article> panier = new ArrayList<>();
+         for(Enchere e : getEncheresPanier())
+             panier.add(e.getArticle());
+         Facturation facture = new Facturation(login.getCurrentUser(), panier, getPrixPanier());
+         Livraison livraison = new Livraison(login.getCurrentUser(), panier);
+         return "validationCommande";
      }
     
 }

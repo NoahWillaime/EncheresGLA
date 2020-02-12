@@ -20,7 +20,7 @@ and open the template in the editor.
     <h:body>
           <ui:include src="logHeader.xhtml"/>
          
-       <h3>Mes informations</h3>
+       <h3>Adresse de livraison</h3>
 
             <h:dataTable var="row" 
                          value="#{logBean.currentUser.adresse}"
@@ -38,8 +38,47 @@ and open the template in the editor.
                     <f:facet name="header">Ville</f:facet>
                     #{row.ville}
                 </h:column>
-     
-              
             </h:dataTable>
+       
+       <h3>Article du panier</h3>
+       <h:dataTable var="row" 
+                    value="#{deposeArticleBean.encheresPanier}"
+                         border="1" 
+                         class="avectri">
+                <h:column>
+                    <f:facet name="header">Nom</f:facet>
+                    #{row.article.nom}
+                </h:column>
+                <h:column>
+                    <f:facet name="header">Prix </f:facet>
+                    #{row.prix}
+                </h:column>
+           <h:column>
+               <f:facet name="header">Promotion</f:facet>
+               <h:outputText rendered="#{row.hasPromo()}" value="#{row.promotions.get(0).nom}"/>
+           </h:column>
+           <h:column>
+               <f:facet name="header">Frais de port</f:facet>
+               <h:outputText rendered="#{row.hasPromo()}" value="#{10 * row.promotions.get(0).reduction_transport}"/>
+               <h:outputText rendered="#{!row.hasPromo()}" value="10"/>
+           </h:column>
+           <h:column>
+               <f:facet name="header">Prix avec réduction</f:facet>
+               <h:outputText rendered="#{row.hasPromo()}" value="#{row.prix * row.promotions.get(0).reduction_bon}"/>
+               <h:outputText rendered="#{!row.hasPromo()}" value="#{row.prix}"/>
+           </h:column>
+           <h:column>
+               <f:facet name="header">Prix final</f:facet>
+               #{row.prixFinal}
+           </h:column>
+            </h:dataTable>
+       
+       <h3>Prix du panier</h3>
+       <h3>#{deposeArticleBean.prixPanier}</h3>
+       
+       <h:form>
+           <h:commandButton value="Commander" action="#{deposeArticleBean.commander()}"/>
+       </h:form>
+       
     </h:body>
 </html>

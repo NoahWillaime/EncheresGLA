@@ -9,6 +9,7 @@ import dto.Adresse;
 import dto.Article;
 import dto.Enchere;
 import dto.Categorie;
+import dto.Promotion;
 import java.util.Calendar;
 import dto.Utilisateur;
 import javax.annotation.PostConstruct;
@@ -17,6 +18,7 @@ import javax.ejb.Singleton;
 import javax.ejb.Startup;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import schedule.GeneratePromotionBeanLocal;
 
 /**
  *
@@ -30,6 +32,9 @@ public class ArticleSingleton implements ArticleSingletonLocal {
 
     @EJB
     private CategorieManagerBeanLocal categorieManagerBean;
+    
+    @EJB
+    private GeneratePromotionBeanLocal generatePromotionBeanLocal;
     
     
     @EJB
@@ -62,6 +67,7 @@ public class ArticleSingleton implements ArticleSingletonLocal {
         ad.addUtilisateur(user);
         eb.addAcheteur(user,10.0);
         aa.setGagnant(user2);
+        ea.addPromotions(new Promotion("Bon d'achat", 0.5, 0.75));
         em.persist(aa);
         em.persist(ab);
         em.persist(ac);
