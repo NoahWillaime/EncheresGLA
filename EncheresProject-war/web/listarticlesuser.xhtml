@@ -6,25 +6,29 @@
       xmlns:c="http://java.sun.com/jsp/jstl/core"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
    
-        <link href="https://unpkg.com/material-components-web@latest/dist/material-components-web.min.css" rel="stylesheet"/>
-        <script src="https://unpkg.com/material-components-web@latest/dist/material-components-web.min.js"></script>
+        <!-- Compiled and minified CSS -->
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css"/>
+
+        <!-- Compiled and minified JavaScript -->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
         <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons"/>
         <link rel="stylesheet" type="text/css" href="css/style.css"></link>
         <title>Registration page</title>
     <h:body>
 <ui:include src="logHeader.xhtml"/>
 <c:set var="enchere" value="" scope="request"/>
-       
-            
-        <h3>Mes enchères </h3>
-        <c:if test="#{logBean.currentUser.nbAnnul >= 3}">
+       <div class="row" style="margin-top: 50px;">
+            <div class="col s10 offset-s1" >
+            <div class="card">
+              <div class="card-content" style="margin: 0; padding: 0">
+                  <div class="card-title blue white-text  valign-wrapper" style="height: 80px"><div class="row center-align" style="padding-top: 28px;">Mes enchères</div></div>
+                <c:if test="#{logBean.currentUser.nbAnnul >= 3}">
             <h4 style="color: red;">Vous avez annulé 3 enchères vous ne pouvez plus en liciter de nouvelles</h4>
         </c:if>
 
             <h:dataTable var="row" 
-                         value="#{deposeArticleBean.getEncheresByUser()}"
-                         border="1" 
-                         class="avectri">
+                         value="#{deposeArticleBean.getEncheresByUser()}" 
+                         class="avectri striped">
                 <h:column>
                     <f:facet name="header">Nom</f:facet>
                     #{row.article.nom}
@@ -80,24 +84,25 @@
                     
                     <f:facet name="header">Actions</f:facet>
                     <h:form>
-                        <h:commandButton value="Annuler" action='#{deposeArticleBean.annuleEnchere(row)}' rendered="${logBean.userPseudo() != row.article.utilisateur.pseudo and logBean.userPseudo() == row.lastEnchere().acheteur.pseudo}"/>
-                        <h:commandButton value="Retirer" action="#{deposeArticleBean.retirerEnchere(row.id)}" rendered="#{logBean.userPseudo() == row.article.utilisateur.pseudo and row.article.gagnant == null}"/>
+                        <h:commandButton value="Annuler" class="btn blue" action='#{deposeArticleBean.annuleEnchere(row)}' rendered="${logBean.userPseudo() != row.article.utilisateur.pseudo and logBean.userPseudo() == row.lastEnchere().acheteur.pseudo}"/>
+                        <h:commandButton value="Retirer" class="btn blue" action="#{deposeArticleBean.retirerEnchere(row.id)}" rendered="#{logBean.userPseudo() == row.article.utilisateur.pseudo and row.article.gagnant == null}"/>
                     </h:form>
                 </h:column>
                  
             </h:dataTable>
-        
-         <script type="text/javascript" src="js/sortedList.js" />
-        <div>
-            <h:button value="Add Article" outcome="#{deposeArticleBean.addArticle()}"/>
+              </div>
+            </div>
+          </div>
         </div>
-                 
-           <h3>Mes articles gagnés</h3>
 
-            <h:dataTable var="row" 
+<div class="row" style="margin-top: 50px;">
+            <div class="col s10 offset-s1" >
+            <div class="card">
+              <div class="card-content" style="margin: 0; padding: 0">
+                  <div class="card-title blue white-text  valign-wrapper" style="height: 80px"><div class="row center-align" style="padding-top: 28px;">Mes articles gagnés</div></div>
+                    <h:dataTable var="row" 
                          value="#{deposeArticleBean.getArticlesGagnesByUser()}"
-                         border="1" 
-                         class="avectri">
+                         class="avectri striped">
                 <h:column>
                     <f:facet name="header">Nom</f:facet>
                     #{row.article.nom}
@@ -124,18 +129,26 @@
                   <h:column>
                     <f:facet name="header">Ajouter à mon panier</f:facet>
                     <h:form >
-                      <h:commandButton value="Ajouter" action='#{deposeArticleBean.ajouterPanier(row)}'/>
+                        <h:commandButton value="Ajouter" class="btn blue" action='#{deposeArticleBean.ajouterPanier(row)}'/>
                     </h:form>
                 </h:column>
             </h:dataTable>
-             
-        
-         <h3>Mon panier</h3>
+              </div>
+            </div>
+          </div>
+        </div>
 
-            <h:dataTable var="row" 
+        <div class="row" style="margin-top: 50px;">
+            <div class="col s10 offset-s1" >
+            <div class="card">
+              <div class="card-content" style="margin: 0; padding: 0">
+                  <div class="card-title blue white-text  valign-wrapper" style="height: 80px"><div class="row center-align" style="padding-top: 28px;">Mon panier</div></div>
+                  <div class="col s12 center-align">
+                      <h:button value="Confirmer le panier" class="btn blue" outcome="#{deposeArticleBean.validerPanier()}"/>
+                </div>  
+                  <h:dataTable var="row" 
                          value="#{deposeArticleBean.getEncheresPanier()}"
-                         border="1" 
-                         class="avectri">
+                         class="avectri striped">
                 <h:column>
                     <f:facet name="header">Nom</f:facet>
                     #{row.article.nom}
@@ -161,12 +174,16 @@
                 </h:column>
               
             </h:dataTable>
-             
+                  
+              </div>
+            </div>
+          </div>
+        </div>  
            <script type="text/javascript" src="js/sortedList.js" />
-        <div>
-            <h:button value="Confirmer le panier" outcome="#{deposeArticleBean.validerPanier()}"/>
-        </div>
        
+       <script type="text/javascript">
+            M.AutoInit();
+        </script>
     </h:body>
     
 </html>

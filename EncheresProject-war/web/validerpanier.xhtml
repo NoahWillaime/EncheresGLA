@@ -11,74 +11,116 @@ and open the template in the editor.
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
     <h:head>
-        <link href="https://unpkg.com/material-components-web@latest/dist/material-components-web.min.css" rel="stylesheet"/>
-        <script src="https://unpkg.com/material-components-web@latest/dist/material-components-web.min.js"></script>
+        <!-- Compiled and minified CSS -->
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css"/>
+
+        <!-- Compiled and minified JavaScript -->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
         <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons"/>
         <link rel="stylesheet" type="text/css" href="css/style.css"></link>
         <title>Registration page</title>
     </h:head>
     <h:body>
           <ui:include src="logHeader.xhtml"/>
-         
-       <h3>Adresse de livraison</h3>
+          <div class="row">
+            <div class="col s8 offset-s2">
+              <div class="card white">
+                <div class="card-content" style="padding: 0; margin: 0;">
+                    <div class="card-title blue white-text  valign-wrapper" style="height: 80px"><div class="row center-align" style="padding-top: 28px;">Inscription</div></div>   
+                    <div class="row" style="padding: 0; margin: 0;" >
+                        <div class="col s12" style="padding: 0; margin-top: -15px; margin-bottom: -15px" >
+                            <h:form>
+                                 <ul class="collapsible">
+                                     <li>
+                                        <div class="collapsible-header"><i class="material-icons">home</i>Adresse de livraison</div>
+                                        <div class="collapsible-body">
+                                            <h:dataTable var="row" 
+                                                    value="#{logBean.currentUser.adresse}"
+                                                    class="avectri striped">
+                                           <h:column>
+                                               <f:facet name="header">Rue</f:facet>
+                                               #{row.rue}
+                                           </h:column>
+                                           <h:column>
+                                               <f:facet name="header">Code postal </f:facet>
+                                               #{row.code}
+                                           </h:column>
+                                            <h:column>
+                                               <f:facet name="header">Ville</f:facet>
+                                               #{row.ville}
+                                           </h:column>
+                                       </h:dataTable>
+                                        </div>
+                                      </li>
+                                     <li>
+                                        <div class="collapsible-header"><i class="material-icons">monetization_on</i>Paiement</div>
+                                        <div class="collapsible-body">
+                                            <div class="row">
+                                                <div class="input-field col s4 offset-s2 center-align">
+                                                    <span>Nom de compte: #{logBean.currentUser.compteBancaire.get(0).nom}</span>
+                                                </div>
+                                                <div class="input-field col s4">
+                                                    <span>RIB: #{logBean.currentUser.compteBancaire.get(0).rib}</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                      </li>
+                                     <li>
+                                        <div class="collapsible-header"><i class="material-icons">local_grocery_store</i>Panier</div>
+                                        <div class="collapsible-body">
+                                            <h:dataTable var="row" 
+                                                        value="#{deposeArticleBean.encheresPanier}"
+                                                             class="avectri striped">
+                                                    <h:column>
+                                                        <f:facet name="header">Nom</f:facet>
+                                                        #{row.article.nom}
+                                                    </h:column>
+                                                    <h:column>
+                                                        <f:facet name="header">Prix </f:facet>
+                                                        #{row.prix}
+                                                    </h:column>
+                                               <h:column>
+                                                   <f:facet name="header">Promotion</f:facet>
+                                                   <h:outputText rendered="#{row.hasPromo()}" value="#{row.promotions.get(0).nom}"/>
+                                               </h:column>
+                                               <h:column>
+                                                   <f:facet name="header">Frais de port</f:facet>
+                                                   <h:outputText rendered="#{row.hasPromo()}" value="#{10 * row.promotions.get(0).reduction_transport}"/>
+                                                   <h:outputText rendered="#{!row.hasPromo()}" value="10"/>
+                                               </h:column>
+                                               <h:column>
+                                                   <f:facet name="header">Prix avec réduction</f:facet>
+                                                   <h:outputText rendered="#{row.hasPromo()}" value="#{row.prix * row.promotions.get(0).reduction_bon}"/>
+                                                   <h:outputText rendered="#{!row.hasPromo()}" value="#{row.prix}"/>
+                                               </h:column>
+                                               <h:column>
+                                                   <f:facet name="header">Prix final</f:facet>
+                                                   #{row.prixFinal}
+                                               </h:column>
+                                                </h:dataTable>
+                                        </div>
+                                      </li>
+                                     <li>
+                                         <div class="collapsible-header center-align">
+                                             <div class="col s12 center-align">
+                                                 <h:commandButton value="Commander" class="btn center-align blue" 
+                                                         action="#{deposeArticleBean.commander()}"/>
+                                                 Prix du panier:  #{deposeArticleBean.prixPanier}
+                                             </div>
+                                         </div>
+                                     </li>
+                                 </ul>
 
-            <h:dataTable var="row" 
-                         value="#{logBean.currentUser.adresse}"
-                         border="1" 
-                         class="avectri">
-                <h:column>
-                    <f:facet name="header">Rue</f:facet>
-                    #{row.rue}
-                </h:column>
-                <h:column>
-                    <f:facet name="header">Code postal </f:facet>
-                    #{row.code}
-                </h:column>
-                 <h:column>
-                    <f:facet name="header">Ville</f:facet>
-                    #{row.ville}
-                </h:column>
-            </h:dataTable>
-       
-       <h3>Article du panier</h3>
-       <h:dataTable var="row" 
-                    value="#{deposeArticleBean.encheresPanier}"
-                         border="1" 
-                         class="avectri">
-                <h:column>
-                    <f:facet name="header">Nom</f:facet>
-                    #{row.article.nom}
-                </h:column>
-                <h:column>
-                    <f:facet name="header">Prix </f:facet>
-                    #{row.prix}
-                </h:column>
-           <h:column>
-               <f:facet name="header">Promotion</f:facet>
-               <h:outputText rendered="#{row.hasPromo()}" value="#{row.promotions.get(0).nom}"/>
-           </h:column>
-           <h:column>
-               <f:facet name="header">Frais de port</f:facet>
-               <h:outputText rendered="#{row.hasPromo()}" value="#{10 * row.promotions.get(0).reduction_transport}"/>
-               <h:outputText rendered="#{!row.hasPromo()}" value="10"/>
-           </h:column>
-           <h:column>
-               <f:facet name="header">Prix avec réduction</f:facet>
-               <h:outputText rendered="#{row.hasPromo()}" value="#{row.prix * row.promotions.get(0).reduction_bon}"/>
-               <h:outputText rendered="#{!row.hasPromo()}" value="#{row.prix}"/>
-           </h:column>
-           <h:column>
-               <f:facet name="header">Prix final</f:facet>
-               #{row.prixFinal}
-           </h:column>
-            </h:dataTable>
-       
-       <h3>Prix du panier</h3>
-       <h3>#{deposeArticleBean.prixPanier}</h3>
-       
-       <h:form>
-           <h:commandButton value="Commander" action="#{deposeArticleBean.commander()}"/>
-       </h:form>
-       
+                                
+                            </h:form>
+                        </div>
+                    </div>                  
+                </div>
+              </div>
+            </div>
+        </div>
+        <script type="text/javascript">
+            M.AutoInit();
+        </script>  
     </h:body>
 </html>
