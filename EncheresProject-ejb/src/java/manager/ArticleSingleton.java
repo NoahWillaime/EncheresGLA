@@ -9,6 +9,7 @@ import dto.Adresse;
 import dto.Article;
 import dto.Enchere;
 import dto.Categorie;
+import dto.CompteBancaire;
 import dto.Promotion;
 import java.util.Calendar;
 import dto.Utilisateur;
@@ -59,6 +60,7 @@ public class ArticleSingleton implements ArticleSingletonLocal {
 
         Utilisateur user = new Utilisateur("Julien", "Micheletti", "julien", "mdp");
         Utilisateur user2 = new Utilisateur("Guillaume", "Micheletti", "gg", "mdp");
+        user2.addCompteBancaire(new CompteBancaire("Orange Banque", "FR65464856412"));
         Adresse adresse = new Adresse("rue", "390", "mexy");
         user2.addAdresse(adresse);
         aa.addUtilisateur(user);

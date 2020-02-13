@@ -5,91 +5,134 @@
       xmlns:f="http://xmlns.jcp.org/jsf/core"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
     <h:head>
-        <link href="https://unpkg.com/material-components-web@latest/dist/material-components-web.min.css" rel="stylesheet"/>
-        <script src="https://unpkg.com/material-components-web@latest/dist/material-components-web.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+        <!-- Compiled and minified CSS -->
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css"/>
+
+        <!-- Compiled and minified JavaScript -->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
         <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons"/>
         <link rel="stylesheet" type="text/css" href="css/style.css"></link>
         <title>Registration page</title>
     </h:head>
     <h:body>
-        <ui:include src="logHeader.xhtml"/>
-        <h:form>
+        <div class="row">
+            <div class="col s8 offset-s2">
+              <div class="card white">
+                <div class="card-content" style="padding: 0; margin: 0;">
+                    <div class="card-title blue white-text  valign-wrapper" style="height: 80px"><div class="row center-align" style="padding-top: 28px;">Inscription</div></div>   
+                    <div class="row" style="padding: 0; margin: 0;" >
+                        <div class="col s12" style="padding: 0; margin-top: -15px; margin-bottom: -15px" >
+                            <h:form>
+                                 <ul class="collapsible">
+                                     <li>
+                                        <div class="collapsible-header"><i class="material-icons">person</i>Identité</div>
+                                        <div class="collapsible-body">
+                                            <div class="row">
+                                                <div class="input-field col s4 offset-s2">
+                                                    <h:inputText value="#{utilisateurBean.nom}" class="" requiredMessage="Nom obligatoire!"
+                                                             id="nomInput">
+                                                    </h:inputText>
+                                                    <label for="first_name">Nom</label>
+                                                    <h:message style="color: red" for="nomInput"/>
+                                                </div>
+                                                <div class="input-field col s4">
+                                                    <h:inputText value="#{utilisateurBean.prenom}" class="" requiredMessage="Prenom obligatoire!"
+                                                             id="prenomInput">
+                                                    </h:inputText>
+                                                    <label for="first_name">Prénom</label>
+                                                    <h:message style="color: red" for="prenomInput"/>
+                                                </div>
+                                            </div>
+                                        </div>
+                                      </li>
+                                     <li>
+                                        <div class="collapsible-header"><i class="material-icons">enhanced_encryption</i>Identifiants</div>
+                                        <div class="collapsible-body">
+                                            <div class="row">
+                                                <div class="input-field col s4 offset-s2">
+                                                    <h:inputText value="#{utilisateurBean.pseudo}" class="" requiredMessage="Pseudo obligatoire!"
+                                                             id="pseudoInput">
+                                                    </h:inputText>
+                                                    <label for="first_name">Pseudo</label>
+                                                    <h:message style="color: red" for="pseudoInput"/>
+                                                </div>
+                                                <div class="input-field col s4">
+                                                    <h:inputText value="#{utilisateurBean.mdp}" class="" requiredMessage="Mot de passe obligatoire!"
+                                                             id="mdpInput">
+                                                    </h:inputText>
+                                                    <label for="first_name">Prénom</label>
+                                                    <h:message style="color: red" for="mdpInput"/>
+                                                </div>
+                                            </div>
+                                        </div>
+                                      </li>
+                                     <li>
+                                        <div class="collapsible-header"><i class="material-icons">home</i>Adresse</div>
+                                        <div class="collapsible-body">
+                                            <div class="row">
+                                                <div class="input-field col s4 offset-s1">
+                                                    <h:inputText value="#{utilisateurBean.rue}" class="" requiredMessage="Rue obligatoire!"
+                                                             id="rueInput">
+                                                    </h:inputText>
+                                                    <label for="first_name">Rue</label>
+                                                    <h:message style="color: red" for="rueInput"/>
+                                                </div>
+                                                <div class="input-field col s3">
+                                                    <h:inputText value="#{utilisateurBean.ville}" class="" requiredMessage="Ville obligatoire!"
+                                                             id="villeInput">
+                                                    </h:inputText>
+                                                    <label for="first_name">Ville</label>
+                                                    <h:message style="color: red" for="villeInput"/>
+                                                </div>
+                                                <div class="input-field col s3">
+                                                    <h:inputText value="#{utilisateurBean.codePostal}" class="" requiredMessage="Code postal obligatoire!"
+                                                             id="codePostalInput">
+                                                    </h:inputText>
+                                                    <label for="first_name">Code Postal</label>
+                                                    <h:message style="color: red" for="codePostalInput"/>
+                                                </div>
+                                            </div>
+                                        </div>
+                                      </li>
+                                     <li>
+                                        <div class="collapsible-header"><i class="material-icons">monetization_on</i>Informations bancaires</div>
+                                        <div class="collapsible-body">
+                                            <div class="row">
+                                                <div class="input-field col s4 offset-s2">
+                                                    <h:inputText value="#{utilisateurBean.nomCompte}" class="" requiredMessage="Nom de compte obligatoire!"
+                                                             id="nomCompteInput">
+                                                    </h:inputText>
+                                                    <label for="first_name">Nom de compte</label>
+                                                    <h:message style="color: red" for="nomCompteInput"/>
+                                                </div>
+                                                <div class="input-field col s4">
+                                                    <h:inputText value="#{utilisateurBean.rib}" class="" requiredMessage="RIB obligatoire!"
+                                                             id="ribInput">
+                                                    </h:inputText>
+                                                    <label for="first_name">RIB</label>
+                                                    <h:message style="color: red" for="ribInput"/>
+                                                </div>
+                                            </div>
+                                        </div>
+                                      </li>
+                                     <li>
+                                         <div class="collapsible-header center-align"><div class="col s12 center-align"><h:commandButton value="Submit" class="btn center-align blue" 
+                                                         action="#{utilisateurBean.registerUtilisateur()}"/></div></div>
+                                     </li>
+                                 </ul>
 
-            <fieldset>
-                <legend>Registration Form </legend>
-
-                Nom: 
-                <h:inputText value="#{utilisateurBean.nom}" 
-                             id="nomInput">
-                </h:inputText>
-                <br/>
-
-                Prenom: 
-                <h:inputText value="#{utilisateurBean.prenom}" 
-                             id="prenomInput">
-                </h:inputText>
-                <br/>
-
-            </fieldset>
-            
-            <fieldset>
-                Pseudo: 
-                <h:inputText value="#{utilisateurBean.pseudo}" 
-                             id="pseudoInput">
-                </h:inputText>
-                <br/>
-                
-                Mot de passe: 
-                <h:inputText value="#{utilisateurBean.mdp}" 
-                             id="mdpInput">
-                </h:inputText>
-                
-                <br/>
-                               
-                          
-            </fieldset>
-            
-             <fieldset>
-                Rue: 
-                <h:inputText value="#{utilisateurBean.rue}" 
-                             id="rueInput">
-                </h:inputText>
-                <br/>
-                
-                Ville: 
-                <h:inputText value="#{utilisateurBean.ville}" 
-                             id="villeInput">
-                </h:inputText>
-                            
-                Code postal: 
-                <h:inputText value="#{utilisateurBean.codePostal}" 
-                             id="codePostalInput">
-                </h:inputText>
-                <br/>                      
-            </fieldset>
-            
-                
-             <fieldset>
-                Nom du compte: 
-                <h:inputText value="#{utilisateurBean.nomCompte}" 
-                             id="nomCompteInput">
-                </h:inputText>
-                <br/>
-                
-                RIB: 
-                <h:inputText value="#{utilisateurBean.rib}" 
-                             id="ribInput">
-                </h:inputText>
-                            
-                <br/>        
-            </fieldset>
-          
-            
-               <br/>
-                <h:commandButton value="Submit" 
-                                 action="#{utilisateurBean.registerUtilisateur()}"/>
-                <br/>     
-        </h:form>
+                                
+                            </h:form>
+                        </div>
+                    </div>                  
+                </div>
+              </div>
+            </div>
+        </div>
+        <script type="text/javascript">
+            M.AutoInit();
+        </script>
     </h:body>
 </html>
 

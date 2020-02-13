@@ -65,7 +65,7 @@ public class LoginBean {
         if (logManager.validateLogin(pseudo, motdepasse).size() != 1)
             this.errorMessage = "Identifiants incorrects";
         else
-            return "articles";
+            return "listarticles";
         return "login";
     }
 }

@@ -19,6 +19,8 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.Set;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.faces.application.FacesMessage;
@@ -75,7 +77,7 @@ public class DeposeArticle {
     
     private Date date;
     
-    private long[] categorie;   
+    private HashMap<Long,Boolean> categorie = new HashMap<>();   
     
     /**
      * Creates a new instance of Hello
@@ -89,15 +91,26 @@ public class DeposeArticle {
     }
     
      public Categorie[] getCategorieObjectArray(){
+         Categorie[] cat = categories.getAll();
+         if(categorie.size() == 0) {
+             System.out.println("ici");
+            for(Categorie c : cat) {
+                categorie.put(c.getId(), false);
+            }
+         }
         return categories.getAll();
     }
      
+     
     
-   public long[] getCategorie(){
+   public HashMap<Long,Boolean> getCategorie(){
+      getCategorieObjectArray();
+      for(Map.Entry<Long,Boolean> e : categorie.entrySet())
+            System.out.println( e.getKey()+" Value: " + e.getValue());
       return categorie;
    }
    
-   public void setCategorie(long[] categorie){
+   public void setCategorie(HashMap<Long,Boolean> categorie){
        this.categorie = categorie;
    }
     
@@ -136,13 +149,18 @@ public class DeposeArticle {
         return date;
     }
 
+    public void setCheck(Long id, boolean value) {
+        categorie.replace(id, value);
+        for(Map.Entry<Long,Boolean> e : categorie.entrySet())
+            System.out.println( e.getKey()+" Value: " + e.getValue());
+    }
  
   /*  public String sayHello() {
         return nameHandler.greeetingsMessage(this.getNickname());  
     }*/
     
     public String addArticle(){
-        return "articles";
+        return "articles.xhtml";
     }
     
     public String listArticles(){
@@ -163,9 +181,10 @@ public class DeposeArticle {
         Article article = new Article(this.getNom(), this.getDescription());
         article.addUtilisateur(login.getCurrentUser());
         Enchere enchere = new Enchere(article,getPrix(),getDate());
-        for (long l : categorie){
-            for (Categorie c : this.getCategorieObjectArray())
-                if (c.getId() == l) {
+        for(Map.Entry<Long,Boolean> e : categorie.entrySet())
+            System.out.println("Value: " + e.getValue());
+        for (Categorie c : categories.getAll()){
+                if (categorie.get(c.getId())) {
                     article.addCategorie(c);
                 }
         }

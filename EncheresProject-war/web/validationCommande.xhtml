@@ -11,18 +11,28 @@ and open the template in the editor.
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
     <h:head>
-        <link href="https://unpkg.com/material-components-web@latest/dist/material-components-web.min.css" rel="stylesheet"/>
-        <script src="https://unpkg.com/material-components-web@latest/dist/material-components-web.min.js"></script>
+        <!-- Compiled and minified CSS -->
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css"/>
+
+        <!-- Compiled and minified JavaScript -->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
         <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons"/>
         <link rel="stylesheet" type="text/css" href="css/style.css"></link>
-        <title>Registration page</title>
+        <title>Commande page</title>
     </h:head>
     <h:body>
           <ui:include src="logHeader.xhtml"/>
-         
-       <h3>Commande</h3>
-       
-       Commande payée et panier en cours de livraison
-       
+          <div class="row centerFix">
+            <div class="col s8 offset-s2">
+              <div class="card white">
+                <div class="card-content" style="padding: 0; margin: 0;">
+                    <div class="card-title blue white-text  valign-wrapper" style="height: 80px"><div class="row center-align" style="padding-top: 28px;">Commande payée et panier en cours de livraison</div></div>   
+                </div>
+              </div>
+            </div>
+        </div> 
+          <script type="text/javascript">
+            M.AutoInit();
+        </script> 
     </h:body>
 </html>
