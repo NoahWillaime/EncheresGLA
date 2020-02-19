@@ -284,9 +284,12 @@ public class DeposeArticle {
          ArrayList<Article> panier = new ArrayList<>();
          for(Enchere e : getEncheresPanier())
              panier.add(e.getArticle());
-         Facturation facture = new Facturation(login.getCurrentUser(), panier, getPrixPanier());
+         long[] articles = new long[panier.size()];
+         for (int i = 0; i < panier.size(); i++)
+             articles[i] = panier.get(i).getId();
+         Facturation facture = new Facturation(login.getCurrentUser().getId(), articles, getPrixPanier());
          Livraison livraison = new Livraison(login.getCurrentUser(), panier);
-         this.gestionFacturation.sendOrder(new Facturation());
+         this.gestionFacturation.sendOrder(facture);
          return "validationCommande";
      }
 }

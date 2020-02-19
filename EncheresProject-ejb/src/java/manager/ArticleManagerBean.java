@@ -48,6 +48,10 @@ public class ArticleManagerBean implements ArticleManagerBeanLocal {
         return (List<Article>) query.getResultList();
     }
     
+    public Article fectchOne(long id) {
+        return (Article)em.createQuery("SELECT a FROM Article a WHERE a.id = "+id).getResultList().get(0);
+    }
+    
     @Override
     public List<Article> findByName(String name) {
         if(name != null) {
@@ -85,4 +89,13 @@ public class ArticleManagerBean implements ArticleManagerBeanLocal {
         query1.executeUpdate();
        // query.executeUpdate();
     }
+
+    @Override
+    public void commandeValide(Long id) {
+        Article a = this.fectchOne(id);
+        a.setStatus("Validé");
+        em.persist(a);
+    }
+    
+    
 }

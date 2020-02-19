@@ -5,7 +5,9 @@
  */
 package gestionMsgs;
 
+import java.io.Serializable;
 import javax.annotation.Resource;
+import javax.ejb.Asynchronous;
 import javax.ejb.Stateless;
 import javax.inject.Inject;
 import javax.jms.ConnectionFactory;
@@ -22,12 +24,13 @@ public class GestionFacturationBean implements GestionFacturationBeanLocal{
     @Inject
     JMSContext context;
     
-    @Resource(lookup = "jms/FacturationQueue")
+    @Resource(lookup = "jms/FactureQueue")
     Destination facturationQueue;
     
+    @Asynchronous
     @Override
     public void sendOrder(Facturation facturation) {
-        context.createProducer().send(facturationQueue, "mon message");
+        context.createProducer().send(facturationQueue, facturation);
     }
 
 }

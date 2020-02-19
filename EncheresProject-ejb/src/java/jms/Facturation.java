@@ -8,6 +8,7 @@ package jms;
 import dto.Article;
 import dto.Utilisateur;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -15,31 +16,31 @@ import java.util.List;
  * @author Guillaume Saunier
  */
 public class Facturation implements Serializable{
-    private Utilisateur acheteur;
-    private List<Article> panier;
+    private long acheteur;
+    private long[] panier;
     private double prix;
     
     public Facturation(){}
-    
-    public Facturation(Utilisateur acheteur, List<Article> panier, double prix) {
+
+    public Facturation(long acheteur, long[] panier, double prix) {
         this.acheteur = acheteur;
         this.panier = panier;
         this.prix = prix;
     }
 
-    public Utilisateur getAcheteur() {
+    public long getAcheteur() {
         return acheteur;
     }
 
-    public void setAcheteur(Utilisateur acheteur) {
+    public void setAcheteur(long acheteur) {
         this.acheteur = acheteur;
     }
 
-    public List<Article> getPanier() {
+    public long[] getPanier() {
         return panier;
     }
 
-    public void setPanier(List<Article> panier) {
+    public void setPanier(long[] panier) {
         this.panier = panier;
     }
 

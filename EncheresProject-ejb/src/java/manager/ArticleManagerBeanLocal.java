@@ -25,5 +25,6 @@ public interface ArticleManagerBeanLocal {
     public void setPanier(Long idArticle, boolean panier);
     public List<Enchere> getArticlesFromPanier(Long userId);
     public List<Article> getArticlesByUsers(Long id);
+    public void commandeValide(Long id);
     //public List<Article> getArticlesByCategorieID(Long id);
 }
