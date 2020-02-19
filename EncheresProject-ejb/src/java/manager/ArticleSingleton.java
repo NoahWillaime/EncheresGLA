@@ -13,6 +13,7 @@ import dto.CompteBancaire;
 import dto.Promotion;
 import java.util.Calendar;
 import dto.Utilisateur;
+import java.util.Date;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.ejb.Singleton;
@@ -37,9 +38,11 @@ public class ArticleSingleton implements ArticleSingletonLocal {
     @EJB
     private GeneratePromotionBeanLocal generatePromotionBeanLocal;
     
-    
     @EJB
     private UtilisateurManagerBeanLocal utilisateurManagerBean;
+    
+    @EJB(name="EnchereManagerBean")
+    private EnchereManagerBeanLocal encheres;  
     
     @PostConstruct
     public void init(){
@@ -57,12 +60,20 @@ public class ArticleSingleton implements ArticleSingletonLocal {
         c.set(1995, 4, 2);
         Article ad = new Article("UN VIEUX", "je suis vieux");
         Enchere ed = new Enchere(ad,58.01,c.getTime());
-
+        c.set(2020, 1, 19);
+        Article toEndSoon = new Article("Le Dipome du M2", "A accrocher dans les toilettes");
+        Enchere endingSoon = new Enchere(toEndSoon, 99.99, new Date(c.getTimeInMillis()+ 60000)); //Fin dans 1minute
+        
         Utilisateur user = new Utilisateur("Julien", "Micheletti", "julien", "mdp");
         Utilisateur user2 = new Utilisateur("Guillaume", "Micheletti", "gg", "mdp");
+        Utilisateur user3 = new Utilisateur("Noah", "Willaime", "noah", "mdp");
+        
         user2.addCompteBancaire(new CompteBancaire("Orange Banque", "FR65464856412"));
+        user3.addCompteBancaire(new CompteBancaire("Crédit pas mutuelle", "FR65464856411"));
+        
         Adresse adresse = new Adresse("rue", "390", "mexy");
         user2.addAdresse(adresse);
+        toEndSoon.addUtilisateur(user3);
         aa.addUtilisateur(user);
         ab.addUtilisateur(user2);
         ac.addUtilisateur(user2);
@@ -74,13 +85,15 @@ public class ArticleSingleton implements ArticleSingletonLocal {
         em.persist(ab);
         em.persist(ac);
         em.persist(ad);
-        em.persist(ea);
-        em.persist(eb);
-        em.persist(ec);
-        em.persist(ed);
-        System.out.println("Ajout user");
+        em.persist(toEndSoon);
+        this.encheres.addEnchere(ea);
+        this.encheres.addEnchere(eb);
+        this.encheres.addEnchere(ec);
+        this.encheres.addEnchere(ed);
+        this.encheres.addEnchere(endingSoon);
         utilisateurManagerBean.addUtilisateur(user);
         utilisateurManagerBean.addUtilisateur(user2);
+        utilisateurManagerBean.addUtilisateur(user3);
 
     }
     
