@@ -8,36 +8,47 @@ package jms;
 import dto.Adresse;
 import dto.Article;
 import dto.Utilisateur;
+import java.io.Serializable;
 import java.util.List;
 
 /**
  *
  * @author Guillaume Saunier
  */
-public class Livraison {
-    private Utilisateur acheteur;
-    private List<Article> panier;
+public class Livraison implements Serializable {
+    private long acheteur;
+    private long[] panier;
+    private double prix;
 
-    public Livraison(Utilisateur acheteur, List<Article> panier) {
+    public Livraison(long acheteur, long[] panier, double prix) {
         this.acheteur = acheteur;
         this.panier = panier;
+        this.prix = prix;
     }
-    
-    public Utilisateur getAcheteur() {
+
+    public long getAcheteur() {
         return acheteur;
     }
 
-    public void setAcheteur(Utilisateur acheteur) {
+    public void setAcheteur(long acheteur) {
         this.acheteur = acheteur;
     }
 
-    public List<Article> getPanier() {
+    public long[] getPanier() {
         return panier;
     }
 
-    public void setPanier(List<Article> panier) {
+    public void setPanier(long[] panier) {
         this.panier = panier;
     }
-    
+
+    public double getPrix() {
+        return prix;
+    }
+
+    public void setPrix(double prix) {
+        this.prix = prix;
+    }
+
     
 }

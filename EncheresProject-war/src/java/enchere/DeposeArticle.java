@@ -11,6 +11,7 @@ import dto.Categorie;
 import dto.Article;
 import dto.Enchere;
 import gestionMsgs.GestionFacturationBeanLocal;
+import gestionMsgs.GestionLivraisonBeanLocal;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import manager.ArticleManagerBeanLocal;
@@ -62,6 +63,9 @@ public class DeposeArticle {
     
     @EJB(name="GestionFacturationBean")
     private GestionFacturationBeanLocal gestionFacturation;
+    
+    @EJB(name="GestionLivraisonBean")
+    private GestionLivraisonBeanLocal gestionLivraison;
     
    /* @Inject 
     Greeting greet;*/
@@ -288,8 +292,9 @@ public class DeposeArticle {
          for (int i = 0; i < panier.size(); i++)
              articles[i] = panier.get(i).getId();
          Facturation facture = new Facturation(login.getCurrentUser().getId(), articles, getPrixPanier());
-         Livraison livraison = new Livraison(login.getCurrentUser(), panier);
+         Livraison livraison = new Livraison(login.getCurrentUser().getId(), articles, getPrixPanier());
          this.gestionFacturation.sendOrder(facture);
+         this.gestionLivraison.sendOrder(livraison);
          return "validationCommande";
      }
 }

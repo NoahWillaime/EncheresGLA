@@ -93,9 +93,23 @@ public class ArticleManagerBean implements ArticleManagerBeanLocal {
     @Override
     public void commandeValide(Long id) {
         Article a = this.fectchOne(id);
-        a.setStatus("Validé");
+        if (a.getStatus().equals("Livraison OK")) {
+            a.setStatus("Livraion et Facturation OK");
+        } else {
+            a.setStatus("Facturation OK");
+        }
         em.persist(a);
     }
     
+    @Override
+    public void livraisonValide(Long id) {
+        Article a = this.fectchOne(id);
+        if (a.getStatus().equals("Facturation OK")) {
+            a.setStatus("Livraion et Facturation OK");
+        } else {
+            a.setStatus("Livraion OK");
+        }
+        em.persist(a);
+    }
     
 }
