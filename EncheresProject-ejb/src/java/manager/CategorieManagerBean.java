@@ -33,6 +33,15 @@ public class CategorieManagerBean implements CategorieManagerBeanLocal {
         return categorie;
     }
     
+    @Override
+    public Categorie getByNom(String nom){
+        Query query = em.createQuery("SELECT a FROM Categorie a where a.nom like '"+nom+"'");
+  
+        Categorie cat = (Categorie) query.getSingleResult();
+       
+        return cat;
+    }
+    
      @Override
     public Categorie addCategorie(){
         Categorie c = new Categorie("Sport");

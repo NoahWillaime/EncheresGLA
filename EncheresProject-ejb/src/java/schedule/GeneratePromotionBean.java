@@ -50,13 +50,13 @@ public class GeneratePromotionBean implements GeneratePromotionBeanLocal{
         return promotions.addPromotion(p);
     }
     
-    @Schedule(second="0", minute="0", hour="15",
+    @Schedule(second="0", minute="0", hour="0",
     dayOfMonth="*", month="*", year="*")
     public void calculNewPromos() {
         promotions.deleteAll();
         for (Enchere e : enchereManagerBean.getAll()) {
             if (isPromo(0.6f)) { //40% de chance
-                if (isPromo(0.3f)) { // 70% de chance
+                if (isPromo(0.5f)) { // 70% de chance
                     e.addPromotions(createPromo(true, e));
                 } else {
                     e.addPromotions(createPromo(false, e));

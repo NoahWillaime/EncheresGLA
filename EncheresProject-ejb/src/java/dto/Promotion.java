@@ -96,7 +96,7 @@ public class Promotion implements Serializable {
         StringBuilder sb = new StringBuilder();
         sb.append(nom);
         sb.append("(");
-        sb.append(this.reduction_bon * 100);
+        sb.append((int) (this.reduction_bon * 100));
         sb.append(" %)");
         return sb.toString(); //To change body of generated methods, choose Tools | Templates.
     }

@@ -16,5 +16,6 @@ import javax.ejb.Local;
 @Local
 public interface CategorieManagerBeanLocal {
        public Categorie[] getAll();
+       public Categorie getByNom(String nom);
        public Categorie addCategorie();
 }

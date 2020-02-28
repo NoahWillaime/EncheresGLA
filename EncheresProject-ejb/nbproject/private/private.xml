@@ -1,54 +1,38 @@
-<<<<<<< HEAD
-<?xml version="1.0" encoding="UTF-8"?>
-<project-private xmlns="http://www.netbeans.org/ns/project-private/1">
-    <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
-    <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
-        <group>
-            <file>file:/C:/Users/Julien/Documents/NetBeansProjects/EncheresGLA2/EncheresProject-ejb/src/java/manager/ArticleManagerBeanLocal.java</file>
-            <file>file:/C:/Users/Julien/Documents/NetBeansProjects/EncheresGLA2/EncheresProject-ejb/src/java/manager/EnchereManagerBeanLocal.java</file>
-            <file>file:/C:/Users/Julien/Documents/NetBeansProjects/EncheresGLA2/EncheresProject-ejb/src/java/gestionUser/LogSingleton.java</file>
-            <file>file:/C:/Users/Julien/Documents/NetBeansProjects/EncheresGLA2/EncheresProject-ejb/src/java/manager/PromotionManagerBeanLocal.java</file>
-            <file>file:/C:/Users/Julien/Documents/NetBeansProjects/EncheresGLA2/EncheresProject-ejb/src/java/manager/LoginManagerBean.java</file>
-            <file>file:/C:/Users/Julien/Documents/NetBeansProjects/EncheresGLA2/EncheresProject-ejb/src/java/dto/CompteBancaire.java</file>
-            <file>file:/C:/Users/Julien/Documents/NetBeansProjects/EncheresGLA2/EncheresProject-ejb/src/java/manager/PromotionManagerBean.java</file>
-            <file>file:/C:/Users/Julien/Documents/NetBeansProjects/EncheresGLA2/EncheresProject-ejb/src/java/manager/UtilisateurManagerBeanLocal.java</file>
-            <file>file:/C:/Users/Julien/Documents/NetBeansProjects/EncheresGLA2/EncheresProject-ejb/src/java/manager/UtilisateurManagerBean.java</file>
-            <file>file:/C:/Users/Julien/Documents/NetBeansProjects/EncheresGLA2/EncheresProject-ejb/src/java/manager/ArticleSingletonLocal.java</file>
-            <file>file:/C:/Users/Julien/Documents/NetBeansProjects/EncheresGLA2/EncheresProject-ejb/src/java/dto/Categorie.java</file>
-            <file>file:/C:/Users/Julien/Documents/NetBeansProjects/EncheresGLA2/EncheresProject-ejb/src/java/manager/ArticleManagerBean.java</file>
-            <file>file:/C:/Users/Julien/Documents/NetBeansProjects/EncheresGLA2/EncheresProject-ejb/src/java/dto/Adresse.java</file>
-            <file>file:/C:/Users/Julien/Documents/NetBeansProjects/EncheresGLA2/EncheresProject-ejb/src/java/manager/ArticleSingleton.java</file>
-            <file>file:/C:/Users/Julien/Documents/NetBeansProjects/EncheresGLA2/EncheresProject-ejb/src/java/dto/Article.java</file>
-            <file>file:/C:/Users/Julien/Documents/NetBeansProjects/EncheresGLA2/EncheresProject-ejb/src/java/manager/EnchereManagerBean.java</file>
-            <file>file:/C:/Users/Julien/Documents/NetBeansProjects/EncheresGLA2/EncheresProject-ejb/src/java/dto/Enchere.java</file>
-        </group>
-    </open-files>
-</project-private>
-=======
 <?xml version="1.0" encoding="UTF-8"?>
 <project-private xmlns="http://www.netbeans.org/ns/project-private/1">
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
             <file>file:/C:/Users/Guillaume%20Saunier/Documents/NetBeansProjects/EncheresGLA/EncheresProject-ejb/src/java/dto/Enchere.java</file>
-            <file>file:/C:/Users/Guillaume%20Saunier/Documents/NetBeansProjects/EncheresGLA/EncheresProject-ejb/src/java/dto/Utilisateur.java</file>
+            <file>file:/C:/Users/Guillaume%20Saunier/Documents/NetBeansProjects/EncheresGLA/EncheresProject-ejb/src/java/manager/ArticleSingletonLocal.java</file>
+            <file>file:/C:/Users/Guillaume%20Saunier/Documents/NetBeansProjects/EncheresGLA/EncheresProject-ejb/src/java/manager/LoginManagerBean.java</file>
             <file>file:/C:/Users/Guillaume%20Saunier/Documents/NetBeansProjects/EncheresGLA/EncheresProject-ejb/src/java/manager/UtilisateurManagerBeanLocal.java</file>
             <file>file:/C:/Users/Guillaume%20Saunier/Documents/NetBeansProjects/EncheresGLA/EncheresProject-ejb/src/java/manager/ArticleManagerBean.java</file>
-            <file>file:/C:/Users/Guillaume%20Saunier/Documents/NetBeansProjects/EncheresGLA/EncheresProject-ejb/src/java/manager/UtilisateurManagerBean.java</file>
+            <file>file:/C:/Users/Guillaume%20Saunier/Documents/NetBeansProjects/EncheresGLA/EncheresProject-ejb/src/java/manager/PromotionManagerBean.java</file>
             <file>file:/C:/Users/Guillaume%20Saunier/Documents/NetBeansProjects/EncheresGLA/EncheresProject-ejb/src/java/dto/Categorie.java</file>
-            <file>file:/C:/Users/Guillaume%20Saunier/Documents/NetBeansProjects/EncheresGLA/EncheresProject-ejb/src/java/dto/EnchereAcheteur.java</file>
-            <file>file:/C:/Users/Guillaume%20Saunier/Documents/NetBeansProjects/EncheresGLA/EncheresProject-ejb/src/conf/persistence.xml</file>
             <file>file:/C:/Users/Guillaume%20Saunier/Documents/NetBeansProjects/EncheresGLA/EncheresProject-ejb/src/java/manager/ArticleSingleton.java</file>
-            <file>file:/C:/Users/Guillaume%20Saunier/Documents/NetBeansProjects/EncheresGLA/EncheresProject-ejb/src/java/manager/CategorieManagerBean.java</file>
             <file>file:/C:/Users/Guillaume%20Saunier/Documents/NetBeansProjects/EncheresGLA/EncheresProject-ejb/src/java/dto/Promotion.java</file>
             <file>file:/C:/Users/Guillaume%20Saunier/Documents/NetBeansProjects/EncheresGLA/EncheresProject-ejb/src/java/manager/ArticleManagerBeanLocal.java</file>
-            <file>file:/C:/Users/Guillaume%20Saunier/Documents/NetBeansProjects/EncheresGLA/EncheresProject-ejb/src/java/manager/EnchereManagerBean.java</file>
+            <file>file:/C:/Users/Guillaume%20Saunier/Documents/NetBeansProjects/EncheresGLA/EncheresProject-ejb/src/java/manager/LoginManagerBeanLocal.java</file>
             <file>file:/C:/Users/Guillaume%20Saunier/Documents/NetBeansProjects/EncheresGLA/EncheresProject-ejb/src/java/dto/CompteBancaire.java</file>
+            <file>file:/C:/Users/Guillaume%20Saunier/Documents/NetBeansProjects/EncheresGLA/EncheresProject-ejb/src/java/jms/Facturation.java</file>
             <file>file:/C:/Users/Guillaume%20Saunier/Documents/NetBeansProjects/EncheresGLA/EncheresProject-ejb/src/java/manager/EnchereManagerBeanLocal.java</file>
             <file>file:/C:/Users/Guillaume%20Saunier/Documents/NetBeansProjects/EncheresGLA/EncheresProject-ejb/src/java/dto/EnchereAcheteurPK.java</file>
-            <file>file:/C:/Users/Guillaume%20Saunier/Documents/NetBeansProjects/EncheresGLA/EncheresProject-ejb/src/java/dto/Adresse.java</file>
             <file>file:/C:/Users/Guillaume%20Saunier/Documents/NetBeansProjects/EncheresGLA/EncheresProject-ejb/src/java/dto/Article.java</file>
+            <file>file:/C:/Users/Guillaume%20Saunier/Documents/NetBeansProjects/EncheresGLA/EncheresProject-ejb/src/java/manager/PromotionManagerBeanLocal.java</file>
+            <file>file:/C:/Users/Guillaume%20Saunier/Documents/NetBeansProjects/EncheresGLA/EncheresProject-ejb/src/java/schedule/GeneratePromotionBeanLocal.java</file>
+            <file>file:/C:/Users/Guillaume%20Saunier/Documents/NetBeansProjects/EncheresGLA/EncheresProject-ejb/src/java/dto/Utilisateur.java</file>
+            <file>file:/C:/Users/Guillaume%20Saunier/Documents/NetBeansProjects/EncheresGLA/EncheresProject-ejb/src/java/manager/UtilisateurManagerBean.java</file>
+            <file>file:/C:/Users/Guillaume%20Saunier/Documents/NetBeansProjects/EncheresGLA/EncheresProject-ejb/src/java/dto/EnchereAcheteur.java</file>
+            <file>file:/C:/Users/Guillaume%20Saunier/Documents/NetBeansProjects/EncheresGLA/EncheresProject-ejb/src/java/manager/CategorieManagerBean.java</file>
+            <file>file:/C:/Users/Guillaume%20Saunier/Documents/NetBeansProjects/EncheresGLA/EncheresProject-ejb/src/java/gestionMsgs/GestionFacturationBeanLocal.java</file>
+            <file>file:/C:/Users/Guillaume%20Saunier/Documents/NetBeansProjects/EncheresGLA/EncheresProject-ejb/src/java/gestionUser/LogSingleton.java</file>
+            <file>file:/C:/Users/Guillaume%20Saunier/Documents/NetBeansProjects/EncheresGLA/EncheresProject-ejb/src/java/schedule/GeneratePromotionBean.java</file>
+            <file>file:/C:/Users/Guillaume%20Saunier/Documents/NetBeansProjects/EncheresGLA/EncheresProject-ejb/src/java/gestionMsgs/GestionFacturationBean.java</file>
+            <file>file:/C:/Users/Guillaume%20Saunier/Documents/NetBeansProjects/EncheresGLA/EncheresProject-ejb/src/java/manager/EnchereManagerBean.java</file>
+            <file>file:/C:/Users/Guillaume%20Saunier/Documents/NetBeansProjects/EncheresGLA/EncheresProject-ejb/src/java/manager/CategorieManagerBeanLocal.java</file>
+            <file>file:/C:/Users/Guillaume%20Saunier/Documents/NetBeansProjects/EncheresGLA/EncheresProject-ejb/src/java/jms/Livraison.java</file>
+            <file>file:/C:/Users/Guillaume%20Saunier/Documents/NetBeansProjects/EncheresGLA/EncheresProject-ejb/src/java/dto/Adresse.java</file>
         </group>
     </open-files>
 </project-private>
->>>>>>> encherir
