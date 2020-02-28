@@ -27,5 +27,8 @@ public interface ArticleManagerBeanLocal {
     public List<Article> getArticlesByUsers(Long id);
     public void commandeValide(Long id);
     public void livraisonValide(Long id);
+    public List<Enchere> getArticlesFromCommande(Long userId);
+    public void setCommande(Long idArticle, boolean commande);
+    public void setStatus(Long idArticle, String status);
     //public List<Article> getArticlesByCategorieID(Long id);
 }

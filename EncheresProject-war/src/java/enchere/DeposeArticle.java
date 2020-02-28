@@ -246,6 +246,11 @@ public class DeposeArticle {
      public List<Enchere> getEncheresPanier(){
         return articles.getArticlesFromPanier(login.getCurrentUser().getId());
      }
+     
+     public List<Enchere> getEncheresCommande(){
+        return articles.getArticlesFromCommande(login.getCurrentUser().getId());
+     }
+     
      public void validateEnchere(FacesContext context, UIComponent component, Object value) throws ValidatorException {
          String val = String.valueOf(value);
          String user = (String) component.getAttributes().get("user");
@@ -288,11 +293,15 @@ public class DeposeArticle {
          ArrayList<Article> panier = new ArrayList<>();
          for(Enchere e : getEncheresPanier())
              panier.add(e.getArticle());
-         long[] articles = new long[panier.size()];
-         for (int i = 0; i < panier.size(); i++)
-             articles[i] = panier.get(i).getId();
-         Facturation facture = new Facturation(login.getCurrentUser().getId(), articles, getPrixPanier());
-         Livraison livraison = new Livraison(login.getCurrentUser().getId(), articles, getPrixPanier());
+         long[] art = new long[panier.size()];
+         for (int i = 0; i < panier.size(); i++) {
+             art[i] = panier.get(i).getId();
+             articles.setPanier(art[i], false);
+             articles.setCommande(art[i], true);
+             articles.setStatus(art[i], "En attente de paiement et de livraison");
+         }
+         Facturation facture = new Facturation(login.getCurrentUser().getId(), art, getPrixPanier());
+         Livraison livraison = new Livraison(login.getCurrentUser().getId(), art, getPrixPanier());
          this.gestionFacturation.sendOrder(facture);
          this.gestionLivraison.sendOrder(livraison);
          return "validationCommande";

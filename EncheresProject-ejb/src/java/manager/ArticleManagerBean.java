@@ -77,8 +77,28 @@ public class ArticleManagerBean implements ArticleManagerBeanLocal {
     }
     
     @Override
+    public void setCommande(Long idArticle, boolean commande){
+        Article article = (Article)em.createQuery("SELECT a FROM Article a WHERE a.id = " + idArticle).getResultList().get(0);
+        
+        article.setCommande(commande);
+    }
+    
+    @Override
+    public void setStatus(Long idArticle, String status){
+        Article article = (Article)em.createQuery("SELECT a FROM Article a WHERE a.id = " + idArticle).getResultList().get(0);
+        
+        article.setStatus(status);
+    }
+    
+    @Override
     public List<Enchere> getArticlesFromPanier(Long userId){
         List<Enchere> encheres = em.createQuery("SELECT e FROM Enchere e WHERE e.article.gagnant.id = " + userId + " AND e.article.panier = true").getResultList();
+        return encheres;
+    }
+    
+    @Override
+    public List<Enchere> getArticlesFromCommande(Long userId){
+        List<Enchere> encheres = em.createQuery("SELECT e FROM Enchere e WHERE e.article.gagnant.id = " + userId + " AND e.article.commande = true").getResultList();
         return encheres;
     }
    
@@ -93,22 +113,16 @@ public class ArticleManagerBean implements ArticleManagerBeanLocal {
     @Override
     public void commandeValide(Long id) {
         Article a = this.fectchOne(id);
-        if (a.getStatus().equals("Livraison OK")) {
+      
             a.setStatus("Livraion et Facturation OK");
-        } else {
-            a.setStatus("Facturation OK");
-        }
+
         em.persist(a);
     }
     
     @Override
     public void livraisonValide(Long id) {
         Article a = this.fectchOne(id);
-        if (a.getStatus().equals("Facturation OK")) {
             a.setStatus("Livraion et Facturation OK");
-        } else {
-            a.setStatus("Livraion OK");
-        }
         em.persist(a);
     }
     

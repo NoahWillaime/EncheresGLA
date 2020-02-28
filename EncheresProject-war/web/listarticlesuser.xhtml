@@ -68,13 +68,17 @@
                 <c:if test="${logBean.currentUser.nbAnnul lt 3}">
                   <h:column>
                     <f:facet name="header">Enchérir</f:facet>
-                    <h:form rendered="${logBean.userPseudo() != row.article.utilisateur.pseudo and logBean.currentUser.nbAnnul >= 3}">
+                    <h:form rendered="${logBean.userPseudo() != row.article.utilisateur.pseudo and logBean.currentUser.nbAnnul lt 3}">
+                        <div class="input-field col s4 offset-s2">
                         <h:inputText id="test" value="#{enchere}"  validator="#{deposeArticleBean.validateEnchere}" required="true" requiredMessage="Ne doit pas être vide">
                             <f:attribute name="user" value="${logBean.userPseudo()}"/>
                             <f:attribute name="enchere" value="#{row}"/>
-                    </h:inputText>
-                    <h:commandButton value="Enchérir" action='#{deposeArticleBean.encherir(row, enchere,"listarticles")}'/>
-                    <h:message for="test" style="color:red"></h:message>
+                        </h:inputText>
+                        <label for="first_name">Prix</label>
+                        
+                    </div>
+                    <h:commandButton value="Enchérir" class="btn blue" style="margin-top: 20px" action='#{deposeArticleBean.encherir(row, enchere,"listarticlesuser")}'/>
+                        <h:message class="col s12 center-align" for="test" style="color:red"></h:message>
                     </h:form>
                     
 
@@ -178,6 +182,47 @@
             </div>
           </div>
         </div>  
+        <div class="row" style="margin-top: 50px;">
+            <div class="col s10 offset-s1" >
+            <div class="card">
+              <div class="card-content" style="margin: 0; padding: 0">
+                  <div class="card-title blue white-text  valign-wrapper" style="height: 80px"><div class="row center-align" style="padding-top: 28px;">Mes Commandes</div></div>
+                  <h:dataTable var="row" 
+                               value="#{deposeArticleBean.encheresCommande}"
+                         class="avectri striped">
+                <h:column>
+                    <f:facet name="header">Nom</f:facet>
+                    #{row.article.nom}
+                </h:column>
+                <h:column>
+                    <f:facet name="header">Description</f:facet>
+                    #{row.article.description}
+                </h:column>
+                 <h:column>
+                    <f:passThroughAttribute name="data-type" value="num" />
+                    <f:facet name="header">Prix</f:facet>
+                    #{row.lastEnchere().prix}
+                </h:column>
+                 <h:column>
+                    <f:facet name="header">Categories</f:facet>
+                    <ui:repeat value="#{row.article.categorie}" var="item">
+                        #{item.nom}
+                    </ui:repeat>
+                </h:column>
+                <h:column>
+                    <f:facet name="header">Déposé par</f:facet>
+                    #{row.article.utilisateur.pseudo}
+                </h:column>
+                      <h:column>
+                    <f:facet name="header">Status</f:facet>
+                    #{row.article.status}
+                </h:column>
+            </h:dataTable>
+                  
+              </div>
+            </div>
+          </div>
+        </div>
            <script type="text/javascript" src="js/sortedList.js" />
        
        <script type="text/javascript">

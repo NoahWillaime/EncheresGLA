@@ -49,6 +49,9 @@ public class Article implements Serializable {
     @Column(name = "ARTICLE_PANIER")
     private boolean panier;
     
+    @Column(name = "ARTICLE_COMMANDE")
+    private boolean commande;
+    
     @ManyToOne
     private Utilisateur utilisateur;
     
@@ -79,8 +82,14 @@ public class Article implements Serializable {
     public void setStatus(String status) {
         this.status = status;
     }
-    
-    
+
+    public boolean isCommande() {
+        return commande;
+    }
+
+    public void setCommande(boolean commande) {
+        this.commande = commande;
+    }
 
     public void setPanier(boolean panier) {
         this.panier = panier;

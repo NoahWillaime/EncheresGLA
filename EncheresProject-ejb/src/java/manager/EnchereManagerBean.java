@@ -71,7 +71,7 @@ public class EnchereManagerBean implements EnchereManagerBeanLocal {
     @Override
     public List<Enchere> findByWinner(Utilisateur gagnant) {
         if(gagnant != null) {
-            return em.createQuery("SELECT e FROM Enchere e WHERE e.article.gagnant.id = " + gagnant.getId() + " AND e.article.panier = false")
+            return em.createQuery("SELECT e FROM Enchere e WHERE e.article.gagnant.id = " + gagnant.getId() + " AND e.article.panier = false AND e.article.commande = false")
                     .getResultList();
      
         }
