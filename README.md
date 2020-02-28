@@ -31,5 +31,5 @@ Pour l'application des commandes :
 
   Déployer le projet :
 
-  - Faites Clean and Build sur le prjet GLA_Enchere
+  - Faites Clean and Build sur les deux projets
   - Pour lancer le projet faite Run Project
