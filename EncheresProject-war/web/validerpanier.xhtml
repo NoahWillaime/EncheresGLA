@@ -76,8 +76,8 @@ and open the template in the editor.
                                                         #{row.article.nom}
                                                     </h:column>
                                                     <h:column>
-                                                        <f:facet name="header">Prix </f:facet>
-                                                        #{row.prix}
+                                                        <f:facet name="header">Prix Final </f:facet>
+                                                        #{row.lastEnchere().prix}
                                                     </h:column>
                                                <h:column>
                                                    <f:facet name="header">Promotion</f:facet>
@@ -90,8 +90,8 @@ and open the template in the editor.
                                                </h:column>
                                                <h:column>
                                                    <f:facet name="header">Prix avec réduction</f:facet>
-                                                   <h:outputText rendered="#{row.hasPromo()}" value="#{row.prix * row.promotions.get(0).reduction_bon}"/>
-                                                   <h:outputText rendered="#{!row.hasPromo()}" value="#{row.prix}"/>
+                                                   <h:outputText rendered="#{row.hasPromo()}" value="#{row.lastEnchere().prix * row.promotions.get(0).reduction_bon}"/>
+                                                   <h:outputText rendered="#{!row.hasPromo()}" value="#{row.lastEnchere().prix}"/>
                                                </h:column>
                                                <h:column>
                                                    <f:facet name="header">Prix final</f:facet>

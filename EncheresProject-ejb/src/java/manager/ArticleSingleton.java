@@ -13,6 +13,7 @@ import dto.CompteBancaire;
 import dto.Promotion;
 import java.util.Calendar;
 import dto.Utilisateur;
+import java.util.Date;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.ejb.Singleton;
@@ -37,9 +38,11 @@ public class ArticleSingleton implements ArticleSingletonLocal {
     @EJB
     private GeneratePromotionBeanLocal generatePromotionBeanLocal;
     
-    
     @EJB
     private UtilisateurManagerBeanLocal utilisateurManagerBean;
+    
+    @EJB(name="EnchereManagerBean")
+    private EnchereManagerBeanLocal encheres;  
     
     @PostConstruct
     public void init(){
@@ -63,11 +66,12 @@ public class ArticleSingleton implements ArticleSingletonLocal {
         categorieManagerBean.addCategorie();
         Calendar c = Calendar.getInstance();
         
-        c.set(2020, 2, 27);
+        c.set(2020, 1, 27);
         Article aa = new Article("stylo", "tr0bi1");
         aa.addCategorie(categorieManagerBean.getByNom("Cuisine"));
         Enchere ea = new Enchere(aa,25.01,c.getTime());
         aa.addUtilisateur(user);
+        ea.addAcheteur(user2, 88.0);
         aa.setGagnant(user2);
         
         c.set(2050,3,1);
@@ -88,32 +92,83 @@ public class ArticleSingleton implements ArticleSingletonLocal {
         Article ad = new Article("UN VIEUX", "je suis vieux");
         ad.addCategorie(categorieManagerBean.getByNom("Mobilier"));
         Enchere ed = new Enchere(ad,58.01,c.getTime());
-        ad.addUtilisateur(user4);
+        ad.addUtilisateur(user);
+
         
         c.set(2020,3,2);
         Article ae = new Article("Boite de chaussures", "Sans chaussures");
         ae.addCategorie(categorieManagerBean.getByNom("Sport"));
         Enchere ee = new Enchere(ae,2.01,c.getTime());
         ae.addUtilisateur(user4);
-
         
+        c.set(2020,3,18);
+        Article af = new Article("WC", "Propre");
+        af.addCategorie(categorieManagerBean.getByNom("Mobilier"));
+        Enchere ef = new Enchere(af,19.99,c.getTime());
+        af.addUtilisateur(user3);
+        ef.addAcheteur(user, 25.00);
         
+        c.set(2020,3,18);
+        Article ag = new Article("Compte POE", "100 Lacerate");
+        ag.addCategorie(categorieManagerBean.getByNom("Jeux vidéo"));
+        Enchere eg = new Enchere(ag,100.00,c.getTime());
+        ag.addUtilisateur(user);
+        eg.addAcheteur(user2, 101.0);
         
+        c.set(2020, 1, 27);
+        Article ah = new Article("Une vie", "Pour ceux qui en ont besoin");
+        ah.addCategorie(categorieManagerBean.getByNom("Mobilier"));
+        Enchere eh = new Enchere(ah,205.01,c.getTime());
+        ah.addUtilisateur(user4);
+        eh.addAcheteur(user3, 250.00);
+        ah.setGagnant(user3);
         
+        c.set(2020, 1, 27);
+        Article ai = new Article("Un boulet", "Mais alors un gros");
+        ai.addCategorie(categorieManagerBean.getByNom("Mobilier"));
+        Enchere ei = new Enchere(ai,10.0,c.getTime());
+        ai.addUtilisateur(user2);
+        ei.addAcheteur(user, 50.00);
+        ai.setGagnant(user);
         
+        c.set(2020, 1, 27);
+        Article aj = new Article("Projet GLA", "Sur mesure bien sur");
+        aj.addCategorie(categorieManagerBean.getByNom("Cuisine"));
+        Enchere ej = new Enchere(aj,1000.0,c.getTime());
+        aj.addUtilisateur(user2);
+        ej.addAcheteur(user, 1050.00);
+        aj.setGagnant(user);
         
-        
-        
+        c.set(2020, 1, 27);
+        Article ak = new Article("Master IL", "Seulement pour les meilleurs");
+        ak.addCategorie(categorieManagerBean.getByNom("Sport"));
+        Enchere ek = new Enchere(ak,1.0,c.getTime());
+        ak.addUtilisateur(user4);
+        ek.addAcheteur(user, 2.0);
+        ak.setGagnant(user);
         
         em.persist(aa);
         em.persist(ab);
         em.persist(ac);
         em.persist(ad);
-        em.persist(ea);
-        em.persist(eb);
-        em.persist(ec);
-        em.persist(ed);
-        System.out.println("Ajout user");
+        em.persist(ae);
+        em.persist(af);
+        em.persist(ag);
+        em.persist(ah);
+        em.persist(ai);
+        em.persist(aj);
+        em.persist(ak);
+        this.encheres.addEnchere(ea);
+        this.encheres.addEnchere(eb);
+        this.encheres.addEnchere(ec);
+        this.encheres.addEnchere(ed);
+        this.encheres.addEnchere(ee);
+        this.encheres.addEnchere(ef);
+        this.encheres.addEnchere(eg);
+        this.encheres.addEnchere(eh);
+        this.encheres.addEnchere(ei);
+        this.encheres.addEnchere(ej);
+        this.encheres.addEnchere(ek );
         utilisateurManagerBean.addUtilisateur(user);
         utilisateurManagerBean.addUtilisateur(user2);
         utilisateurManagerBean.addUtilisateur(user3);

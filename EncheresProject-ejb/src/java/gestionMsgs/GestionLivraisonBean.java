@@ -5,32 +5,30 @@
  */
 package gestionMsgs;
 
-import java.io.Serializable;
 import javax.annotation.Resource;
 import javax.ejb.Asynchronous;
 import javax.ejb.Stateless;
+import javax.ejb.LocalBean;
 import javax.inject.Inject;
-import javax.jms.ConnectionFactory;
 import javax.jms.Destination;
 import javax.jms.JMSContext;
-import jms.Facturation;
+import jms.Livraison;
 
 /**
  *
  * @author noahd
  */
 @Stateless
-public class GestionFacturationBean implements GestionFacturationBeanLocal{    
+public class GestionLivraisonBean implements GestionLivraisonBeanLocal {
     @Inject
     JMSContext context;
     
-    @Resource(lookup = "jms/FactureQueue")
-    Destination facturationQueue;
+    @Resource(lookup = "jms/LivraisonQueue")
+    Destination livraisonQueue;
     
     @Asynchronous
     @Override
-    public void sendOrder(Facturation facturation) {
-        context.createProducer().send(facturationQueue, facturation);
+    public void sendOrder(Livraison livraison) {
+        context.createProducer().send(livraisonQueue, livraison);
     }
-
 }

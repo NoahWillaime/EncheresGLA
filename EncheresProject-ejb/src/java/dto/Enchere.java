@@ -71,6 +71,7 @@ public class Enchere implements Serializable {
         this.prix = prix;
         this.date = date;
         fin = Calendar.getInstance().getTimeInMillis() > date.getTime();
+        System.out.println("Fin : " + fin);
     }
 
    

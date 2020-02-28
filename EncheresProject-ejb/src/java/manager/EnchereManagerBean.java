@@ -9,6 +9,7 @@ import dto.Article;
 import dto.Enchere;
 import dto.Utilisateur;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.annotation.Resource;
@@ -62,7 +63,8 @@ public class EnchereManagerBean implements EnchereManagerBeanLocal {
     @Override
     public Enchere addEnchere(Enchere e) {
         em.persist(e);
-        timerService.createTimer(e.getDate(), e.getId());
+        if (!e.getFin())
+            timerService.createTimer(e.getDate().getTime() - Calendar.getInstance().getTimeInMillis(), e.getId());
         return e;
     }
     
